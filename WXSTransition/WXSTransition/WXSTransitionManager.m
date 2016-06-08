@@ -26,7 +26,7 @@
 #pragma mark Delegate
 //UIViewControllerAnimatedTransitioning
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{
-    return _animationTime;
+    return _animationTime - 0.5;
 }
 
 
@@ -385,28 +385,27 @@
     maskLayer.path = startPath.CGPath;
     tempView.layer.mask = maskLayer;
     
-    CABasicAnimation *maskLayerAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
-    maskLayerAnimation.delegate = self;
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
+    animation.delegate = self;
 
-    maskLayerAnimation.fromValue = (__bridge id)(startPath.CGPath);
-    maskLayerAnimation.toValue = (__bridge id)((endPath.CGPath));
-    maskLayerAnimation.duration = _animationTime;
-    maskLayerAnimation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [maskLayer addAnimation:maskLayerAnimation forKey:@"NextPath"];
+    animation.fromValue = (__bridge id)(startPath.CGPath);
+    animation.toValue = (__bridge id)((endPath.CGPath));
+    animation.duration = _animationTime;
+    animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [maskLayer addAnimation:animation forKey:@"NextPath"];
 
     
     _completionBlock = ^(){
         
-        [tempView removeFromSuperview];
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
         }else{
             
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            toVC.navigationController.delegate = nil;
-            toVC.transitioningDelegate = nil;
         }
+        [tempView removeFromSuperview];
+
     };
 
     
@@ -416,33 +415,42 @@
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
     UIView *containerView = [transitionContext containerView];
-
-    [containerView addSubview:toVC.view];
+    UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:YES];
+    
     [containerView addSubview:fromVC.view];
+    [containerView addSubview:toVC.view];
     [containerView addSubview:tempView];
     
-    CGRect rect = CGRectMake(0, 0, 10, 10);
-    if (fromVC.starView) {
-        rect = fromVC.starView.frame;
-    }
-
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithOvalInRect:rect];
-    UIBezierPath *endPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:screenHeight startAngle:0 endAngle:M_PI clockwise:YES];
     
+    CGRect rect = CGRectMake(containerView.center.x, containerView.center.y, 10, 10);
+    if (toVC.starView) {
+        rect = toVC.starView.frame;
+    }
+    
+    UIBezierPath *startPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:sqrt(screenHeight * screenHeight + screenWidth * screenWidth)  startAngle:0 endAngle:M_PI*2 clockwise:YES];
+
+    UIBezierPath *endPath = [UIBezierPath bezierPathWithOvalInRect:rect];
     
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     maskLayer.path = startPath.CGPath;
-    //将maskLayer作为toVC.View的遮盖
-    toVC.view.layer.mask = maskLayer;
+    tempView.layer.mask = maskLayer;
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
+    animation.delegate = self;
+    
+    animation.fromValue = (__bridge id)(startPath.CGPath);
+    animation.toValue = (__bridge id)((endPath.CGPath));
+    animation.duration = _animationTime;
+    animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [maskLayer addAnimation:animation forKey:@"BackPath"];
+    
     
     _completionBlock = ^(){
         
-        [tempView removeFromSuperview];
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
         }else{
@@ -452,6 +460,8 @@
             toVC.navigationController.delegate = nil;
             toVC.transitioningDelegate = nil;
         }
+        [tempView removeFromSuperview];
+
     };
     
     
