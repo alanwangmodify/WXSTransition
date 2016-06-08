@@ -1,6 +1,12 @@
 
 #import "WXSTransitionManager.h"
 #import "UIViewController+WXSTransition.h"
+@interface WXSTransitionManager ()
+
+@property (nonatomic,copy) void(^completionBlock)();
+
+@end
+
 
 @implementation WXSTransitionManager
 
@@ -10,6 +16,7 @@
      
         _animationTime = 0.6;
         _animationType = WXSTransitionAnimationTypeDefault;
+        _completionBlock = nil;
         
     }
     return self;
@@ -47,7 +54,9 @@
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
  
-    
+    if (flag) {
+        _completionBlock ? _completionBlock() : nil;
+    }
     
 }
 #pragma mark Action
@@ -370,38 +379,37 @@
     
     
     UIBezierPath *startPath = [UIBezierPath bezierPathWithOvalInRect:rect];
-    UIBezierPath *endPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:screenHeight startAngle:0 endAngle:M_PI*2 clockwise:YES];
+    UIBezierPath *endPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:sqrt(screenHeight * screenHeight + screenWidth * screenWidth)  startAngle:0 endAngle:M_PI*2 clockwise:YES];
     
-    
-    //创建CAShapeLayer进行遮盖
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     maskLayer.path = startPath.CGPath;
     tempView.layer.mask = maskLayer;
     
-//    [UIView animateWithDuration:_animationTime animations:^{
-//        maskLayer.path = endPath.CGPath;
-//        tempView.layer.mask = maskLayer;
-//    } completion:^(BOOL finished) {
-//        
-//        if ([transitionContext transitionWasCancelled]) {
-//            
-//            [transitionContext completeTransition:NO];
-//            
-//            
-//        }else{
-//            toVC.view.hidden = YES;
-//            [transitionContext completeTransition:YES];
-//        }
-//    }];
-    
     CABasicAnimation *maskLayerAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+    maskLayerAnimation.delegate = self;
+
     maskLayerAnimation.fromValue = (__bridge id)(startPath.CGPath);
     maskLayerAnimation.toValue = (__bridge id)((endPath.CGPath));
     maskLayerAnimation.duration = _animationTime;
     maskLayerAnimation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [maskLayer addAnimation:maskLayerAnimation forKey:@"path"];
-    maskLayerAnimation.delegate = self;
+    [maskLayer addAnimation:maskLayerAnimation forKey:@"NextPath"];
 
+    
+    _completionBlock = ^(){
+        
+        [tempView removeFromSuperview];
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+        }else{
+            
+            [transitionContext completeTransition:YES];
+            toVC.view.hidden = NO;
+            toVC.navigationController.delegate = nil;
+            toVC.transitioningDelegate = nil;
+        }
+    };
+
+    
 }
 
 -(void)spreadPresentBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
@@ -427,17 +435,24 @@
     UIBezierPath *endPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:screenHeight startAngle:0 endAngle:M_PI clockwise:YES];
     
     
-    //创建CAShapeLayer进行遮盖
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     maskLayer.path = startPath.CGPath;
     //将maskLayer作为toVC.View的遮盖
     toVC.view.layer.mask = maskLayer;
     
-    [UIView animateWithDuration:_animationTime animations:^{
-        maskLayer.path = endPath.CGPath;
-    } completion:^(BOOL finished) {
+    _completionBlock = ^(){
         
-    }];
+        [tempView removeFromSuperview];
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+        }else{
+            
+            [transitionContext completeTransition:YES];
+            toVC.view.hidden = NO;
+            toVC.navigationController.delegate = nil;
+            toVC.transitioningDelegate = nil;
+        }
+    };
     
     
     

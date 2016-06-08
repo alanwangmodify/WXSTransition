@@ -99,8 +99,7 @@
             
             [self wxs_presentViewController:vc makeTransition:^(WXSTransitionManager *transition) {
                 transition.animationType = WXSTransitionAnimationTypeSpreadPresent;
-                transition.isSysBackAnimation = YES;
-                transition.animationTime = 3;
+                transition.animationTime = 0.65;
             }];
         }
             break;
