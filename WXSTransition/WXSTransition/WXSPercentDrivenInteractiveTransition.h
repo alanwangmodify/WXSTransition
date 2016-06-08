@@ -14,14 +14,15 @@ typedef void(^ActionBlock)(void);
 //继承自 实现了UIViewControllerInteractiveTransitioning协议的UIPercentDrivenInteractiveTransition
 @interface WXSPercentDrivenInteractiveTransition : UIPercentDrivenInteractiveTransition
 
-
-@property (nonatomic, assign) WXSGestureDirection direction;
+@property (nonatomic, assign) WXSGestureType getstureType;
 @property (readonly, assign, nonatomic) BOOL isInteractive;
 @property (nonatomic, assign) WXSTransitionType transitionType;
 
+
 @property (nonatomic, copy) ActionBlock presentBlock;
 @property (nonatomic, copy) ActionBlock pushBlock;
-
+@property (nonatomic, copy) ActionBlock dismissBlock;
+@property (nonatomic, copy) ActionBlock popBlock;
 
 -(void)addGestureToViewController:(UIViewController *)vc;
 

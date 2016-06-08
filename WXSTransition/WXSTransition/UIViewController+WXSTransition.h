@@ -14,6 +14,7 @@ typedef void(^WXSTransitionBlock)(WXSTransitionManager *transition);
 @property (nonatomic, strong) WXSPercentDrivenInteractiveTransition *fromVCInteraciveTransition;
 @property (nonatomic, strong) WXSPercentDrivenInteractiveTransition *toVCInteraciveTransition;
 
+-(void)wxs_presentViewController:(UIViewController *)viewControllerToPresent animationType:(WXSTransitionAnimationType )animationType completion:(void (^)(void))completion;
 
 -(void)wxs_presentViewController:(UIViewController *)viewControllerToPresent makeTransition:(WXSTransitionBlock)transitionBlock;
 -(void)wxs_presentViewController:(UIViewController *)viewControllerToPresent makeTransition:(WXSTransitionBlock)transitionBlock completion:(void (^)(void))completion;

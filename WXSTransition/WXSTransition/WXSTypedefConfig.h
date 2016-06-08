@@ -15,9 +15,12 @@ typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
 //    WXSTransitionAnimationTypeNone,
     WXSTransitionAnimationTypeDefault,
     WXSTransitionAnimationTypePageTransition,
+    WXSTransitionAnimationTypePageTransition2,
     WXSTransitionAnimationTypeViewMoveToNextVC,
     WXSTransitionAnimationTypeCover,
     WXSTransitionAnimationTypeSpreadPresent,
+    WXSTransitionAnimationTypeBoom,
+    WXSTransitionAnimationTypeBrick,
 };
 
 typedef NS_ENUM(NSInteger,WXSTransitionType){
@@ -28,12 +31,14 @@ typedef NS_ENUM(NSInteger,WXSTransitionType){
 };
 
 
-typedef NS_ENUM(NSInteger,WXSGestureDirection){
+typedef NS_ENUM(NSInteger,WXSGestureType){
     
-    WXSGestureDirectionLeft,
-    WXSGestureDirectionRight,
-    WXSGestureDirectionUp,
-    WXSGestureDirectionDown,
+    WXSGestureTypeNone,
+    WXSGestureTypePanLeft,
+    WXSGestureTypePanRight,
+    WXSGestureTypePanUp,
+    WXSGestureTypePanDown,
+    WXSGestureTypeTap,
     
 };
 

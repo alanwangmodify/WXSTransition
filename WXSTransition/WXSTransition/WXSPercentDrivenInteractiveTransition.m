@@ -32,26 +32,26 @@
     CGFloat percent = 0.0;
     CGFloat totalWidth = pan.view.bounds.size.width;
     CGFloat totalHeight = pan.view.bounds.size.height;
-    switch (self.direction) {
+    switch (self.getstureType) {
             
-        case WXSGestureDirectionLeft:{
+        case WXSGestureTypePanLeft:{
             CGFloat x = [pan translationInView:pan.view].x;
             percent = -x/totalWidth;
         }
             break;
-        case WXSGestureDirectionRight:{
+        case WXSGestureTypePanRight:{
             CGFloat x = [pan translationInView:pan.view].x;
             percent = x/totalWidth;
         }
             break;
-        case WXSGestureDirectionDown:{
+        case WXSGestureTypePanDown:{
             
             CGFloat y = [pan translationInView:pan.view].y;
             percent = y/totalHeight;
             
         }
             break;
-        case WXSGestureDirectionUp:{
+        case WXSGestureTypePanUp:{
             CGFloat y = [pan translationInView:pan.view].y;
             percent = -y/totalHeight;
         }
@@ -98,7 +98,7 @@
         }
             break;
         case WXSTransitionTypeDismiss:{
-            [_vc dismissViewControllerAnimated:YES completion:^{
+            _dismissBlock ? _dismissBlock() : [_vc dismissViewControllerAnimated:YES completion:^{
             }];
         }
             break;
@@ -107,7 +107,8 @@
         }
             break;
         case WXSTransitionTypePop:{
-            [_vc.navigationController popViewControllerAnimated:YES];
+            _popBlock ? _popBlock() : [_vc.navigationController popViewControllerAnimated:YES];
+
         }
             break;
         default:
@@ -119,4 +120,5 @@
 -(BOOL)isInteractive {
     return _isInter;
 }
+
 @end

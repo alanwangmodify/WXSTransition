@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-    _names = @[@"None",@"pageTransition",@" ",@"cover",@"present",@"spread Present"];
+    _names = @[@"None",@"pageTransition",@" ",@"cover",@"present",@"spread Present",@"boom",@"brick"];
 }
 #pragma mark Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -100,9 +100,25 @@
             [self wxs_presentViewController:vc makeTransition:^(WXSTransitionManager *transition) {
                 transition.animationType = WXSTransitionAnimationTypeSpreadPresent;
                 transition.isSysBackAnimation = YES;
-                transition.animationTime = 1;
+                transition.animationTime = 3;
             }];
         }
+            break;
+        case  6:{
+            PresentViewController *vc = [[PresentViewController alloc] init];
+            [self wxs_presentViewController:vc animationType:WXSTransitionAnimationTypeBoom completion:nil];
+        }
+            break;
+            
+        case 7:{
+            
+            [self.navigationController wxs_pushViewController:[[SecondViewController alloc] init] makeTransition:^(WXSTransitionManager *transition) {
+                transition.isSysBackAnimation = YES;
+                transition.animationTime = 4;
+                transition.animationType = WXSTransitionAnimationTypeBrick;
+            }];
+        }
+            break;
         default:
             break;
     }
