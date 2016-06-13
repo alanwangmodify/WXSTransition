@@ -9,7 +9,7 @@
 @property (nonatomic,assign) NSTimeInterval animationTime;
 @property (nonatomic,assign) WXSTransitionType transitionType;
 @property (nonatomic,assign) WXSTransitionAnimationType animationType;
-@property (nonatomic,assign) BOOL gestureEnable;
+@property (nonatomic,assign) BOOL backGestureDisable;
 @property (nonatomic,assign) WXSGestureType gestureType;
 
 @property (nonatomic,assign) BOOL isSysBackAnimation;

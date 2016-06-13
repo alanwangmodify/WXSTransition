@@ -16,6 +16,8 @@ UINavigationControllerOperation _operation;
 
 
 #pragma mark Action Method
+
+
 //Default
 -(void)wxs_presentViewController:(UIViewController *)viewControllerToPresent completion:(void (^)(void))completion{
 
@@ -170,9 +172,7 @@ UINavigationControllerOperation _operation;
     _operation = operation;
     transtion.transitionType = operation == UINavigationControllerOperationPush ? WXSTransitionTypePush : WXSTransitionTypePop;
     
-    self.fromVCInteraciveTransition.transitionType = WXSTransitionTypePush;
     self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
-    
     
     if (transtion.isSysBackAnimation && operation == UINavigationControllerOperationPop) {
         return nil;
@@ -180,6 +180,12 @@ UINavigationControllerOperation _operation;
     if (operation == UINavigationControllerOperationPush) {
         [self addBackGestureAccordingTransition:transtion];
         self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
+
+        __weak __typeof(&*self) weakSelf = self;
+        self.toVCInteraciveTransition.popBlock = ^(){
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        };
+        
     }
     return transtion;
     
@@ -197,11 +203,8 @@ UINavigationControllerOperation _operation;
 
 #pragma mark Private Method
 -(void)addBackGestureAccordingTransition:(WXSTransitionManager *)transition{
-    
-    
-    
 
-    if (transition.gestureEnable) {
+    if (!transition.backGestureDisable) {
         WXSPercentDrivenInteractiveTransition *toVCInteraciveTransition = [[WXSPercentDrivenInteractiveTransition alloc] init];
         [toVCInteraciveTransition addGestureToViewController:self];
         switch (transition.animationType) {

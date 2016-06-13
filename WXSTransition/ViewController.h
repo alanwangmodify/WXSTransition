@@ -11,6 +11,7 @@
 #import "CollectionViewController.h"
 #import "PresentViewController.h"
 #import "UINavigationController+WXSTransition.h"
+#import "TableViewController.h"
 @interface ViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 

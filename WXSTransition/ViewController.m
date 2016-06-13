@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-    _names = @[@"None",@"pageTransition",@" ",@"cover",@"present",@"spread Present",@"boom",@"brick"];
+    _names = @[@"sys",@"pageTransition",@" ",@"cover",@"present",@"spread Present",@"boom",@"brick",@""];
 }
 #pragma mark Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -50,9 +50,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:{
-            SecondViewController *vc  = [[SecondViewController alloc] init];
-            vc.animationType = WXSTransitionAnimationTypeDefault;
-            self.navigationController.delegate = vc;
+            TableViewController *vc = [[TableViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -73,13 +71,11 @@
             break;
         case 3:{ //cover
             
-            SecondViewController *vc  = [[SecondViewController alloc] init];            
+            SecondViewController *vc  = [[SecondViewController alloc] init];
             
             [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
                 
-//                transition.animationTime = 1;
                 transition.animationType = WXSTransitionAnimationTypeCover;
-//                transition.isSysBackAnimation = YES;
             }];
     
             
