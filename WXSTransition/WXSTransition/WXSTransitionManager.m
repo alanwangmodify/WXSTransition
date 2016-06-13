@@ -62,9 +62,14 @@
 #pragma mark Action
 -(void)transitionActionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext withAnimationType:(WXSTransitionAnimationType )animationType{
     
+    if ((NSInteger)animationType < (NSInteger)WXSTransitionAnimationTypeDefault) {
+        
+//        [self sysTransitionAnimationWithType:animationType andSubTypeString:<#(NSString *)#> context:transitionContext];
+        
+    }
+    
     switch (animationType) {
         case WXSTransitionAnimationTypeDefault:{
-            
         }
             break;
         case WXSTransitionAnimationTypePageTransition:{
@@ -128,6 +133,39 @@
 
 
 #pragma mark Animations
+//
+-(void)sysTransitionAnimationWithType:(WXSTransitionAnimationType) type andSubTypeString:(NSString *) subString context:(id<UIViewControllerContextTransitioning>)transitionContext{
+    
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
+    UIView *containerView = [transitionContext containerView];
+    
+    [containerView addSubview:toVC.view];
+    [containerView addSubview:fromVC.view];
+//    [containerView addSubview:tempView];
+    
+    CATransition *tran=[CATransition animation];
+    tran.duration=0.75;
+    tran.delegate = self;
+    tran.type=@"pageCurl";
+    tran.subtype=kCATransitionFromLeft;
+    [containerView.layer addAnimation:tran forKey:nil];
+    
+    _completionBlock = ^(){
+        
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+        }else{
+            
+            [transitionContext completeTransition:YES];
+            toVC.view.hidden = NO;
+        }
+        [tempView removeFromSuperview];
+        
+    };
+    
+}
 //
 -(void)pageNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext {
     
@@ -359,7 +397,9 @@
 
 -(void)spreadPresentNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
 
-
+    
+    
+    
     
 }
 
@@ -615,7 +655,6 @@
     UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return  theImage;
-    
     
 }
 

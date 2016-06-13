@@ -57,15 +57,15 @@
     tran.duration=0.75;
     tran.type=@"pageCurl";
     tran.subtype=kCATransitionFromLeft;
-//    [self.navigationController.view.layer addAnimation:tran forKey:nil];
+    [self.navigationController.view.layer addAnimation:tran forKey:nil];
 //
     SecondViewController *vc = [[SecondViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
-    [self.view.layer addAnimation:tran forKey:@"tran"];
+    [self.navigationController pushViewController:vc animated:YES];
+//    [self.view.layer addAnimation:tran forKey:@"tran"];
     
-    [self presentViewController:vc animated:YES completion:^{
-        
-    }];
+//    [self presentViewController:vc animated:YES completion:^{
+    
+//    }];
     
 //    [UIView transitionWithView:self.navigationController.view duration:0.5 options:UIViewAnimationOptionTransitionCurlUp animations:^{
 //        SecondViewController *vc = [[SecondViewController alloc] init];
