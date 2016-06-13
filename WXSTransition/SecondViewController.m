@@ -41,6 +41,7 @@
 }
 
 -(void)click{
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
