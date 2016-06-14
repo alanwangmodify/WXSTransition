@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "SecondViewController.h"
-
+#import "PresentViewController.h"
+#import "UINavigationController+WXSTransition.h"
 @interface TableViewController : UITableViewController
 
 @end

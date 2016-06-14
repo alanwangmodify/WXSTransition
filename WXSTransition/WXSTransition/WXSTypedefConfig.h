@@ -12,24 +12,54 @@
 
 // ************** Enum **************
 typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
+    
     WXSTransitionAnimationTypeSysFade = 1,                   //淡入淡出
-    WXSTransitionAnimationTypeSysPush,                       //推挤
-    WXSTransitionAnimationTypeSysReveal,                     //揭开
-    WXSTransitionAnimationTypeSysMoveIn,                     //覆盖
-    WXSTransitionAnimationTypeSysCube,                       //立方体
+    
+    WXSTransitionAnimationTypeSysPushFromRight,
+    WXSTransitionAnimationTypeSysPushFromLeft,
+    WXSTransitionAnimationTypeSysPushFromTop,
+    WXSTransitionAnimationTypeSysPushFromBottom,//推挤
+    
+    WXSTransitionAnimationTypeSysRevealFromRight,
+    WXSTransitionAnimationTypeSysRevealFromLeft,
+    WXSTransitionAnimationTypeSysRevealFromTop,
+    WXSTransitionAnimationTypeSysRevealFromBottom,//揭开
+    
+    WXSTransitionAnimationTypeSysMoveInFromRight,
+    WXSTransitionAnimationTypeSysMoveInFromLeft,
+    WXSTransitionAnimationTypeSysMoveInFromTop,
+    WXSTransitionAnimationTypeSysMoveInFromBottom,//覆盖
+    
+    WXSTransitionAnimationTypeSysCubeFromRight,
+    WXSTransitionAnimationTypeSysCubeFromLeft,
+    WXSTransitionAnimationTypeSysCubeFromTop,
+    WXSTransitionAnimationTypeSysCubeFromBottom,//立方体
+    
     WXSTransitionAnimationTypeSysSuckEffect,                 //吮吸
-    WXSTransitionAnimationTypeSysOglFlip,                    //翻转
+    
+    WXSTransitionAnimationTypeSysOglFlipFromRight,
+    WXSTransitionAnimationTypeSysOglFlipFromLeft,
+    WXSTransitionAnimationTypeSysOglFlipFromTop,
+    WXSTransitionAnimationTypeSysOglFlipFromBottom, //翻转
+    
     WXSTransitionAnimationTypeSysRippleEffect,               //波纹
-    WXSTransitionAnimationTypeSysPageCurl,                   //翻页
-    WXSTransitionAnimationTypeSysPageUnCurl,                 //反翻页
+    
+    WXSTransitionAnimationTypeSysPageCurlFromRight,
+    WXSTransitionAnimationTypeSysPageCurlFromLeft,
+    WXSTransitionAnimationTypeSysPageCurlFromTop,
+    WXSTransitionAnimationTypeSysPageCurlFromBottom,//翻页
+    
+    WXSTransitionAnimationTypeSysPageUnCurlFromRight,
+    WXSTransitionAnimationTypeSysPageUnCurlFromLeft,
+    WXSTransitionAnimationTypeSysPageUnCurlFromTop,
+    WXSTransitionAnimationTypeSysPageUnCurlFromBottom,//反翻页
+    
     WXSTransitionAnimationTypeSysCameraIrisHollowOpen,       //开镜头
+    
     WXSTransitionAnimationTypeSysCameraIrisHollowClose,      //关镜头
-    WXSTransitionAnimationTypeSysCurlDown,                   //下翻页
-    WXSTransitionAnimationTypeSysCurlUp,                     //上翻页
-    WXSTransitionAnimationTypeSysFlipFromLeft,               //左翻转
-    WXSTransitionAnimationTypeSysFlipFromRight,              //右翻转
     
     
+    //自定义
     WXSTransitionAnimationTypeDefault,
     WXSTransitionAnimationTypePageTransition,
     WXSTransitionAnimationTypePageTransition2,

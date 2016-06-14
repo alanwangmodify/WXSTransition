@@ -3,7 +3,8 @@
 #import "UIViewController+WXSTransition.h"
 @interface WXSTransitionManager ()
 
-@property (nonatomic,copy) void(^completionBlock)();
+@property (nonatomic, copy) void(^completionBlock)();
+@property (nonatomic, assign) WXSTransitionAnimationType backAnimationType;
 
 @end
 
@@ -15,7 +16,8 @@
     if (self) {
      
         _animationTime = 0.7;
-        _animationType = WXSTransitionAnimationTypeDefault;
+//        _backAnimationTime = _animationTime;
+        self.animationType = WXSTransitionAnimationTypeDefault;
         _completionBlock = nil;
         
     }
@@ -32,11 +34,12 @@
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
     
-    
-    if (_animationType == WXSTransitionAnimationTypeDefault) {
-        
+    //系统
+    if (self.animationType == WXSTransitionAnimationTypeDefault) {
+        self.animationType = WXSTransitionAnimationTypeSysPushFromLeft;
     }
     
+    //
     switch (_transitionType) {
         case WXSTransitionTypePush:
         case WXSTransitionTypePresent:
@@ -63,9 +66,7 @@
 -(void)transitionActionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext withAnimationType:(WXSTransitionAnimationType )animationType{
     
     if ((NSInteger)animationType < (NSInteger)WXSTransitionAnimationTypeDefault) {
-        
-//        [self sysTransitionAnimationWithType:animationType andSubTypeString:<#(NSString *)#> context:transitionContext];
-        
+        [self sysTransitionAnimationWithType:animationType  context:transitionContext];
     }
     
     switch (animationType) {
@@ -106,6 +107,11 @@
 
 -(void)transitionBackAnimation:(id<UIViewControllerContextTransitioning>)transitionContext withAnimationType:(WXSTransitionAnimationType )animationType{
     
+    if ((NSInteger)animationType < (NSInteger)WXSTransitionAnimationTypeDefault) {
+        [self sysTransitionAnimationWithType:_backAnimationType  context:transitionContext];
+    }
+    
+    
     switch (animationType) {
         case WXSTransitionAnimationTypePageTransition:{
             [self pageBackTransitionAnimation:transitionContext];
@@ -134,7 +140,8 @@
 
 #pragma mark Animations
 //
--(void)sysTransitionAnimationWithType:(WXSTransitionAnimationType) type andSubTypeString:(NSString *) subString context:(id<UIViewControllerContextTransitioning>)transitionContext{
+-(void)sysTransitionAnimationWithType:(WXSTransitionAnimationType) type context:(id<UIViewControllerContextTransitioning>)transitionContext{
+    
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -143,14 +150,180 @@
     
     [containerView addSubview:toVC.view];
     [containerView addSubview:fromVC.view];
-//    [containerView addSubview:tempView];
+    [containerView addSubview:tempView];
     
-    CATransition *tran=[CATransition animation];
-    tran.duration=0.75;
-    tran.delegate = self;
-    tran.type=@"pageCurl";
-    tran.subtype=kCATransitionFromLeft;
-    [containerView.layer addAnimation:tran forKey:nil];
+    CATransition *tranAnimation=[CATransition animation];
+    tranAnimation.duration= _animationTime;
+    tranAnimation.delegate = self;
+    
+    switch (type) {
+        case WXSTransitionAnimationTypeSysFade:{
+            tranAnimation.type=kCATransitionFade;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPushFromRight:{
+            tranAnimation.type = kCATransitionPush;
+            tranAnimation.subtype=kCATransitionFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPushFromLeft:{
+            tranAnimation.type = kCATransitionPush;
+            tranAnimation.subtype=kCATransitionFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPushFromTop:{
+            tranAnimation.type = kCATransitionPush;
+            tranAnimation.subtype=kCATransitionFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPushFromBottom:{
+            tranAnimation.type = kCATransitionPush;
+            tranAnimation.subtype=kCATransitionFromBottom;
+
+        }
+            break;
+        case WXSTransitionAnimationTypeSysRevealFromRight:{
+            tranAnimation.type = kCATransitionReveal;
+            tranAnimation.subtype=kCATransitionFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysRevealFromLeft:{
+            tranAnimation.type = kCATransitionReveal;
+            tranAnimation.subtype=kCATransitionFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysRevealFromTop:{
+            tranAnimation.type = kCATransitionReveal;
+            tranAnimation.subtype=kCATransitionFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysRevealFromBottom:{
+            tranAnimation.type = kCATransitionReveal;
+            tranAnimation.subtype=kCATransitionFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysMoveInFromRight:{
+            tranAnimation.type = kCATransitionMoveIn;
+            tranAnimation.subtype=kCATransitionFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysMoveInFromLeft:{
+            tranAnimation.type = kCATransitionMoveIn;
+            tranAnimation.subtype=kCATransitionFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysMoveInFromTop:{
+            tranAnimation.type = kCATransitionMoveIn;
+            tranAnimation.subtype=kCATransitionFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysMoveInFromBottom:{
+            tranAnimation.type = kCATransitionMoveIn;
+            tranAnimation.subtype=kCATransitionFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCubeFromRight:{
+            tranAnimation.type = @"cube";
+            tranAnimation.subtype=kCATransitionFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCubeFromLeft:{
+            tranAnimation.type = @"cube";
+            tranAnimation.subtype=kCATransitionFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCubeFromTop:{
+            tranAnimation.type=@"cube";
+            tranAnimation.subtype=kCATransitionFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCubeFromBottom:{
+            tranAnimation.type=@"cube";
+            tranAnimation.subtype=kCATransitionFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysSuckEffect:{
+            tranAnimation.type=@"suckEffect";
+        }
+            break;
+        case WXSTransitionAnimationTypeSysOglFlipFromRight:{
+            tranAnimation.type=@"oglFlip";
+            tranAnimation.subtype=kCATransitionFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysOglFlipFromLeft:{
+            tranAnimation.type=@"oglFlip";
+            tranAnimation.subtype=kCATransitionFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysOglFlipFromTop:{
+            tranAnimation.type=@"oglFlip";
+            tranAnimation.subtype=kCATransitionFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysOglFlipFromBottom:{
+            tranAnimation.type=@"oglFlip";
+            tranAnimation.subtype=kCATransitionFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysRippleEffect:{
+            tranAnimation.type=@"rippleEffect";
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageCurlFromRight:{
+            tranAnimation.type=@"pageCurl";
+            tranAnimation.subtype=kCATransitionFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageCurlFromLeft:{
+            tranAnimation.type=@"pageCurl";
+            tranAnimation.subtype=kCATransitionFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageCurlFromTop:{
+            tranAnimation.type=@"pageCurl";
+            tranAnimation.subtype=kCATransitionFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageCurlFromBottom:{
+            tranAnimation.type=@"pageCurl";
+            tranAnimation.subtype=kCATransitionFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageUnCurlFromRight:{
+            tranAnimation.type=@"pageUnCurl";
+            tranAnimation.subtype=kCATransitionFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageUnCurlFromLeft:{
+            tranAnimation.type=@"pageUnCurl";
+            tranAnimation.subtype=kCATransitionFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageUnCurlFromTop:{
+            tranAnimation.type=@"pageUnCurl";
+            tranAnimation.subtype=kCATransitionFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageUnCurlFromBottom:{
+            tranAnimation.type=@"pageUnCurl";
+            tranAnimation.subtype=kCATransitionFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCameraIrisHollowOpen:{
+            tranAnimation.type=@"cameraIrisHollowOpen";
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCameraIrisHollowClose:{
+            tranAnimation.type=@"cameraIrisHollowClose";
+        }
+            break;
+            
+            
+        default:
+            break;
+    }
+    [containerView.layer addAnimation:tranAnimation forKey:nil];
     
     _completionBlock = ^(){
         
@@ -656,7 +829,159 @@
     UIGraphicsEndImageContext();
     return  theImage;
     
+
 }
 
+-(void)setAnimationType:(WXSTransitionAnimationType)animationType {
+    _animationType = animationType;
+    [self backAnimationTypeFromAnimationType:animationType];
+}
+
+-(void)backAnimationTypeFromAnimationType:(WXSTransitionAnimationType)type{
+    
+    switch (type) {
+        case WXSTransitionAnimationTypeSysFade:{
+            _backAnimationType = WXSTransitionAnimationTypeSysFade;
+            
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPushFromRight:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPushFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPushFromLeft:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPushFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPushFromTop:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPushFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPushFromBottom:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPushFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysRevealFromRight:{
+            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysRevealFromLeft:{
+            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysRevealFromTop:{
+            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysRevealFromBottom:{
+            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysMoveInFromRight:{
+            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysMoveInFromLeft:{
+            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromRight;
+
+        }
+            break;
+        case WXSTransitionAnimationTypeSysMoveInFromTop:{
+            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysMoveInFromBottom:{
+            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCubeFromRight:{
+            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCubeFromLeft:{
+            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCubeFromTop:{
+            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCubeFromBottom:{
+            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromTop;
+
+        }
+            break;
+        case WXSTransitionAnimationTypeSysSuckEffect:{
+            _backAnimationType = WXSTransitionAnimationTypeSysSuckEffect;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysOglFlipFromRight:{
+            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysOglFlipFromLeft:{
+            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysOglFlipFromTop:{
+            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysOglFlipFromBottom:{
+            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysRippleEffect:{
+            _backAnimationType = WXSTransitionAnimationTypeSysRippleEffect;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageCurlFromRight:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageCurlFromLeft:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageCurlFromTop:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromBottom;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageCurlFromBottom:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageUnCurlFromRight:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromLeft;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageUnCurlFromLeft:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageUnCurlFromTop:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromRight;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysPageUnCurlFromBottom:{
+            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromTop;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCameraIrisHollowOpen:{
+            _backAnimationType = WXSTransitionAnimationTypeSysCameraIrisHollowClose;
+        }
+            break;
+        case WXSTransitionAnimationTypeSysCameraIrisHollowClose:{
+            _backAnimationType = WXSTransitionAnimationTypeSysCameraIrisHollowOpen;
+
+        }
+            break;
+        default:
+            break;
+    }
+    
+    
+    
+}
 
 @end
