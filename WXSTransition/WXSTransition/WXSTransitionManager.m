@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
      
-        _animationTime = 0.7;
+        _animationTime = 0.600082;
 //        _backAnimationTime = _animationTime;
         self.animationType = WXSTransitionAnimationTypeDefault;
         _completionBlock = nil;
@@ -146,6 +146,7 @@
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
+    UIView *temView1 = [fromVC.view snapshotViewAfterScreenUpdates:NO];
     UIView *containerView = [transitionContext containerView];
     
     [containerView addSubview:toVC.view];
@@ -936,11 +937,11 @@
         }
             break;
         case WXSTransitionAnimationTypeSysPageCurlFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromLeft;
+            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromRight;
         }
             break;
         case WXSTransitionAnimationTypeSysPageCurlFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromRight;
+            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromLeft;
         }
             break;
         case WXSTransitionAnimationTypeSysPageCurlFromTop:{
@@ -952,11 +953,11 @@
         }
             break;
         case WXSTransitionAnimationTypeSysPageUnCurlFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromLeft;
+            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromRight;
         }
             break;
         case WXSTransitionAnimationTypeSysPageUnCurlFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromRight;
+            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromLeft;
         }
             break;
         case WXSTransitionAnimationTypeSysPageUnCurlFromTop:{
