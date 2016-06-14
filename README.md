@@ -9,3 +9,6 @@ transition animation asset
 
 
 让页面间的转场变得简单起来。
+同时提供了一些接口可以设置动画时间 类型等。
+
+
