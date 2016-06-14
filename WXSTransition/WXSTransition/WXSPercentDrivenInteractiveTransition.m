@@ -64,9 +64,10 @@
     switch (pan.state) {
         case UIGestureRecognizerStateBegan:{
             _isInter = YES;
-            if (percent>0.01) {
-                [self beganGesture];
-            }
+//            if (percent>0.01) {
+//                [self beganGesture];
+//            }
+            [self beganGesture];
         }
             break;
         case UIGestureRecognizerStateChanged:{

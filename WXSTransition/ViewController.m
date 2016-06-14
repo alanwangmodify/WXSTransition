@@ -76,6 +76,7 @@
             [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
                 
                 transition.animationType = WXSTransitionAnimationTypeCover;
+                transition.isSysBackAnimation = YES;
             }];
     
             

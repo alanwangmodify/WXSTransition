@@ -11,6 +11,7 @@
 @interface TableViewController ()
 
 
+
 @end
 
 @implementation TableViewController
@@ -49,9 +50,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
- 
-    PresentViewController *vc = [[PresentViewController alloc] init];
-    [self wxs_presentViewController:vc animationType:indexPath.row + 1 completion:nil];
+
+//        PresentViewController *vc = [[PresentViewController alloc] init];
+//        [self wxs_presentViewController:vc animationType:indexPath.row + 1 completion:nil];
+
+    SecondViewController *vc = [[SecondViewController alloc] init];
+    [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
+        transition.animationType = indexPath.row + 1;
+        transition.isSysBackAnimation = YES;
+    }];
 }
 
 

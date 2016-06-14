@@ -180,12 +180,10 @@ UINavigationControllerOperation _operation;
     if (operation == UINavigationControllerOperationPush) {
         [self addBackGestureAccordingTransition:transtion];
         self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
-
         __weak __typeof(&*self) weakSelf = self;
         self.toVCInteraciveTransition.popBlock = ^(){
             [weakSelf.navigationController popViewControllerAnimated:YES];
         };
-        
     }
     return transtion;
     
@@ -204,9 +202,10 @@ UINavigationControllerOperation _operation;
 #pragma mark Private Method
 -(void)addBackGestureAccordingTransition:(WXSTransitionManager *)transition{
 
-    if (!transition.backGestureDisable) {
+    if (transition.backGestureEnable) {
         WXSPercentDrivenInteractiveTransition *toVCInteraciveTransition = [[WXSPercentDrivenInteractiveTransition alloc] init];
         [toVCInteraciveTransition addGestureToViewController:self];
+        toVCInteraciveTransition.getstureType = WXSGestureTypePanRight;
         switch (transition.animationType) {
             case WXSTransitionAnimationTypeDefault:
                 break;
@@ -229,6 +228,8 @@ UINavigationControllerOperation _operation;
 
         
     }
-    }
+}
+
+#pragma mark Getter
 
 @end

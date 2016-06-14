@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9205772C1D0D577200C4D114 /* WXSSysTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9205772B1D0D577200C4D114 /* WXSSysTransition.m */; };
 		9257079E1CFC1E87004EB63C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257079D1CFC1E87004EB63C /* main.m */; };
 		925707A11CFC1E87004EB63C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707A01CFC1E87004EB63C /* AppDelegate.m */; };
 		925707A41CFC1E87004EB63C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707A31CFC1E87004EB63C /* ViewController.m */; };
@@ -46,8 +45,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9205772A1D0D577200C4D114 /* WXSSysTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSSysTransition.h; sourceTree = "<group>"; };
-		9205772B1D0D577200C4D114 /* WXSSysTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSSysTransition.m; sourceTree = "<group>"; };
 		925707991CFC1E87004EB63C /* WXSTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WXSTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9257079D1CFC1E87004EB63C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9257079F1CFC1E87004EB63C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -198,8 +195,6 @@
 				9295498E1D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.m */,
 				9295498F1D05530100CE4C06 /* WXSTransitionManager.h */,
 				929549901D05530100CE4C06 /* WXSTransitionManager.m */,
-				9205772A1D0D577200C4D114 /* WXSSysTransition.h */,
-				9205772B1D0D577200C4D114 /* WXSSysTransition.m */,
 				929549911D05530100CE4C06 /* WXSTypedefConfig.h */,
 			);
 			path = WXSTransition;
@@ -272,6 +267,7 @@
 				TargetAttributes = {
 					925707981CFC1E87004EB63C = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = XL757M85MR;
 					};
 					925707B11CFC1E87004EB63C = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -338,7 +334,6 @@
 				9295497C1CFEC5DE00CE4C06 /* PresentViewController.m in Sources */,
 				92ED746E1CFD66F9008B4935 /* CollectionViewController.m in Sources */,
 				925707A41CFC1E87004EB63C /* ViewController.m in Sources */,
-				9205772C1D0D577200C4D114 /* WXSSysTransition.m in Sources */,
 				92ED74711CFD6811008B4935 /* CollectionViewCell.m in Sources */,
 				925707DD1CFC44AC004EB63C /* SecondViewController.m in Sources */,
 				929549941D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.m in Sources */,
@@ -489,7 +484,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WXSTransition/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = WSX.WXSTransition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -500,7 +497,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WXSTransition/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = WSX.WXSTransition;
 				PRODUCT_NAME = "$(TARGET_NAME)";

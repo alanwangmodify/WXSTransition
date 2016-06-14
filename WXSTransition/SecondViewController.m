@@ -32,7 +32,7 @@
     [btn setTitle:@"点我 返回上个界面" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
-    
+//    
 //    self.navigationController.navigationBarHidden = NO;
 
     
