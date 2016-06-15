@@ -150,15 +150,16 @@ UINavigationControllerOperation _operation;
     
 }
 
--(id<UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator {
-    
-    return self.fromVCInteraciveTransition.isInteractive ? self.fromVCInteraciveTransition : nil;
-}
+//-(id<UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator {
+//    
+//    return self.fromVCInteraciveTransition.isInteractive ? self.fromVCInteraciveTransition : nil;
+//}
+//
+//-(id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator{
+//    //if return nil ,it will dismiss directly
+//    return self.toVCInteraciveTransition.isInteractive ? self.toVCInteraciveTransition : nil;
+//}
 
--(id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator{
-    //if return nil ,it will dismiss directly
-    return self.toVCInteraciveTransition.isInteractive ? self.toVCInteraciveTransition : nil;
-}
 
 
 
@@ -177,26 +178,26 @@ UINavigationControllerOperation _operation;
     if (transtion.isSysBackAnimation && operation == UINavigationControllerOperationPop) {
         return nil;
     }
-    if (operation == UINavigationControllerOperationPush) {
-        [self addBackGestureAccordingTransition:transtion];
-        self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
-        __weak __typeof(&*self) weakSelf = self;
-        self.toVCInteraciveTransition.popBlock = ^(){
-            [weakSelf.navigationController popViewControllerAnimated:YES];
-        };
-    }
+//    if (operation == UINavigationControllerOperationPush) {
+//        [self addBackGestureAccordingTransition:transtion];
+//        self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
+//        __weak __typeof(&*self) weakSelf = self;
+//        self.toVCInteraciveTransition.popBlock = ^(){
+//            [weakSelf.navigationController popViewControllerAnimated:YES];
+//        };
+//    }
     return transtion;
     
 }
 
--(id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController{
-    
-    if (_operation == UINavigationControllerOperationPush) {
-        return self.fromVCInteraciveTransition.isInteractive ? self.fromVCInteraciveTransition : nil;
-    }else{
-        return self.toVCInteraciveTransition.isInteractive ? self.toVCInteraciveTransition : nil;
-    }
-}
+//-(id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController{
+//    
+//    if (_operation == UINavigationControllerOperationPush) {
+//        return self.fromVCInteraciveTransition.isInteractive ? self.fromVCInteraciveTransition : nil;
+//    }else{
+//        return self.toVCInteraciveTransition.isInteractive ? self.toVCInteraciveTransition : nil;
+//    }
+//}
 
 
 #pragma mark Private Method
@@ -219,7 +220,6 @@ UINavigationControllerOperation _operation;
             case WXSTransitionAnimationTypeSpreadPresent:
                 break;
             case WXSTransitionAnimationTypeBoom:
-                
                 break;
             default:
                 break;

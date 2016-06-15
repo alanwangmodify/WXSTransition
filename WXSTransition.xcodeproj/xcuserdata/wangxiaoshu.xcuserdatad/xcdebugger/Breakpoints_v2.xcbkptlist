@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WXSTransition/WXSTransition/WXSTransitionManager.m"
-            timestampString = "487579749.119026"
+            timestampString = "487591260.195733"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "979"
-            endingLineNumber = "979"
+            startingLineNumber = "986"
+            endingLineNumber = "986"
             landmarkName = "-getSysTransitionWithType:"
             landmarkType = "5">
          </BreakpointContent>

@@ -155,6 +155,7 @@
     CATransition *tranAnimation = [self getSysTransitionWithType:type];
     [containerView.layer addAnimation:tranAnimation forKey:nil];
     
+    __weak __typeof (&*self)weakSelf = self;
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -162,6 +163,10 @@
         }else{
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
+            if (weakSelf.isSysBackAnimation) {
+                toVC.transitioningDelegate = nil;
+                toVC.navigationController.delegate = nil;
+            }
         }
         [tempView removeFromSuperview];
         [temView1 removeFromSuperview];
@@ -190,6 +195,8 @@
         }else{
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
+            toVC.transitioningDelegate = nil;
+            toVC.navigationController.delegate = nil;
         }
         [tempView removeFromSuperview];
         [temView1 removeFromSuperview];

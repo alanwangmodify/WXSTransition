@@ -55,6 +55,7 @@
 //        [self wxs_presentViewController:vc animationType:indexPath.row + 1 completion:nil];
 
     SecondViewController *vc = [[SecondViewController alloc] init];
+   
     [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
         transition.animationType = indexPath.row + 1;
         transition.isSysBackAnimation = YES;
