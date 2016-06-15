@@ -2,7 +2,6 @@
 
 #import <UIKit/UIKit.h>
 #import "WXSTypedefConfig.h"
-
 @interface WXSTransitionManager : NSObject<UIViewControllerAnimatedTransitioning>
 
 

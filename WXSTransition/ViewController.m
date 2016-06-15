@@ -19,21 +19,47 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-#ifdef DEBUG
-    NSLog(@"ViewController show");
-#endif
 
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-    _names = @[@"sys",@"pageTransition",@" ",@"cover",@"present",@"spread Present",@"boom",@"brick",@""];
+    _names = @[@"pageTransition",@"viewMove",@"cover",@"spread Present",@"point spread",@"boom",@"brick"];
 }
 #pragma mark Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _names.count;
+    switch (section) {
+        case 0:
+            return 1;
+            break;
+        case 1:
+        case 2:
+            return WXSTransitionAnimationTypeBrick - WXSTransitionAnimationTypeDefault;
+            break;
+        default:
+            return 10;
+            break;
+    }
 }
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 4;
+}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return @"systerm";
+            break;
+        case 1:
+            return @"push";
+            break;
+        case 2:
+            return @"present";
+            break;
+        default:
+            return @"custom";
+            break;
+    }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *Identifier = @"wxsIdentifier";
@@ -41,83 +67,58 @@
     if (!cell) {
         cell  = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
     }
-    cell.textLabel.text = _names[indexPath.row];
+    switch (indexPath.section) {
+        case 0:
+            cell.textLabel.text = @"systerm";
+            break;
+        case 1:
+        case 2:
+            cell.textLabel.text = indexPath.row < _names.count ? _names[indexPath.row] : @"other";
+            break;
+        default:
+            cell.textLabel.text = @"00";
+            break;
+    }
     cell.imageView.image = [UIImage imageNamed:@"start"];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    switch (indexPath.row) {
+    
+    switch (indexPath.section) {
         case 0:{
             TableViewController *vc = [[TableViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 1:{
-            SecondViewController *vc  = [[SecondViewController alloc] init];            
-            [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
-                transition.animationType = WXSTransitionAnimationTypePageTransition;
-            }];
+            if (indexPath.row == 1) {
+                CollectionViewController *vc = [[CollectionViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+                return;
+            }
+            [self.navigationController wxs_pushViewController:[[SecondViewController alloc] init] animationType:WXSTransitionAnimationTypePageTransition + indexPath.row];
+        }
+            break;
+        case 2:{
+            if (indexPath.row == 1) {
+                CollectionViewController *vc = [[CollectionViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+                return;
+            }
+            [self wxs_presentViewController:[[PresentViewController alloc] init] animationType:WXSTransitionAnimationTypePageTransition + indexPath.row completion:nil];
+        }
+            break;
+            
+        default:{
 
         }
             break;
-            
-        case 2:{
-            
-            CollectionViewController *vc = [[CollectionViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-            break;
-        case 3:{ //cover
-            
-            SecondViewController *vc  = [[SecondViewController alloc] init];
-            
-            [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
-                
-                transition.animationType = WXSTransitionAnimationTypeCover;
-                transition.isSysBackAnimation = YES;
-            }];
-    
-            
-        }
-            break;
-        case 4:{
-            PresentViewController *vc  = [[PresentViewController alloc] init];
-            [self wxs_presentViewController:vc makeTransition:^(WXSTransitionManager *transition) {
-                transition.animationTime = 1;
-                transition.animationType = WXSTransitionAnimationTypePageTransition;
-            }];            
-            
-        }
-            break;
-        case 5:{
-            PresentViewController *vc  = [[PresentViewController alloc] init];
-            
-            [self wxs_presentViewController:vc makeTransition:^(WXSTransitionManager *transition) {
-                transition.animationType = WXSTransitionAnimationTypeSpreadPresent;
-                transition.animationTime = 0.65;
-            }];
-        }
-            break;
-        case  6:{
-            PresentViewController *vc = [[PresentViewController alloc] init];
-            [self wxs_presentViewController:vc animationType:WXSTransitionAnimationTypeBoom completion:nil];
-        }
-            break;
-            
-        case 7:{
-            
-            [self.navigationController wxs_pushViewController:[[SecondViewController alloc] init] makeTransition:^(WXSTransitionManager *transition) {
-                transition.isSysBackAnimation = YES;
-                transition.animationTime = 4;
-                transition.animationType = WXSTransitionAnimationTypeBrick;
-            }];
-        }
-            break;
-        default:
-            break;
     }
+    
+    
+    
     
     
 }
@@ -133,7 +134,6 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

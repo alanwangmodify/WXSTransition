@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
     WXSTransitionAnimationTypeSysPushFromRight,
     WXSTransitionAnimationTypeSysPushFromLeft,
     WXSTransitionAnimationTypeSysPushFromTop,
-    WXSTransitionAnimationTypeSysPushFromBottom,//推挤
+    WXSTransitionAnimationTypeSysPushFromBottom,//Push
     
     WXSTransitionAnimationTypeSysRevealFromRight,
     WXSTransitionAnimationTypeSysRevealFromLeft,
@@ -58,14 +58,13 @@ typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
     
     WXSTransitionAnimationTypeSysCameraIrisHollowClose,      //关镜头
     
-    
     //自定义
     WXSTransitionAnimationTypeDefault,
     WXSTransitionAnimationTypePageTransition,
-    WXSTransitionAnimationTypePageTransition2,
     WXSTransitionAnimationTypeViewMoveToNextVC,
     WXSTransitionAnimationTypeCover,
     WXSTransitionAnimationTypeSpreadPresent,
+    WXSTransitionAnimationTypePointSpreadPresent,
     WXSTransitionAnimationTypeBoom,
     WXSTransitionAnimationTypeBrick,
 };

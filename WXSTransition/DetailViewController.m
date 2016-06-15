@@ -25,6 +25,16 @@
     [self.view addSubview:self.imageView];
     
     self.targetView = self.imageView;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    [self.view addGestureRecognizer:tap];
+}
+
+-(void)tapAction {
+    if ([self.navigationController respondsToSelector:@selector(popViewControllerAnimated:)]) {
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 -(UIImageView *)imageView{
     if (!_imageView) {

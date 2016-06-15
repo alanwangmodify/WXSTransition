@@ -74,7 +74,7 @@ UINavigationControllerOperation _operation;
 
 #pragma mark Property
 
-//AnimationType
+//----- AnimationType
 -(void)setAnimationType:(WXSTransitionAnimationType )animationType {
     objc_setAssociatedObject(self, &AnimationTypeKey, @(animationType), OBJC_ASSOCIATION_ASSIGN);
 }
@@ -83,14 +83,14 @@ UINavigationControllerOperation _operation;
     return (WXSTransitionAnimationType)type;
 }
 
-//targtView
+//----- targtView
 -(void)setTargetView:(UIView *)targetView {
     objc_setAssociatedObject(self, &TargetViewKey, targetView, OBJC_ASSOCIATION_RETAIN);
 }
 -(UIView *)targetView{
     return objc_getAssociatedObject(self, &TargetViewKey);
 }
-//starView
+//----- starView
 -(void)setStarView:(UIView *)starView {
     objc_setAssociatedObject(self, &StarViewKey, starView, OBJC_ASSOCIATION_RETAIN);
 }
@@ -98,16 +98,15 @@ UINavigationControllerOperation _operation;
     return objc_getAssociatedObject(self, &StarViewKey);
 }
 
-//CallBackTransition
+//----- CallBackTransition
 -(void)setCallBackTransition:(WXSTransitionBlock)callBackTransition {
     objc_setAssociatedObject(self, &CallBackTransitionKey, callBackTransition, OBJC_ASSOCIATION_COPY);
 }
-
 -(WXSTransitionBlock)callBackTransition{
     return objc_getAssociatedObject(self, &CallBackTransitionKey);
 }
 
-//FromVCInteraciveTransitionKey
+//----- fromVCInteraciveTransition
 -(void)setFromVCInteraciveTransition:(WXSPercentDrivenInteractiveTransition *)fromVCInteraciveTransition{
     objc_setAssociatedObject(self, &FromVCInteraciveTransitionKey, fromVCInteraciveTransition, OBJC_ASSOCIATION_RETAIN);
 }
@@ -115,7 +114,7 @@ UINavigationControllerOperation _operation;
     return objc_getAssociatedObject(self, &FromVCInteraciveTransitionKey);
 }
 
-//ToVCInteraciveTransition
+//----- toVCInteraciveTransition
 -(void)setToVCInteraciveTransition:(WXSPercentDrivenInteractiveTransition *)toVCInteraciveTransition {
     objc_setAssociatedObject(self, &ToVCInteraciveTransitionKey, toVCInteraciveTransition, OBJC_ASSOCIATION_RETAIN);
 }
@@ -144,8 +143,8 @@ UINavigationControllerOperation _operation;
     transtion.animationType = [self animationType];
     self.callBackTransition ? self.callBackTransition(transtion) : nil;
     transtion.transitionType = WXSTransitionTypePresent;
-    [self addBackGestureAccordingTransition:transtion];
-    self.toVCInteraciveTransition.transitionType = WXSTransitionTypeDismiss;
+//    [self addBackGestureAccordingTransition:transtion];
+//    self.toVCInteraciveTransition.transitionType = WXSTransitionTypeDismiss;
     return transtion;
     
 }
@@ -173,11 +172,11 @@ UINavigationControllerOperation _operation;
     _operation = operation;
     transtion.transitionType = operation == UINavigationControllerOperationPush ? WXSTransitionTypePush : WXSTransitionTypePop;
     
-    self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
+//    self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
     
-    if (transtion.isSysBackAnimation && operation == UINavigationControllerOperationPop) {
-        return nil;
-    }
+//    if (transtion.isSysBackAnimation && operation == UINavigationControllerOperationPop) {
+//        return nil;
+//    }
 //    if (operation == UINavigationControllerOperationPush) {
 //        [self addBackGestureAccordingTransition:transtion];
 //        self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
