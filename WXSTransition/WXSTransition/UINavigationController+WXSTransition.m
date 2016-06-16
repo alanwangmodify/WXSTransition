@@ -32,8 +32,10 @@
 //    [toVCInteraciveTransition addGestureToViewController:viewController];
 //    
 //    viewController.toVCInteraciveTransition = self.toVCInteraciveTransition = toVCInteraciveTransition;
-    self.delegate = viewController;
-    viewController.callBackTransition = transitionBlock ? transitionBlock : nil;
+    
+    __weak typeof (&*viewController)weakVC = viewController;
+    self.delegate = weakVC;
+    weakVC.callBackTransition = transitionBlock ? transitionBlock : nil;
     [self pushViewController:viewController animated:YES];
     
 }

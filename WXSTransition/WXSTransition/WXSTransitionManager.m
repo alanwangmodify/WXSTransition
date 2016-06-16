@@ -7,6 +7,8 @@
 
 @property (nonatomic, copy) void(^completionBlock)();
 @property (nonatomic, assign) WXSTransitionAnimationType backAnimationType;
+@property (nonatomic, assign) id <UIViewControllerContextTransitioning> transitionContext;
+
 
 @end
 
@@ -33,9 +35,15 @@
     return _animationTime - 0.5;
 }
 
-
-- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
+- (void)animationEnded:(BOOL) transitionCompleted{
     
+    if (transitionCompleted) {
+        
+        [self removeDelegate];
+        
+    }
+}
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
     //系统
     if (self.animationType == WXSTransitionAnimationTypeDefault) {
         self.animationType = WXSTransitionAnimationTypeSysPushFromLeft;
@@ -60,6 +68,7 @@
  
     if (flag) {
         _completionBlock ? _completionBlock() : nil;
+        _completionBlock = nil;
     }
     
 }
@@ -69,7 +78,7 @@
     if ((NSInteger)animationType < (NSInteger)WXSTransitionAnimationTypeDefault) {
         [self sysTransitionAnimationWithType:animationType  context:transitionContext];
     }
-    
+//    
     unsigned int count = 0;
     Method *methodlist = class_copyMethodList([WXSTransitionManager class], &count);
     int tag= 0;
@@ -81,12 +90,12 @@
             tag++;
             if (tag == animationType - WXSTransitionAnimationTypeDefault) {
                 ((void (*)(id,SEL,id<UIViewControllerContextTransitioning>,WXSTransitionAnimationType))objc_msgSend)(self,selector,transitionContext,animationType);
-                tag = 0;
                 break;
             }
             
         }
     }
+    free(methodlist);
     
 }
 
@@ -107,12 +116,12 @@
             tag++;
             if (tag == animationType - WXSTransitionAnimationTypeDefault) {
                 ((void (*)(id,SEL,id<UIViewControllerContextTransitioning>,WXSTransitionAnimationType))objc_msgSend)(self,selector,transitionContext,animationType);
-                tag = 0;
                 break;
             }
             
         }
     }
+    free(methodlist);
 
 }
 
@@ -134,7 +143,7 @@
     CATransition *tranAnimation = [self getSysTransitionWithType:type];
     [containerView.layer addAnimation:tranAnimation forKey:nil];
     
-    __weak __typeof (&*self)weakSelf = self;
+////    __weak __typeof (&*self)weakSelf = self;
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -142,13 +151,10 @@
         }else{
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            if (weakSelf.isSysBackAnimation) {
-                fromVC.transitioningDelegate = nil;
-                fromVC.navigationController.delegate = nil;
-            }
         }
         [tempView removeFromSuperview];
         [temView1 removeFromSuperview];
+
     };
     
 }
@@ -204,7 +210,6 @@
     transfrom3d.m34 = -0.002;
     containerView.layer.sublayerTransform = transfrom3d;
     
-    __weak __typeof (&*self)weakSelf = self;
     [UIView animateWithDuration:_animationTime animations:^{
         tempView.layer.transform = CATransform3DMakeRotation(-M_PI_2, 0, 1, 0);
         
@@ -216,10 +221,6 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            if (weakSelf.isSysBackAnimation) {
-                fromVC.transitioningDelegate = nil;
-                fromVC.navigationController.delegate = nil;
-            }
         }
     }];
     
@@ -271,7 +272,6 @@
     toVC.targetView.hidden = YES;
     fromVC.view.alpha = 1;
 
-    __weak __typeof (&*self) weakSelf = self;
     [UIView animateWithDuration:_animationTime delay:0.0 usingSpringWithDamping:0.6 initialSpringVelocity:1 / 0.6 options:0 animations:^{
         startView.frame = [toVC.targetView convertRect:toVC.targetView.bounds toView:containerView];
         toVC.view.alpha = 1;
@@ -279,10 +279,6 @@
     } completion:^(BOOL finished) {
         startView.hidden = YES;
         toVC.targetView.hidden = NO;
-        if (weakSelf.isSysBackAnimation) {
-            fromVC.transitioningDelegate = nil;
-            fromVC.navigationController.delegate = nil;
-        }
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 
@@ -354,7 +350,6 @@
     tempView.hidden = NO;
     
     
-    __weak __typeof (&*self)weakSelf = self;
     [UIView animateWithDuration:_animationTime animations:^{
         
         tempView.layer.transform = CATransform3DIdentity;
@@ -368,10 +363,6 @@
         }else{
             toVC.view.hidden = NO;
             [transitionContext completeTransition:YES];
-            if (weakSelf.isSysBackAnimation) {
-                fromVC.transitioningDelegate = nil;
-                fromVC.navigationController.delegate = nil;
-            }
         }
         [tempView removeFromSuperview];
         
@@ -463,7 +454,6 @@
     [maskLayer addAnimation:animation forKey:@"NextPath"];
     
     
-    __weak __typeof (&*self) weakSelf = self;
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -472,10 +462,6 @@
             
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            if (weakSelf.isSysBackAnimation) {
-                fromVC.transitioningDelegate = nil;
-                fromVC.navigationController.delegate = nil;
-            }
         }
         [tempView removeFromSuperview];
     };
@@ -515,6 +501,7 @@
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
+    
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -523,8 +510,7 @@
             
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            toVC.navigationController.delegate = nil;
-            toVC.transitioningDelegate = nil;
+//            [self removeDelegateWithFromVC:fromVC andToVC:toVC];
         }
         [tempView removeFromSuperview];
         
@@ -569,8 +555,6 @@
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"PointNextPath"];
     
-    
-    __weak __typeof (&*self)weakSelf = self;
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -579,10 +563,6 @@
             
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            if (weakSelf.isSysBackAnimation) {
-                fromVC.transitioningDelegate = nil;
-                fromVC.navigationController.delegate = nil;
-            }
         }
         [tempView removeFromSuperview];
     };
@@ -626,6 +606,7 @@
     [maskLayer addAnimation:animation forKey:@"PointBackPath"];
     
     
+
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -634,8 +615,6 @@
             
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            toVC.navigationController.delegate = nil;
-            toVC.transitioningDelegate = nil;
         }
         [tempView removeFromSuperview];
         
@@ -657,7 +636,6 @@
     toVC.view.hidden = YES;
     tempView.layer.transform = CATransform3DMakeScale(0.01, 0.01, 1);
     
-    __weak __typeof (&*self)weakSelf = self;
     [UIView animateWithDuration:_animationTime delay:0.0 usingSpringWithDamping:0.4 initialSpringVelocity:1/0.4 options:0 animations:^{
         
         tempView.layer.transform = CATransform3DIdentity;
@@ -669,10 +647,6 @@
         }else{
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            if (weakSelf.isSysBackAnimation) {
-                fromVC.transitioningDelegate = nil;
-                fromVC.navigationController.delegate = nil;
-            }
         }
         [tempView removeFromSuperview];
     
@@ -708,8 +682,6 @@
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
             fromVC.view.hidden = YES;
-            toVC.transitioningDelegate = nil;
-            toVC.navigationController.delegate = nil;
             [tempView removeFromSuperview];
         }
         
@@ -744,7 +716,6 @@
     [containView addSubview:imgView1];
     
   
-    __weak __typeof (&*self)weakSelf = self;
     [UIView animateWithDuration:_animationTime animations:^{
         imgView0.layer.transform = CATransform3DMakeTranslation(0, -screenHeight/2, 0);
         imgView1.layer.transform = CATransform3DMakeTranslation(0, screenHeight/2, 0);
@@ -755,10 +726,6 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            if (weakSelf.isSysBackAnimation) {
-                fromVC.transitioningDelegate = nil;
-                fromVC.navigationController.delegate = nil;
-            }
             [imgView0 removeFromSuperview];
             [imgView1 removeFromSuperview];
         }
@@ -767,6 +734,7 @@
 }
 
 -(void)brickBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containView = [transitionContext containerView];
@@ -805,8 +773,6 @@
         }else{
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            fromVC.transitioningDelegate = nil;
-            fromVC.navigationController.delegate = nil;
         }
         [imgView0 removeFromSuperview];
         [imgView1 removeFromSuperview];
@@ -817,6 +783,41 @@
 }
 
 #pragma mark Other
+
+- (void)removeDelegate {
+    
+    UIViewController *fromVC = [_transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [_transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containView = [_transitionContext containerView];
+
+    void (^RemoveDelegateBlock)() = ^(){
+        
+        fromVC.transitioningDelegate = nil;
+        fromVC.navigationController.delegate = nil;
+        toVC.transitioningDelegate = nil;
+        toVC.navigationController.delegate = nil;
+
+    };
+    
+    switch (self.transitionType) {
+        case WXSTransitionTypePush:
+        case WXSTransitionTypePresent:{ //Next
+            if (self.isSysBackAnimation) {
+                RemoveDelegateBlock ? RemoveDelegateBlock() : nil;
+            }
+            containView = nil;
+        }
+            break;
+        default:{ //Back
+            RemoveDelegateBlock ? RemoveDelegateBlock() : nil;
+            containView = nil;
+
+        }
+            break;
+    }
+
+    
+}
 - (UIImage *)imageFromView: (UIView *)view atFrame:(CGRect)rect{
     
     UIGraphicsBeginImageContext(view.frame.size);
@@ -1147,8 +1148,6 @@
             tranAnimation.type=@"cameraIrisHollowClose";
         }
             break;
-            
-            
         default:
             break;
     }
