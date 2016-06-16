@@ -9,7 +9,6 @@
 @property (nonatomic, assign) WXSTransitionAnimationType backAnimationType;
 @property (nonatomic, assign) id <UIViewControllerContextTransitioning> transitionContext;
 
-
 @end
 
 
@@ -32,7 +31,7 @@
 #pragma mark Delegate
 //UIViewControllerAnimatedTransitioning
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{
-    return _animationTime - 0.5;
+    return _animationTime ;
 }
 
 - (void)animationEnded:(BOOL) transitionCompleted{
@@ -40,15 +39,14 @@
     if (transitionCompleted) {
         
         [self removeDelegate];
-        
     }
 }
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
-    //系统
+    
+    _transitionContext = transitionContext;
     if (self.animationType == WXSTransitionAnimationTypeDefault) {
         self.animationType = WXSTransitionAnimationTypeSysPushFromLeft;
     }
-    //
     switch (_transitionType) {
         case WXSTransitionTypePush:
         case WXSTransitionTypePresent:
@@ -510,7 +508,6 @@
             
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-//            [self removeDelegateWithFromVC:fromVC andToVC:toVC];
         }
         [tempView removeFromSuperview];
         
@@ -559,12 +556,14 @@
         
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
+            [tempView removeFromSuperview];
         }else{
-            
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
+            [tempView removeFromSuperview];
+
         }
-        [tempView removeFromSuperview];
+        
     };
     
 }
@@ -604,9 +603,7 @@
     animation.duration = _animationTime;
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"PointBackPath"];
-    
-    
-
+        
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -689,13 +686,13 @@
 
 }
 
--(void)brickNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+-(void)brickOpenVerticalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
 
+    
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containView = [transitionContext containerView];
-    
     
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -703,6 +700,7 @@
     CGRect rect0 = CGRectMake(0 , 0 , screenWidth, screenHeight/2);
     CGRect rect1 = CGRectMake(0 , screenHeight/2 , screenWidth, screenHeight/2);
     
+
     
     UIImage *image0 = [self imageFromView:fromVC.view atFrame:rect0];
     UIImage *image1 = [self imageFromView:fromVC.view atFrame:rect1];
@@ -733,7 +731,7 @@
     
 }
 
--(void)brickBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+-(void)brickOpenVerticalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -782,6 +780,282 @@
     
 }
 
+//水平方向
+-(void)brickOpenHorizontalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containView = [transitionContext containerView];
+    
+    
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    CGRect rect0 = CGRectMake(0 , 0 , screenWidth/2, screenHeight);
+    CGRect rect1 = CGRectMake(screenWidth/2 , 0 , screenWidth/2, screenHeight);
+    
+    
+    UIImage *image0 = [self imageFromView:fromVC.view atFrame:rect0];
+    UIImage *image1 = [self imageFromView:fromVC.view atFrame:rect1];
+    
+    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
+    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
+    
+    [containView addSubview:fromVC.view];
+    [containView addSubview:toVC.view];
+    [containView addSubview:imgView0];
+    [containView addSubview:imgView1];
+    
+    
+    [UIView animateWithDuration:_animationTime animations:^{
+        
+        imgView0.layer.transform = CATransform3DMakeTranslation(-screenWidth/2, 0, 0);
+        imgView1.layer.transform = CATransform3DMakeTranslation(screenWidth/2, 0, 0);
+        
+    } completion:^(BOOL finished) {
+        
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+        }else{
+            [transitionContext completeTransition:YES];
+            [imgView0 removeFromSuperview];
+            [imgView1 removeFromSuperview];
+        }
+    }];
+    
+}
+-(void)brickOpenHorizontalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containView = [transitionContext containerView];
+    
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    CGRect rect0 = CGRectMake(0, 0 , screenWidth/2, screenHeight);
+    CGRect rect1 = CGRectMake(screenWidth/2 , 0 , screenWidth/2, screenHeight);
+    
+    
+    UIImage *image0 = [self imageFromView:toVC.view atFrame:rect0];
+    UIImage *image1 = [self imageFromView:toVC.view atFrame:rect1];
+    
+    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
+    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
+    
+    [containView addSubview:fromVC.view];
+    [containView addSubview:toVC.view];
+    [containView addSubview:imgView0];
+    [containView addSubview:imgView1];
+    
+    toVC.view.hidden = YES;
+    
+    imgView0.layer.transform = CATransform3DMakeTranslation(-screenWidth/2, 0, 0);
+    imgView1.layer.transform = CATransform3DMakeTranslation(screenWidth/2, 0, 0);
+    
+    [UIView animateWithDuration:_animationTime animations:^{
+        imgView0.layer.transform = CATransform3DIdentity;
+        imgView1.layer.transform = CATransform3DIdentity;
+        
+    } completion:^(BOOL finished) {
+        
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+        }else{
+            [transitionContext completeTransition:YES];
+            toVC.view.hidden = NO;
+        }
+        [imgView0 removeFromSuperview];
+        [imgView1 removeFromSuperview];
+        
+    }];
+
+    
+}
+
+-(void)brickCloseVerticalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containView = [transitionContext containerView];
+    
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    CGRect rect0 = CGRectMake(0 , 0 , screenWidth, screenHeight/2);
+    CGRect rect1 = CGRectMake(0 , screenHeight/2 , screenWidth, screenHeight/2);
+    
+    
+    UIImage *image0 = [self imageFromView:toVC.view atFrame:rect0];
+    UIImage *image1 = [self imageFromView:toVC.view atFrame:rect1];
+    
+    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
+    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
+    
+    [containView addSubview:fromVC.view];
+    [containView addSubview:toVC.view];
+    [containView addSubview:imgView0];
+    [containView addSubview:imgView1];
+    
+    toVC.view.hidden = YES;
+    
+    imgView0.layer.transform = CATransform3DMakeTranslation(0, -screenHeight/2, 0);
+    imgView1.layer.transform = CATransform3DMakeTranslation(0, screenHeight/2, 0);
+    
+    [UIView animateWithDuration:_animationTime animations:^{
+        imgView0.layer.transform = CATransform3DIdentity;
+        imgView1.layer.transform = CATransform3DIdentity;
+        
+    } completion:^(BOOL finished) {
+        
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+        }else{
+            [transitionContext completeTransition:YES];
+            toVC.view.hidden = NO;
+        }
+        [imgView0 removeFromSuperview];
+        [imgView1 removeFromSuperview];
+        
+    }];
+    
+}
+-(void)brickCloseVerticalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    
+    
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containView = [transitionContext containerView];
+    
+    
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    CGRect rect0 = CGRectMake(0 , 0 , screenWidth, screenHeight/2);
+    CGRect rect1 = CGRectMake(0 , screenHeight/2 , screenWidth, screenHeight/2);
+    
+    
+    UIImage *image0 = [self imageFromView:fromVC.view atFrame:rect0];
+    UIImage *image1 = [self imageFromView:fromVC.view atFrame:rect1];
+    
+    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
+    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
+    
+    [containView addSubview:fromVC.view];
+    [containView addSubview:toVC.view];
+    [containView addSubview:imgView0];
+    [containView addSubview:imgView1];
+    
+    
+    [UIView animateWithDuration:_animationTime animations:^{
+        imgView0.layer.transform = CATransform3DMakeTranslation(0, -screenHeight/2, 0);
+        imgView1.layer.transform = CATransform3DMakeTranslation(0, screenHeight/2, 0);
+        
+    } completion:^(BOOL finished) {
+        
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+        }else{
+            [transitionContext completeTransition:YES];
+            [imgView0 removeFromSuperview];
+            [imgView1 removeFromSuperview];
+        }
+    }];
+
+}
+
+//
+-(void)brickCloseHorizontalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containView = [transitionContext containerView];
+    
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    CGRect rect0 = CGRectMake(0, 0 , screenWidth/2, screenHeight);
+    CGRect rect1 = CGRectMake(screenWidth/2 , 0 , screenWidth/2, screenHeight);
+    
+    
+    UIImage *image0 = [self imageFromView:toVC.view atFrame:rect0];
+    UIImage *image1 = [self imageFromView:toVC.view atFrame:rect1];
+    
+    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
+    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
+    
+    [containView addSubview:fromVC.view];
+    [containView addSubview:toVC.view];
+    [containView addSubview:imgView0];
+    [containView addSubview:imgView1];
+    
+    toVC.view.hidden = YES;
+    
+    imgView0.layer.transform = CATransform3DMakeTranslation(-screenWidth/2, 0, 0);
+    imgView1.layer.transform = CATransform3DMakeTranslation(screenWidth/2, 0, 0);
+    
+    [UIView animateWithDuration:_animationTime animations:^{
+        imgView0.layer.transform = CATransform3DIdentity;
+        imgView1.layer.transform = CATransform3DIdentity;
+        
+    } completion:^(BOOL finished) {
+        
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+        }else{
+            [transitionContext completeTransition:YES];
+            toVC.view.hidden = NO;
+        }
+        [imgView0 removeFromSuperview];
+        [imgView1 removeFromSuperview];
+        
+    }];
+
+    
+}
+-(void)brickCloseHorizontalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containView = [transitionContext containerView];
+    
+    
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+
+    CGRect rect0 = CGRectMake(0, 0 , screenWidth/2, screenHeight);
+    CGRect rect1 = CGRectMake(screenWidth/2 , 0 , screenWidth/2, screenHeight);
+    
+    
+    UIImage *image0 = [self imageFromView:fromVC.view atFrame:rect0];
+    UIImage *image1 = [self imageFromView:fromVC.view atFrame:rect1];
+    
+    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
+    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
+    
+    [containView addSubview:fromVC.view];
+    [containView addSubview:toVC.view];
+    [containView addSubview:imgView0];
+    [containView addSubview:imgView1];
+    
+    
+    [UIView animateWithDuration:_animationTime animations:^{
+        imgView0.layer.transform = CATransform3DMakeTranslation(-screenWidth/2, 0, 0);
+        imgView1.layer.transform = CATransform3DMakeTranslation(screenWidth/2, 0, 0);
+        
+    } completion:^(BOOL finished) {
+        
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+        }else{
+            [transitionContext completeTransition:YES];
+            [imgView0 removeFromSuperview];
+            [imgView1 removeFromSuperview];
+        }
+    }];
+    
+    
+}
 #pragma mark Other
 
 - (void)removeDelegate {
@@ -811,13 +1085,14 @@
         default:{ //Back
             RemoveDelegateBlock ? RemoveDelegateBlock() : nil;
             containView = nil;
+            NSLog(@":remove");
 
         }
             break;
     }
 
-    
 }
+
 - (UIImage *)imageFromView: (UIView *)view atFrame:(CGRect)rect{
     
     UIGraphicsBeginImageContext(view.frame.size);
@@ -828,7 +1103,6 @@
     UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return  theImage;
-    
 
 }
 
@@ -1153,5 +1427,8 @@
     }
     return tranAnimation;
 }
-
+-(void)brickAnimationWithRect0:(CGRect) rect0 andRect1:(CGRect) rect1{
+    
+    
+}
 @end

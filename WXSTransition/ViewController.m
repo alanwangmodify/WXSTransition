@@ -18,13 +18,14 @@
 #pragma mark lifecycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+//    self.navigationController.delegate = nil;
     self.navigationController.navigationBarHidden = YES;
 
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-    _names = @[@"pageTransition",@"viewMove",@"cover",@"spread Present",@"point spread",@"boom",@"brick"];
+    _names = @[@"pageTransition",@"viewMove",@"cover",@"spread Present",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH"];
 }
 #pragma mark Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -34,7 +35,7 @@
             break;
         case 1:
         case 2:
-            return WXSTransitionAnimationTypeBrick - WXSTransitionAnimationTypeDefault;
+            return WXSTransitionAnimationTypeBrickCloseHorizontal - WXSTransitionAnimationTypeDefault;
             break;
         default:
             return 10;
@@ -95,6 +96,7 @@
         case 1:{
             if (indexPath.row == 1) {
                 CollectionViewController *vc = [[CollectionViewController alloc] init];
+                self.navigationController.delegate = nil;
                 [self.navigationController pushViewController:vc animated:YES];
                 return;
             }

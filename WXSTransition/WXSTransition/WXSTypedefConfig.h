@@ -12,7 +12,7 @@
 
 // ************** Enum **************
 typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
-    
+    //----------- 系统 ------------
     WXSTransitionAnimationTypeSysFade = 1,                   //淡入淡出
     
     WXSTransitionAnimationTypeSysPushFromRight,
@@ -58,15 +58,24 @@ typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
     
     WXSTransitionAnimationTypeSysCameraIrisHollowClose,      //关镜头
     
-    //自定义
+    //----------- 自定义 ------------
     WXSTransitionAnimationTypeDefault,
+    
     WXSTransitionAnimationTypePageTransition,
+    
     WXSTransitionAnimationTypeViewMoveToNextVC,
+    
     WXSTransitionAnimationTypeCover,
+    
     WXSTransitionAnimationTypeSpreadPresent,
     WXSTransitionAnimationTypePointSpreadPresent,
+    
     WXSTransitionAnimationTypeBoom,
-    WXSTransitionAnimationTypeBrick,
+    
+    WXSTransitionAnimationTypeBrickOpenVertical,
+    WXSTransitionAnimationTypeBrickOpenHorizontal,
+    WXSTransitionAnimationTypeBrickCloseVertical, 
+    WXSTransitionAnimationTypeBrickCloseHorizontal,
 };
 
 typedef NS_ENUM(NSInteger,WXSTransitionType){
