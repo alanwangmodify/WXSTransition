@@ -2,7 +2,7 @@
 #import <UIKit/UIKit.h>
 #import "WXSTransitionManager.h"
 #import "WXSTransitionPropertyMaker.h"
-#import "WXSPercentDrivenInteractiveTransition.h"
+
 
 typedef void(^WXSTransitionBlock)(WXSTransitionManager *transition);
 
@@ -12,8 +12,6 @@ typedef void(^WXSTransitionBlock)(WXSTransitionManager *transition);
 @property (nonatomic, strong) UIView *targetView;
 @property (nonatomic, strong) UIView *starView;
 @property (nonatomic, copy) WXSTransitionBlock callBackTransition;
-@property (nonatomic, strong) WXSPercentDrivenInteractiveTransition *fromVCInteraciveTransition;
-@property (nonatomic, strong) WXSPercentDrivenInteractiveTransition *toVCInteraciveTransition;
 
 -(void)wxs_presentViewController:(UIViewController *)viewControllerToPresent animationType:(WXSTransitionAnimationType )animationType completion:(void (^)(void))completion;
 

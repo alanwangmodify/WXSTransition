@@ -52,24 +52,6 @@ UINavigationControllerOperation _operation;
 }
 
 
--(void)wxs_addGestureForPresentViewController:(UIViewController *)viewControllerToPresent completion:(void (^)(void))completion{
-    [self wxs_addGestureForPresentViewController:viewControllerToPresent makeTransition:nil completion:completion];
-    
-}
-
--(void)wxs_addGestureForPresentViewController:(UIViewController *)viewControllerToPresent makeTransition:(WXSTransitionBlock)transitionBlock completion:(void (^)(void))completion{
-
-    WXSPercentDrivenInteractiveTransition *fromVCInteraciveTransition = [[WXSPercentDrivenInteractiveTransition alloc] init];
-    [fromVCInteraciveTransition addGestureToViewController:self];
-    fromVCInteraciveTransition.transitionType = WXSTransitionTypePresent;
-     viewControllerToPresent.fromVCInteraciveTransition = self.fromVCInteraciveTransition = fromVCInteraciveTransition;
-    
-    __weak __typeof (&*self)weakSelf = self;
-    fromVCInteraciveTransition.presentBlock = ^(){
-       [weakSelf wxs_presentViewController:viewControllerToPresent makeTransition:transitionBlock completion:completion];
-    };
-    
-}
 
 #pragma mark Property
 
@@ -105,21 +87,7 @@ UINavigationControllerOperation _operation;
     return objc_getAssociatedObject(self, &CallBackTransitionKey);
 }
 
-//----- fromVCInteraciveTransition
--(void)setFromVCInteraciveTransition:(WXSPercentDrivenInteractiveTransition *)fromVCInteraciveTransition{
-    objc_setAssociatedObject(self, &FromVCInteraciveTransitionKey, fromVCInteraciveTransition, OBJC_ASSOCIATION_RETAIN);
-}
--(WXSPercentDrivenInteractiveTransition *)fromVCInteraciveTransition {
-    return objc_getAssociatedObject(self, &FromVCInteraciveTransitionKey);
-}
 
-//----- toVCInteraciveTransition
--(void)setToVCInteraciveTransition:(WXSPercentDrivenInteractiveTransition *)toVCInteraciveTransition {
-    objc_setAssociatedObject(self, &ToVCInteraciveTransitionKey, toVCInteraciveTransition, OBJC_ASSOCIATION_RETAIN);
-}
--(WXSPercentDrivenInteractiveTransition *)toVCInteraciveTransition{
-    return objc_getAssociatedObject(self, &ToVCInteraciveTransitionKey);
-}
 
 
 #pragma mark Delegate
@@ -139,21 +107,10 @@ UINavigationControllerOperation _operation;
     transtion.animationType = [self animationType];
     self.callBackTransition ? self.callBackTransition(transtion) : nil;
     transtion.transitionType = WXSTransitionTypePresent;
-//    [self addBackGestureAccordingTransition:transtion];
 //    self.toVCInteraciveTransition.transitionType = WXSTransitionTypeDismiss;
     return transtion;
     
 }
-//
-//-(id<UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator {
-//    
-//    return self.fromVCInteraciveTransition.isInteractive ? self.fromVCInteraciveTransition : nil;
-//}
-//
-//-(id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator{
-//    //if return nil ,it will dismiss directly
-//    return self.toVCInteraciveTransition.isInteractive ? self.toVCInteraciveTransition : nil;
-//}
 
 
 
@@ -167,63 +124,11 @@ UINavigationControllerOperation _operation;
     self.callBackTransition ? self.callBackTransition(transtion) : nil;
     _operation = operation;
     transtion.transitionType = operation == UINavigationControllerOperationPush ? WXSTransitionTypePush : WXSTransitionTypePop;
-    
-//    self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
-//    
-//    if (operation == UINavigationControllerOperationPush) {
-//        [self addBackGestureAccordingTransition:transtion];
-//        self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
-//        __weak __typeof(&*self) weakSelf = self;
-//        self.toVCInteraciveTransition.popBlock = ^(){
-//            [weakSelf.navigationController popViewControllerAnimated:YES];
-//        };
-//    }
     return transtion;
     
 }
 
-//-(id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController{
-//    
-//    if (_operation == UINavigationControllerOperationPush) {
-//        return self.fromVCInteraciveTransition.isInteractive ? self.fromVCInteraciveTransition : nil;
-//    }else{
-//        return self.toVCInteraciveTransition.isInteractive ? self.toVCInteraciveTransition : nil;
-//    }
-//}
 
 
-#pragma mark Private Method
--(void)addBackGestureAccordingTransition:(WXSTransitionManager *)transition{
-
-    if (transition.backGestureEnable) {
-        
-        WXSPercentDrivenInteractiveTransition *toVCInteraciveTransition = [[WXSPercentDrivenInteractiveTransition alloc] init];
-        [toVCInteraciveTransition addGestureToViewController:self];
-        toVCInteraciveTransition.getstureType = WXSGestureTypePanRight;
-        
-        switch (transition.animationType) {
-            case WXSTransitionAnimationTypeDefault:
-                break;
-            case WXSTransitionAnimationTypePageTransition:
-                toVCInteraciveTransition.getstureType = WXSGestureTypePanRight;
-                break;
-            case WXSTransitionAnimationTypeViewMoveToNextVC:
-                break;
-            case WXSTransitionAnimationTypeCover:
-                break;
-            case WXSTransitionAnimationTypeSpreadPresent:
-                break;
-            case WXSTransitionAnimationTypeBoom:
-                break;
-            default:
-                break;
-        }
-        self.toVCInteraciveTransition = toVCInteraciveTransition;
-
-        
-    }
-}
-
-#pragma mark Getter
 
 @end

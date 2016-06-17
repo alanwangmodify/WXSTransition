@@ -18,7 +18,7 @@
     self = [super init];
     if (self) {
      
-        _animationTime = 0.400082;
+        _animationTime = 0.500082;
 //        _backAnimationTime = _animationTime;
         self.animationType = WXSTransitionAnimationTypeDefault;
         _completionBlock = nil;
@@ -573,7 +573,7 @@
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];
-    UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:YES];
+    UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:NO]; //YES会导致闪一下
 
     [containerView addSubview:toVC.view];
 //    [containerView addSubview:fromVC.view];
@@ -653,10 +653,10 @@
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:YES];
+    UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
     UIView *containView = [transitionContext containerView];
     
-    [containView addSubview:fromVC.view];
+    
     [containView addSubview:toVC.view];
     [containView addSubview:tempView];
     

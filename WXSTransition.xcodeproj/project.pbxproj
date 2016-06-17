@@ -19,7 +19,6 @@
 		9295497C1CFEC5DE00CE4C06 /* PresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295497B1CFEC5DE00CE4C06 /* PresentViewController.m */; };
 		929549921D05530100CE4C06 /* UINavigationController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295498A1D05530100CE4C06 /* UINavigationController+WXSTransition.m */; };
 		929549931D05530100CE4C06 /* UIViewController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295498C1D05530100CE4C06 /* UIViewController+WXSTransition.m */; };
-		929549941D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295498E1D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.m */; };
 		929549951D05530100CE4C06 /* WXSTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 929549901D05530100CE4C06 /* WXSTransitionManager.m */; };
 		92A178F21D13D1FE006D299A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92A178F11D13D1FE006D299A /* Assets.xcassets */; };
 		92ED74621CFD27B8008B4935 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ED74611CFD27B8008B4935 /* TableViewController.m */; };
@@ -71,8 +70,6 @@
 		9295498A1D05530100CE4C06 /* UINavigationController+WXSTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+WXSTransition.m"; sourceTree = "<group>"; };
 		9295498B1D05530100CE4C06 /* UIViewController+WXSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WXSTransition.h"; sourceTree = "<group>"; };
 		9295498C1D05530100CE4C06 /* UIViewController+WXSTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WXSTransition.m"; sourceTree = "<group>"; };
-		9295498D1D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
-		9295498E1D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		9295498F1D05530100CE4C06 /* WXSTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTransitionManager.h; sourceTree = "<group>"; };
 		929549901D05530100CE4C06 /* WXSTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSTransitionManager.m; sourceTree = "<group>"; };
 		929549911D05530100CE4C06 /* WXSTypedefConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTypedefConfig.h; sourceTree = "<group>"; };
@@ -194,8 +191,6 @@
 				9295498A1D05530100CE4C06 /* UINavigationController+WXSTransition.m */,
 				9295498B1D05530100CE4C06 /* UIViewController+WXSTransition.h */,
 				9295498C1D05530100CE4C06 /* UIViewController+WXSTransition.m */,
-				9295498D1D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.h */,
-				9295498E1D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.m */,
 				9295498F1D05530100CE4C06 /* WXSTransitionManager.h */,
 				929549901D05530100CE4C06 /* WXSTransitionManager.m */,
 				920578371D0FFC5400C4D114 /* WXSTransitionPropertyMaker.h */,
@@ -342,7 +337,6 @@
 				920578391D0FFC5400C4D114 /* WXSTransitionPropertyMaker.m in Sources */,
 				92ED74711CFD6811008B4935 /* CollectionViewCell.m in Sources */,
 				925707DD1CFC44AC004EB63C /* SecondViewController.m in Sources */,
-				929549941D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.m in Sources */,
 				929549931D05530100CE4C06 /* UIViewController+WXSTransition.m in Sources */,
 				92ED74741CFD6F5B008B4935 /* DetailViewController.m in Sources */,
 				925707A11CFC1E87004EB63C /* AppDelegate.m in Sources */,

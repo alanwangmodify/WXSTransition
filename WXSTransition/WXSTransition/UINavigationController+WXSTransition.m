@@ -28,29 +28,12 @@
 
 -(void)wxs_pushViewController:(UIViewController *)viewController makeTransition:(WXSTransitionBlock) transitionBlock {
     
-//    WXSPercentDrivenInteractiveTransition *toVCInteraciveTransition = [[WXSPercentDrivenInteractiveTransition alloc] init];
-//    [toVCInteraciveTransition addGestureToViewController:viewController];
-
-//    viewController.toVCInteraciveTransition = self.toVCInteraciveTransition = toVCInteraciveTransition;
-    
-//    __weak typeof (&*viewController)weakVC = viewController;
     self.delegate = viewController;
     viewController.callBackTransition = transitionBlock ? transitionBlock : nil;
     [self pushViewController:viewController animated:YES];
     
 }
 
-
--(void)wxs_addGestureForPushViewController:(UIViewController *)viewController makeTransition:(WXSTransitionBlock) transitionBlock{
-    
-    WXSPercentDrivenInteractiveTransition *fromVCInteraciveTransition = [[WXSPercentDrivenInteractiveTransition alloc] init];
-    [fromVCInteraciveTransition addGestureToViewController:self];
-    
-    viewController.fromVCInteraciveTransition = self.fromVCInteraciveTransition = fromVCInteraciveTransition;
-    [self wxs_pushViewController:viewController makeTransition:transitionBlock];
-    
-    
-}
 
 
 
