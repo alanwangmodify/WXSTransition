@@ -44,7 +44,6 @@ UINavigationControllerOperation _operation;
 //make transition With Completion
 -(void)wxs_presentViewController:(UIViewController *)viewControllerToPresent makeTransition:(WXSTransitionBlock)transitionBlock completion:(void (^)(void))completion{
     
-    
     viewControllerToPresent.transitioningDelegate = viewControllerToPresent;
     viewControllerToPresent.animationType = WXSTransitionAnimationTypeDefault;
     viewControllerToPresent.callBackTransition = transitionBlock ? transitionBlock : nil;
@@ -131,9 +130,6 @@ UINavigationControllerOperation _operation;
     transtion.animationType = [self animationType];
     self.callBackTransition ? self.callBackTransition(transtion) : nil;
     transtion.transitionType = WXSTransitionTypeDismiss;
-    if (transtion.isSysBackAnimation) {
-        return nil;
-    }
     return transtion;
     
 }
@@ -148,7 +144,7 @@ UINavigationControllerOperation _operation;
     return transtion;
     
 }
-
+//
 //-(id<UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator {
 //    
 //    return self.fromVCInteraciveTransition.isInteractive ? self.fromVCInteraciveTransition : nil;
@@ -173,10 +169,7 @@ UINavigationControllerOperation _operation;
     transtion.transitionType = operation == UINavigationControllerOperationPush ? WXSTransitionTypePush : WXSTransitionTypePop;
     
 //    self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
-    
-//    if (transtion.isSysBackAnimation && operation == UINavigationControllerOperationPop) {
-//        return nil;
-//    }
+//    
 //    if (operation == UINavigationControllerOperationPush) {
 //        [self addBackGestureAccordingTransition:transtion];
 //        self.toVCInteraciveTransition.transitionType = WXSTransitionTypePop;
@@ -203,9 +196,11 @@ UINavigationControllerOperation _operation;
 -(void)addBackGestureAccordingTransition:(WXSTransitionManager *)transition{
 
     if (transition.backGestureEnable) {
+        
         WXSPercentDrivenInteractiveTransition *toVCInteraciveTransition = [[WXSPercentDrivenInteractiveTransition alloc] init];
         [toVCInteraciveTransition addGestureToViewController:self];
         toVCInteraciveTransition.getstureType = WXSGestureTypePanRight;
+        
         switch (transition.animationType) {
             case WXSTransitionAnimationTypeDefault:
                 break;

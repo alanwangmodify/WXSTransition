@@ -35,9 +35,6 @@
 //    
 //    self.navigationController.navigationBarHidden = NO;
 
-    
-    
-
 }
 
 -(void)click{

@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
+    
     _names = @[@"pageTransition",@"viewMove",@"cover",@"spread Present",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH"];
 }
 #pragma mark Delegate

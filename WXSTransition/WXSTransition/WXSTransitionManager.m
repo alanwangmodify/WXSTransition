@@ -246,9 +246,7 @@
             [tempView removeFromSuperview];
             toVC.view.hidden = NO;
             toVC.view.alpha = 1;
-            //remove delegate of last view controller from self .
-            toVC.navigationController.delegate = nil;
-            toVC.transitioningDelegate = nil;        }
+        }
     }];
     
 }
@@ -444,14 +442,13 @@
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.delegate = self;
-    
     animation.fromValue = (__bridge id)(startPath.CGPath);
     animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime+0.5;
-    animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.duration = _animationTime;
+    animation.delegate = self;
+//    animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseIn];
     [maskLayer addAnimation:animation forKey:@"NextPath"];
-    
-    
+
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -459,10 +456,16 @@
         }else{
             
             [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
+            fromVC.view.hidden = YES;
         }
-        [tempView removeFromSuperview];
+//        [tempView removeFromSuperview];
     };
+    
+    [UIView animateWithDuration:_animationTime+0.2 animations:^{
+        
+    } completion:^(BOOL finished) {
+    
+    }];
     
 }
 
@@ -1056,6 +1059,21 @@
     
     
 }
+-(void)fragmentNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containView = [transitionContext containerView];
+    
+    [containView addSubview:toVC.view];
+    [containView addSubview:fromVC.view];
+    
+    CGFloat viewWidth = toVC.view.bounds.size.width;
+    CGFloat viewHeight = toVC.view.bounds.size.height;    
+    
+}
+-(void)fragmentBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    
+}
 #pragma mark Other
 
 - (void)removeDelegate {
@@ -1085,11 +1103,10 @@
         default:{ //Back
             RemoveDelegateBlock ? RemoveDelegateBlock() : nil;
             containView = nil;
-            NSLog(@":remove");
-
         }
             break;
     }
+    
 
 }
 

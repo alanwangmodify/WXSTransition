@@ -30,7 +30,7 @@
     
 //    WXSPercentDrivenInteractiveTransition *toVCInteraciveTransition = [[WXSPercentDrivenInteractiveTransition alloc] init];
 //    [toVCInteraciveTransition addGestureToViewController:viewController];
-//    
+
 //    viewController.toVCInteraciveTransition = self.toVCInteraciveTransition = toVCInteraciveTransition;
     
 //    __weak typeof (&*viewController)weakVC = viewController;
