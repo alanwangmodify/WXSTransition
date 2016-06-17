@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     UIImageView *bgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    bgView.image = [UIImage imageNamed:@"bg"];
+    bgView.image = [UIImage imageNamed:@"bg1"];
     [self.view addSubview:bgView];
     
     self.view.backgroundColor = [UIColor whiteColor];

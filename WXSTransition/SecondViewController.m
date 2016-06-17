@@ -23,7 +23,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIImageView *bgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    bgView.image = [UIImage imageNamed:@"bg"];
+    bgView.image = [UIImage imageNamed:@"bg2"];
     [self.view addSubview:bgView];
     
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, 100)];

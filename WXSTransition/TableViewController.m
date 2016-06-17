@@ -25,6 +25,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     _names = @[@"Fade",
                @"Push",@"Push",@"Push",@"Push",
                @"Reveal",@"Reveal",@"Reveal",@"Reveal",
@@ -66,7 +67,7 @@
     }
     cell.textLabel.text = indexPath.row < WXSTransitionAnimationTypeSysCameraIrisHollowClose ? _names[indexPath.row] : @"转场动画";
     
-    cell.backgroundColor = indexPath.section == 0 ? [UIColor whiteColor] : [UIColor yellowColor] ;
+    cell.backgroundColor = [UIColor whiteColor] ;
     return cell;
 }
 

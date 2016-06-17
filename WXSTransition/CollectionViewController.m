@@ -9,6 +9,7 @@
 #import "CollectionViewController.h"
 #import "CollectionViewCell.h"
 #import "DetailViewController.h"
+#import "UINavigationController+WXSTransition.h"
 @interface CollectionViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 @property (nonatomic,strong) UICollectionView *collectionView;
 
@@ -47,7 +48,10 @@ static NSString *identifier  = @"identifier";
     CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     self.navigationController.delegate =vc;
     vc.starView = cell.imgView;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
+        transition.animationType = WXSTransitionAnimationTypeViewMoveToNextVC;
+        transition.animationTime = 1;
+    }];
 }
 
 #pragma mark Getter

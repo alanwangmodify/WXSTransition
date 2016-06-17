@@ -12,7 +12,6 @@
 		925707A11CFC1E87004EB63C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707A01CFC1E87004EB63C /* AppDelegate.m */; };
 		925707A41CFC1E87004EB63C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707A31CFC1E87004EB63C /* ViewController.m */; };
 		925707A71CFC1E87004EB63C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 925707A51CFC1E87004EB63C /* Main.storyboard */; };
-		925707A91CFC1E87004EB63C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 925707A81CFC1E87004EB63C /* Assets.xcassets */; };
 		925707AC1CFC1E87004EB63C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 925707AA1CFC1E87004EB63C /* LaunchScreen.storyboard */; };
 		925707B71CFC1E87004EB63C /* WXSTransitionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707B61CFC1E87004EB63C /* WXSTransitionTests.m */; };
 		925707C21CFC1E87004EB63C /* WXSTransitionUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707C11CFC1E87004EB63C /* WXSTransitionUITests.m */; };
@@ -22,6 +21,7 @@
 		929549931D05530100CE4C06 /* UIViewController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295498C1D05530100CE4C06 /* UIViewController+WXSTransition.m */; };
 		929549941D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295498E1D05530100CE4C06 /* WXSPercentDrivenInteractiveTransition.m */; };
 		929549951D05530100CE4C06 /* WXSTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 929549901D05530100CE4C06 /* WXSTransitionManager.m */; };
+		92A178F21D13D1FE006D299A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92A178F11D13D1FE006D299A /* Assets.xcassets */; };
 		92ED74621CFD27B8008B4935 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ED74611CFD27B8008B4935 /* TableViewController.m */; };
 		92ED746E1CFD66F9008B4935 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ED746D1CFD66F9008B4935 /* CollectionViewController.m */; };
 		92ED74711CFD6811008B4935 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ED74701CFD6811008B4935 /* CollectionViewCell.m */; };
@@ -55,7 +55,6 @@
 		925707A21CFC1E87004EB63C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		925707A31CFC1E87004EB63C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		925707A61CFC1E87004EB63C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		925707A81CFC1E87004EB63C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		925707AB1CFC1E87004EB63C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		925707AD1CFC1E87004EB63C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		925707B21CFC1E87004EB63C /* WXSTransitionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WXSTransitionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +76,7 @@
 		9295498F1D05530100CE4C06 /* WXSTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTransitionManager.h; sourceTree = "<group>"; };
 		929549901D05530100CE4C06 /* WXSTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSTransitionManager.m; sourceTree = "<group>"; };
 		929549911D05530100CE4C06 /* WXSTypedefConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTypedefConfig.h; sourceTree = "<group>"; };
+		92A178F11D13D1FE006D299A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92ED74601CFD27B8008B4935 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		92ED74611CFD27B8008B4935 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		92ED746C1CFD66F9008B4935 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 				925707DC1CFC44AC004EB63C /* SecondViewController.m */,
 				929549881D05530100CE4C06 /* WXSTransition */,
 				925707A51CFC1E87004EB63C /* Main.storyboard */,
-				925707A81CFC1E87004EB63C /* Assets.xcassets */,
 				925707AA1CFC1E87004EB63C /* LaunchScreen.storyboard */,
 				925707AD1CFC1E87004EB63C /* Info.plist */,
 				9257079C1CFC1E87004EB63C /* Supporting Files */,
@@ -165,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				9257079D1CFC1E87004EB63C /* main.m */,
+				92A178F11D13D1FE006D299A /* Assets.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -310,7 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				925707AC1CFC1E87004EB63C /* LaunchScreen.storyboard in Resources */,
-				925707A91CFC1E87004EB63C /* Assets.xcassets in Resources */,
+				92A178F21D13D1FE006D299A /* Assets.xcassets in Resources */,
 				925707A71CFC1E87004EB63C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
