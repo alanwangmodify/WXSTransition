@@ -67,7 +67,10 @@ typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
     
     WXSTransitionAnimationTypeCover,
     
-    WXSTransitionAnimationTypeSpreadPresent,
+    WXSTransitionAnimationTypeSpreadFromRight,
+    WXSTransitionAnimationTypeSpreadFromLeft,
+    WXSTransitionAnimationTypeSpreadFromTop,
+    WXSTransitionAnimationTypeSpreadFromBottom,
     WXSTransitionAnimationTypePointSpreadPresent,
     
     WXSTransitionAnimationTypeBoom,

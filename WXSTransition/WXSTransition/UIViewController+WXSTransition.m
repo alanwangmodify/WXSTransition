@@ -5,7 +5,7 @@
 
 static NSString *AnimationTypeKey = @"animationTypeKey";
 static NSString *TargetViewKey = @"TargetViewKey";
-static NSString *StarViewKey = @"StarViewKey";
+static NSString *startViewKey = @"startViewKey";
 static NSString *CallBackTransitionKey = @"CallBackTransitionKey";
 static NSString *FromVCInteraciveTransitionKey = @"fromVCInteraciveTransitionKey";
 static NSString *ToVCInteraciveTransitionKey = @"ToVCInteraciveTransitionKey";
@@ -71,12 +71,12 @@ UINavigationControllerOperation _operation;
 -(UIView *)targetView{
     return objc_getAssociatedObject(self, &TargetViewKey);
 }
-//----- starView
--(void)setStarView:(UIView *)starView {
-    objc_setAssociatedObject(self, &StarViewKey, starView, OBJC_ASSOCIATION_RETAIN);
+//----- startView
+-(void)setStartView:(UIView *)startView {
+    objc_setAssociatedObject(self, &startViewKey, startView, OBJC_ASSOCIATION_RETAIN);
 }
--(UIView *)starView {
-    return objc_getAssociatedObject(self, &StarViewKey);
+-(UIView *)startView {
+    return objc_getAssociatedObject(self, &startViewKey);
 }
 
 //----- CallBackTransition
@@ -107,7 +107,6 @@ UINavigationControllerOperation _operation;
     transtion.animationType = [self animationType];
     self.callBackTransition ? self.callBackTransition(transtion) : nil;
     transtion.transitionType = WXSTransitionTypePresent;
-//    self.toVCInteraciveTransition.transitionType = WXSTransitionTypeDismiss;
     return transtion;
     
 }

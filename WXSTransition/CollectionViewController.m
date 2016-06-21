@@ -47,7 +47,7 @@ static NSString *identifier  = @"identifier";
     
     CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     self.navigationController.delegate =vc;
-    vc.starView = cell.imgView;
+    vc.startView = cell.imgView;
     [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
         transition.animationType = WXSTransitionAnimationTypeViewMoveToNextVC;
         transition.animationTime = 1;

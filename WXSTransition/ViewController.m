@@ -11,6 +11,7 @@
 @interface ViewController ()
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *names;
+@property (nonatomic,strong) NSArray *customNames;
 
 @end
 
@@ -32,7 +33,9 @@
     self.navigationController.view.layer.cornerRadius = 7.0;
     self.navigationController.view.layer.masksToBounds = YES;
     
-    _names = @[@"pageTransition",@"viewMove",@"cover",@"spread Present",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH"];
+    _names = @[@"pageTransition",@"viewMove",@"cover",@"spreadFromRight",@"spreadFromLeft",@"spreadFromTop",@"spreadFromBottom",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH"];
+    _customNames = @[@"poitnt spread from tap center",@" "];
+    
 }
 #pragma mark Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -45,7 +48,7 @@
             return WXSTransitionAnimationTypeBrickCloseHorizontal - WXSTransitionAnimationTypeDefault;
             break;
         default:
-            return 10;
+            return _customNames.count;
             break;
     }
 }
@@ -101,7 +104,7 @@
             cell.textLabel.text = indexPath.row < _names.count ? _names[indexPath.row] : @"other";
             break;
         default:
-            cell.textLabel.text = @"00";
+            cell.textLabel.text = indexPath.row < _customNames.count ? _customNames[indexPath.row] : @"other";
             break;
     }
     cell.imageView.image = [UIImage imageNamed:@"start"];
@@ -139,15 +142,33 @@
             break;
             
         default:{
+            switch (indexPath.row) {
+                case 0:{
+                 
+                    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                    SecondViewController *vc = [[SecondViewController alloc] init];
+                    vc.startView = cell.contentView;
+                    [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
+                        transition.animationType =  WXSTransitionAnimationTypePointSpreadPresent;
+                        transition.animationTime = 1;
 
+                    }];
+
+                }
+                    break;
+                case 1:{
+                    
+            
+                    
+                }
+                    
+                default:
+                    break;
+            }
         }
             break;
     }
-    
-    
-    
-    
-    
+
 }
 
 #pragma mark Getter
