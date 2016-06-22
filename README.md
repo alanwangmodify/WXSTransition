@@ -14,15 +14,17 @@ transition animation asset
 #####2、一行代码就可以调用
 Push:
 ```
- [self.navigationController wxs_pushViewController:<#(UIViewController *)#> animationType:<#(WXSTransitionAnimationType)#>];
+ [self.navigationController wxs_pushViewController:(UIViewController *) animationType:(WXSTransitionAnimationType)];
 ```
 Present:
 
 ```
-[self wxs_presentViewController:<#(UIViewController *)#> animationType:<#(WXSTransitionAnimationType)#> completion:<#^(void)completion#>]
-```
+[self wxs_presentViewController:(UIViewController *) animationType:(WXSTransitionAnimationType) completion:^{
 
-```(WXSTransitionAnimationType)```是转场动画类型，通过这个枚举选择你想要的转场动画。
+}];
+```
+说明：
+WXSTransitionAnimationType)是转场动画类型，通过这个枚举选择你想要的转场动画。
 
 #####3、支持属性修改
 
