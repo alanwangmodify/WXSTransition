@@ -1,11 +1,15 @@
 # WXSTransition
 
 ###介绍
-transition animation asset 
+transition animation asset 
 一个界面转场动画集。
+
+
+
 在平时开发中，有时候需要一些转场动画给界面调整增添一些活力，而实现这些动画相对比较繁琐。
-为了让我写了这个界面转场动画集。
-调整界面时，只要一行代码就可以
+为了让实现转场更简单，我写了这个界面转场动画集。
+调整界面时，只要一行代码就可以实现这里面的动画。
+包括系统提供的动画在内，目前有大概50种动画。
 
 ###使用方法
 #####1、首先导入头文件
@@ -14,7 +18,7 @@ transition animation asset
 #####2、一行代码就可以调用
 Push:
 ```
- [self.navigationController wxs_pushViewController:(UIViewController *) animationType:(WXSTransitionAnimationType)];
+ [self.navigationController wxs_pushViewController:(UIViewController *) animationType:(WXSTransitionAnimationType)];
 ```
 Present:
 
@@ -30,7 +34,7 @@ WXSTransitionAnimationType是转场动画类型，通过这个枚举选择你想
 
 ```
 [self wxs_presentViewController:<#(UIViewController *)#> makeTransition:^(WXSTransitionManager *transition) {
-transition.animationType =  WXSTransitionAnimationTypePointSpreadPresent;
+transition.animationType =  WXSTransitionAnimationTypePointSpreadPresent;
 transition.animationTime = 1;
 }];
 ```
@@ -63,7 +67,6 @@ transition.animationTime = 1;
 ![spread_from_top.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/spread_from_top.gif)
 ![view_move_next.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/view_move_next.gif)
 
-
 ######系统动画
 iOS自身其实有许多不错的转场动画，在这个转场动画集里也进行了封装，使用方法跟自定义转场动画一样。
 Push:
@@ -85,10 +88,3 @@ Present:
 1、添加一些酷炫的转场动画
 2、支持交互手势
 3、提供自定义动画接口，让使用者想实现自己的转场动画时，不用实现各种代理等繁琐工作，专注于fromVC,和toVC的动画逻辑。
-
-
-
-
-
-
-
