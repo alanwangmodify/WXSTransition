@@ -138,6 +138,10 @@
                 return;
             }
             [self wxs_presentViewController:[[PresentViewController alloc] init] animationType:WXSTransitionAnimationTypePageTransition + indexPath.row completion:nil];
+            
+            
+    
+            
         }
             break;
             
@@ -153,6 +157,9 @@
                         transition.animationTime = 1;
 
                     }];
+                    
+                    
+                    
 
                 }
                     break;

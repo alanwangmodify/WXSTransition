@@ -43,10 +43,7 @@ static NSString *identifier  = @"identifier";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     DetailViewController *vc = [[DetailViewController alloc] init];
-    vc.animationType = WXSTransitionAnimationTypeViewMoveToNextVC;
-    
     CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    self.navigationController.delegate =vc;
     vc.startView = cell.imgView;
     [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
         transition.animationType = WXSTransitionAnimationTypeViewMoveToNextVC;
