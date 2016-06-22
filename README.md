@@ -17,19 +17,12 @@ transition animation asset
 ![view_move_next.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/view_move_next.gif)
 
 
-![sys_oglFlip.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/sys_oglFlip.gif)
-![sys_pageCurl.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/sys_pageCurl.gif)
+
 
 
 
 让页面间的转场变得简单起来。
 同时提供了一些接口可以设置动画时间 类型等。
 
-
-	gifs	an hour ago
-	gifs	an hour ago
-	gifs	an hour ago
-	gifs	an hour ago
-	gifs	an hour ago
-	gifs	an hour ago
-	gifs	an hour ago
+![sys_oglFlip.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/sys_oglFlip.gif)
+![sys_pageCurl.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/sys_pageCurl.gif)
