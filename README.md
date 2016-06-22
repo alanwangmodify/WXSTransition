@@ -24,7 +24,7 @@ Present:
 }];
 ```
 说明：
-WXSTransitionAnimationType)是转场动画类型，通过这个枚举选择你想要的转场动画。
+WXSTransitionAnimationType是转场动画类型，通过这个枚举选择你想要的转场动画。
 
 #####3、支持属性修改
 
@@ -78,3 +78,17 @@ Present:
 
 ![sys_oglFlip.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/sys_oglFlip.gif)
 ![sys_pageCurl.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/sys_pageCurl.gif)
+
+###后语
+
+现在是第一个版本，原本准备支持交互手势，但是一些动画使用了交互手势存在许多问题，所以这个版本去除了，准备在以后的版本中增加一些一下功能：
+1、添加一些酷炫的转场动画
+2、支持交互手势
+3、提供自定义动画接口，让使用者想实现自己的转场动画时，不用实现各种代理等繁琐工作，专注于fromVC,和toVC的动画逻辑。
+
+
+
+
+
+
+
