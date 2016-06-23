@@ -69,6 +69,7 @@ transition.animationTime = 1;
 
 ######系统动画
 iOS自身其实有许多不错的转场动画，在这个转场动画集里也进行了封装，使用方法跟自定义转场动画一样。
+
 Push:
 ```
 [self.navigationController wxs_pushViewController:<#(UIViewController *)#> animationType:<#(WXSTransitionAnimationType)#>];
@@ -84,7 +85,7 @@ Present:
 
 ###后语
 
-现在是第一个版本，原本准备支持交互手势，但是一些动画使用了交互手势存在许多问题，所以这个版本去除了，准备在以后的版本中增加一些一下功能：
+现在是第一个版本，原本准备支持交互手势，但是一些动画使用了交互手势存在许多问题，所以这个版本去除了，准备在以后的版本中增加一些以下功能：
 1、添加一些酷炫的转场动画
 2、支持交互手势
 3、提供自定义动画接口，让使用者想实现自己的转场动画时，不用实现各种代理等繁琐工作，专注于fromVC,和toVC的动画逻辑。

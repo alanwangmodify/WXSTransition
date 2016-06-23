@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92433A541D18D49C004ADA9D /* WXSPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 92433A531D18D49C004ADA9D /* WXSPercentDrivenInteractiveTransition.m */; };
 		9257079E1CFC1E87004EB63C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257079D1CFC1E87004EB63C /* main.m */; };
 		925707A11CFC1E87004EB63C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707A01CFC1E87004EB63C /* AppDelegate.m */; };
 		925707A41CFC1E87004EB63C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707A31CFC1E87004EB63C /* ViewController.m */; };
@@ -44,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		92433A521D18D49C004ADA9D /* WXSPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
+		92433A531D18D49C004ADA9D /* WXSPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		925707991CFC1E87004EB63C /* WXSTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WXSTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9257079D1CFC1E87004EB63C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9257079F1CFC1E87004EB63C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -190,6 +193,8 @@
 				9295498C1D05530100CE4C06 /* UIViewController+WXSTransition.m */,
 				9295498F1D05530100CE4C06 /* WXSTransitionManager.h */,
 				929549901D05530100CE4C06 /* WXSTransitionManager.m */,
+				92433A521D18D49C004ADA9D /* WXSPercentDrivenInteractiveTransition.h */,
+				92433A531D18D49C004ADA9D /* WXSPercentDrivenInteractiveTransition.m */,
 				929549911D05530100CE4C06 /* WXSTypedefConfig.h */,
 			);
 			path = WXSTransition;
@@ -327,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9295497C1CFEC5DE00CE4C06 /* PresentViewController.m in Sources */,
+				92433A541D18D49C004ADA9D /* WXSPercentDrivenInteractiveTransition.m in Sources */,
 				92ED746E1CFD66F9008B4935 /* CollectionViewController.m in Sources */,
 				925707A41CFC1E87004EB63C /* ViewController.m in Sources */,
 				92ED74711CFD6811008B4935 /* CollectionViewCell.m in Sources */,
