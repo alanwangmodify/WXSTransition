@@ -44,6 +44,8 @@ transition.animationTime = 1;
 
 像point Spread 、ViewMoveToNextVC这样的动画，需要个起始view，只要将目标控制器的startView指向这个view就可以了，代码如下；
 
+![view_move_next.gif](http://upload-images.jianshu.io/upload_images/1819750-f1844a487d21b5ae.gif?imageMogr2/auto-orient/strip)
+
 ```
 DetailViewController *vc = [[DetailViewController alloc] init];
 CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
@@ -54,18 +56,18 @@ transition.animationTime = 1;
 }];
 
 ```
-![view_move_next.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/view_move_next.gif)
+
 ###动画效果图
 
 #####自定义动画
-![boom.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/boom.gif)
-![brick_close_H.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/brick_close_H.gif)
-![brick_open_V.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/brick_open_V.gif)
-![cover.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/cover.gif)
-![point_spread.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/point_spread.gif)
-![spread_from_right.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/spread_from_right.gif)
-![spread_from_top.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/spread_from_top.gif)
-![view_move_next.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/view_move_next.gif)
+![boom.gif](http://upload-images.jianshu.io/upload_images/1819750-002a3e7ba717a4a2.gif?imageMogr2/auto-orient/strip)
+![brick_close_H.gif](http://upload-images.jianshu.io/upload_images/1819750-1233dff7dcc1f781.gif?imageMogr2/auto-orient/strip)
+![brick_open_V.gif](http://upload-images.jianshu.io/upload_images/1819750-ac6f189e6ab77103.gif?imageMogr2/auto-orient/strip)
+![cover.gif](http://upload-images.jianshu.io/upload_images/1819750-b0d659fc4ac51cce.gif?imageMogr2/auto-orient/strip)
+![point_spread.gif](http://upload-images.jianshu.io/upload_images/1819750-9ae58fa6a6a944e8.gif?imageMogr2/auto-orient/strip)
+![spread_from_right.gif](http://upload-images.jianshu.io/upload_images/1819750-0b3716c415b1440d.gif?imageMogr2/auto-orient/strip)
+![spread_from_top.gif](http://upload-images.jianshu.io/upload_images/1819750-3886af1868ca5484.gif?imageMogr2/auto-orient/strip)
+![view_move_next.gif](http://upload-images.jianshu.io/upload_images/1819750-f1844a487d21b5ae.gif?imageMogr2/auto-orient/strip)
 
 ######系统动画
 iOS自身其实有许多不错的转场动画，在这个转场动画集里也进行了封装，使用方法跟自定义转场动画一样。
