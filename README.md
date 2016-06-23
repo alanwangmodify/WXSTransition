@@ -60,13 +60,23 @@ transition.animationTime = 1;
 ###动画效果图
 
 #####自定义动画
+
+boom:
 ![boom.gif](http://upload-images.jianshu.io/upload_images/1819750-002a3e7ba717a4a2.gif?imageMogr2/auto-orient/strip)
+
+brick:
 ![brick_close_H.gif](http://upload-images.jianshu.io/upload_images/1819750-1233dff7dcc1f781.gif?imageMogr2/auto-orient/strip)
 ![brick_open_V.gif](http://upload-images.jianshu.io/upload_images/1819750-ac6f189e6ab77103.gif?imageMogr2/auto-orient/strip)
+
+cove:
 ![cover.gif](http://upload-images.jianshu.io/upload_images/1819750-b0d659fc4ac51cce.gif?imageMogr2/auto-orient/strip)
+
+spread:
 ![point_spread.gif](http://upload-images.jianshu.io/upload_images/1819750-9ae58fa6a6a944e8.gif?imageMogr2/auto-orient/strip)
 ![spread_from_right.gif](http://upload-images.jianshu.io/upload_images/1819750-0b3716c415b1440d.gif?imageMogr2/auto-orient/strip)
 ![spread_from_top.gif](http://upload-images.jianshu.io/upload_images/1819750-3886af1868ca5484.gif?imageMogr2/auto-orient/strip)
+
+view move:
 ![view_move_next.gif](http://upload-images.jianshu.io/upload_images/1819750-f1844a487d21b5ae.gif?imageMogr2/auto-orient/strip)
 
 ######系统动画
