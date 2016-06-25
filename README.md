@@ -95,6 +95,9 @@ Present:
 ![sys_oglFlip.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/sys_oglFlip.gif)
 ![sys_pageCurl.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/sys_pageCurl.gif)
 
+
+喜欢在大家平时的开发中能有所帮助，喜欢的同学劳烦加个Star
+
 ###后语
 
 现在是第一个版本，原本准备支持交互手势，但是一些动画使用了交互手势存在许多问题，所以这个版本去除了，准备在以后的版本中增加一些以下功能：
