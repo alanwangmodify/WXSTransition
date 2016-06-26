@@ -140,7 +140,7 @@
     CATransition *tranAnimation = [self getSysTransitionWithType:type];
     [containerView.layer addAnimation:tranAnimation forKey:nil];
     
-////    __weak __typeof (&*self)weakSelf = self;
+//    __weak __typeof (&*self)weakSelf = self;
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -1699,8 +1699,5 @@
     }
     return tranAnimation;
 }
--(void)brickAnimationWithRect0:(CGRect) rect0 andRect1:(CGRect) rect1{
-    
-    
-}
+
 @end
