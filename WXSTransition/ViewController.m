@@ -52,6 +52,7 @@
             break;
     }
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 4;
 }
@@ -110,6 +111,7 @@
     cell.imageView.image = [UIImage imageNamed:@"start"];
     return cell;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
