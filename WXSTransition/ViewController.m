@@ -45,7 +45,7 @@
             break;
         case 1:
         case 2:
-            return WXSTransitionAnimationTypeFragment - WXSTransitionAnimationTypeDefault;
+            return WXSTransitionAnimationTypeFragmentHide - WXSTransitionAnimationTypeDefault;
             break;
         default:
             return _customNames.count;
