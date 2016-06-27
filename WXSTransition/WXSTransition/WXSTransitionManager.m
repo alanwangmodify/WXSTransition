@@ -1315,22 +1315,130 @@
     
 }
 -(void)fragmentNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-//    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-//    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-//    UIView *containView = [transitionContext containerView];
-//    
-//    [containView addSubview:toVC.view];
-//    [containView addSubview:fromVC.view];
-//    
-//    CGFloat viewWidth = toVC.view.bounds.size.width;
-//    CGFloat viewHeight = toVC.view.bounds.size.height;    
+
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containerView = [transitionContext containerView];
+    UIView *fromTempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
+    
+    [containerView addSubview:toVC.view];
+
+    NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
+    
+    CGSize size = fromVC.view.frame.size;
+    CGFloat fragmentWidth = 20.0f;
+    CGFloat fragmentHeight = fragmentWidth * size.height / size.width;
+  
+    NSInteger rowNum = size.width/fragmentWidth + 1;
+    for (int i = 0; i < rowNum ; i++) {
+        
+        for (int j = 0; j < size.height/fragmentHeight + 1; j++) {
+            
+            CGRect rect = CGRectMake(i*fragmentWidth, j*fragmentHeight, fragmentWidth, fragmentHeight);
+            UIView *fragmentView = [fromTempView resizableSnapshotViewFromRect:rect  afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
+            [containerView addSubview:fragmentView];
+            [fragmentViews addObject:fragmentView];
+            fragmentView.frame = rect;
+        }
+        
+    }
+
+    toVC.view.hidden = NO;
+    fromVC.view.hidden = YES;
+    
+    [UIView animateWithDuration:_animationTime animations:^{
+        for (UIView *fragmentView in fragmentViews) {
+            
+            CGRect rect = fragmentView.frame;
+            rect.origin.y = rect.origin.y - arc4random()%50 *10;
+            fragmentView.frame = rect;
+            fragmentView.alpha = 0.0;
+        }
+    } completion:^(BOOL finished) {
+        for (UIView *fragmentView in fragmentViews) {
+            [fragmentView removeFromSuperview];
+        }
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+            fromVC.view.hidden = NO;
+        }else{
+            [transitionContext completeTransition:YES];
+            fromVC.view.hidden = NO;
+        }
+        
+    }];
+    
     
 }
 -(void)fragmentBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
+    
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containerView = [transitionContext containerView];
+    UIView *toTempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
+    
+    [containerView addSubview:fromVC.view];
+    [containerView addSubview:toVC.view];
+    
+    NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
+    
+    CGSize size = fromVC.view.frame.size;
+    CGFloat fragmentWidth = 20.0f;
+    CGFloat fragmentHeight = fragmentWidth * size.height / size.width;
+    
+    NSInteger rowNum = size.width/fragmentWidth + 1;
+
+    for (int i = 0; i < rowNum ; i++) {
+        
+        for (int j = 0; j < size.height/fragmentHeight + 1; j++) {
+            
+            CGRect rect = CGRectMake(i*fragmentWidth, j*fragmentHeight, fragmentWidth, fragmentHeight);
+            UIView *fragmentView = [toTempView resizableSnapshotViewFromRect:rect  afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
+            [containerView addSubview:fragmentView];
+            [fragmentViews addObject:fragmentView];
+            fragmentView.frame = rect;
+            fragmentView.layer.transform = CATransform3DMakeTranslation(0, -10, 0);
+            fragmentView.alpha = 1;
+            
+            fragmentView.frame = CGRectMake(20, 20, 100, 100);
+        }
+        
+    }
+    
+    toVC.view.hidden = YES;
+    fromVC.view.hidden = NO;
+    
+    [UIView animateWithDuration:_animationTime animations:^{
+        
+        for (int i = 0; i < rowNum ; i++) {
+            for (int j = 0; j < size.height/fragmentHeight + 1; j++) {
+                for (UIView *fragmentView in fragmentViews) {
+//                    fragmentView.layer.transform = CATransform3DIdentity;
+                    fragmentView.alpha = 1;
+                }
+            }
+        }
+        
+    } completion:^(BOOL finished) {
+        for (UIView *fragmentView in fragmentViews) {
+            [fragmentView removeFromSuperview];
+        }
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+            toVC.view.hidden = YES;
+            fromVC.view.hidden = NO;
+        }else{
+            [transitionContext completeTransition:YES];
+            toVC.view.hidden = NO;
+            fromVC.view.hidden = YES;
+        }
+        
+    }];
+    
+    
 }
 #pragma mark Other
-
 - (void)removeDelegate {
     
     UIViewController *fromVC = [_transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -1699,5 +1807,7 @@
     }
     return tranAnimation;
 }
+
+
 
 @end
