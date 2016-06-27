@@ -79,7 +79,8 @@ typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
     WXSTransitionAnimationTypeBrickOpenHorizontal,
     WXSTransitionAnimationTypeBrickCloseVertical, 
     WXSTransitionAnimationTypeBrickCloseHorizontal,
-//    WXSTransitionAnimationTypeFragment,
+    WXSTransitionAnimationTypeFragmentShow,
+    WXSTransitionAnimationTypeFragmentHide,
 };
 
 typedef NS_ENUM(NSInteger,WXSTransitionType){
