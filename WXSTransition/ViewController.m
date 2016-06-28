@@ -33,7 +33,7 @@
     self.navigationController.view.layer.cornerRadius = 7.0;
     self.navigationController.view.layer.masksToBounds = YES;
     
-    _names = @[@"pageTransition",@"viewMove",@"cover",@"spreadFromRight",@"spreadFromLeft",@"spreadFromTop",@"spreadFromBottom",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH",@"fragmentShow",@"fragmenHide"];
+    _names = @[@"pageTransition",@"viewMove",@"cover",@"spreadFromRight",@"spreadFromLeft",@"spreadFromTop",@"spreadFromBottom",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH",@"fragmentShowFromRight",@"fragmentShowFromLeft",@"fragmentShowFromTop",@"fragmentShowFromBottom",@"fragmenHide"];
     _customNames = @[@"poitnt spread from tap center",@" "];
     
 }

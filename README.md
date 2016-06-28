@@ -77,7 +77,8 @@ spread:
 ![spread_from_top.gif](http://upload-images.jianshu.io/upload_images/1819750-3886af1868ca5484.gif?imageMogr2/auto-orient/strip)
 
 view move:
-![view_move_next.gif](http://upload-images.jianshu.io/upload_images/1819750-f1844a487d21b5ae.gif?imageMogr2/auto-orient/strip)
+![view_move_next.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/view_move_next.gif)
+
 
 ######系统动画
 iOS自身其实有许多不错的转场动画，在这个转场动画集里也进行了封装，使用方法跟自定义转场动画一样。
