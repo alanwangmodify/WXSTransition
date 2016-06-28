@@ -44,7 +44,7 @@ transition.animationTime = 1;
 
 像point Spread 、ViewMoveToNextVC这样的动画，需要个起始view，只要将目标控制器的startView指向这个view就可以了，代码如下；
 
-![view_move_next.gif](http://upload-images.jianshu.io/upload_images/1819750-f1844a487d21b5ae.gif?imageMogr2/auto-orient/strip)
+![view_move_next.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/view_move_next.gif)
 
 ```
 DetailViewController *vc = [[DetailViewController alloc] init];
