@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger,WXSTransitionType){
 
 
 typedef NS_ENUM(NSInteger,WXSGestureType){
-    
+
     WXSGestureTypeNone,
     WXSGestureTypePanLeft,
     WXSGestureTypePanRight,

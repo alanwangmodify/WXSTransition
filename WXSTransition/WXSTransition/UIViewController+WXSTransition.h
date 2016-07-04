@@ -1,7 +1,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WXSTransitionManager.h"
-
+#import "WXSTransitionProperty.h"
 
 typedef void(^WXSTransitionBlock)(WXSTransitionManager *transition);
 
