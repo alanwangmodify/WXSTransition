@@ -18,7 +18,6 @@ typedef void(^ActionBlock)(void);
 @property (readonly, assign, nonatomic) BOOL isInteractive;
 @property (nonatomic, assign) WXSTransitionType transitionType;
 
-
 @property (nonatomic, copy) ActionBlock presentBlock;
 @property (nonatomic, copy) ActionBlock pushBlock;
 @property (nonatomic, copy) ActionBlock dismissBlock;

@@ -60,7 +60,6 @@
         default:
             break;
     }
-
     
     switch (pan.state) {
         case UIGestureRecognizerStateBegan:{

@@ -36,8 +36,17 @@
 - (void)animationEnded:(BOOL) transitionCompleted{
     
     if (transitionCompleted) {
-        
         [self removeDelegate];
+    }else {
+//        UIViewController *fromVC = [_transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+//        UIViewController *toVC = [_transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+//        UIView *containView = [_transitionContext containerView];
+//        NSArray *subViews = containView.subviews;
+//        for (UIView *view in subViews) {
+//            if (view != fromVC.view && view != toVC.view) {
+//                [view removeFromSuperview];
+//            }
+//        }
     }
 }
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
@@ -237,7 +246,6 @@
         
     } completion:^(BOOL finished) {
         if ([transitionContext transitionWasCancelled]) {
-            
             fromVC.view.alpha = 1;
             [transitionContext completeTransition:NO];
         }else{
@@ -392,6 +400,7 @@
         
         if ([transitionContext transitionWasCancelled]) {
             
+            fromVC.view.hidden = NO;
             [transitionContext completeTransition:NO];
             tempView.alpha = 1;
             tempView.layer.transform = CATransform3DIdentity;
@@ -933,6 +942,7 @@
 
             [transitionContext completeTransition:NO];
             fromVC.view.hidden = NO;
+            [tempView removeFromSuperview];
             
         }else{
             [transitionContext completeTransition:YES];
@@ -980,6 +990,8 @@
         
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
+            [imgView0 removeFromSuperview];
+            [imgView1 removeFromSuperview];
         }else{
             [transitionContext completeTransition:YES];
             [imgView0 removeFromSuperview];
@@ -1073,7 +1085,11 @@
     } completion:^(BOOL finished) {
         
         if ([transitionContext transitionWasCancelled]) {
+            
             [transitionContext completeTransition:NO];
+            [imgView0 removeFromSuperview];
+            [imgView1 removeFromSuperview];
+            
         }else{
             [transitionContext completeTransition:YES];
             [imgView0 removeFromSuperview];
@@ -1215,9 +1231,10 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            [imgView0 removeFromSuperview];
-            [imgView1 removeFromSuperview];
+            
         }
+        [imgView0 removeFromSuperview];
+        [imgView1 removeFromSuperview];
     }];
 
 }
@@ -1307,9 +1324,10 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            [imgView0 removeFromSuperview];
-            [imgView1 removeFromSuperview];
+            
         }
+        [imgView0 removeFromSuperview];
+        [imgView1 removeFromSuperview];
     }];
     
     

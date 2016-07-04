@@ -11,6 +11,7 @@ static NSString *FromVCInteraciveTransitionKey = @"fromVCInteraciveTransitionKey
 static NSString *ToVCInteraciveTransitionKey = @"ToVCInteraciveTransitionKey";
 
 UINavigationControllerOperation _operation;
+WXSPercentDrivenInteractiveTransition *_interactive;
 
 @implementation UIViewController (WXSTransition)
 
@@ -111,7 +112,14 @@ UINavigationControllerOperation _operation;
     
 }
 
-
+//- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator{
+//   
+//    return nil;
+//}
+//
+//- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator{
+//    return nil;
+//}
 
 
 //  ********************** Push Pop **********************
@@ -125,9 +133,26 @@ UINavigationControllerOperation _operation;
     transtion.transitionType = operation == UINavigationControllerOperationPush ? WXSTransitionTypePush : WXSTransitionTypePop;
     return transtion;
     
+    
 }
 
-
+- (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
+    
+    !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init]
+        :nil;
+            
+    if (_operation == UINavigationControllerOperationPush) {
+        
+        [_interactive addGestureToViewController:self];
+        _interactive.getstureType = WXSGestureTypePanRight;
+        return nil;
+        
+    }else{
+        return _interactive.isInteractive ? _interactive : nil ;
+    }
+    return nil;
+    
+}
 
 
 @end
