@@ -33,20 +33,10 @@
     return _animationTime ;
 }
 
-- (void)animationEnded:(BOOL) transitionCompleted{
+- (void)animationEnded:(BOOL) transitionCompleted {
     
     if (transitionCompleted) {
         [self removeDelegate];
-    }else {
-//        UIViewController *fromVC = [_transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-//        UIViewController *toVC = [_transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-//        UIView *containView = [_transitionContext containerView];
-//        NSArray *subViews = containView.subviews;
-//        for (UIView *view in subViews) {
-//            if (view != fromVC.view && view != toVC.view) {
-//                [view removeFromSuperview];
-//            }
-//        }
     }
 }
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
@@ -487,7 +477,7 @@
     UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
     
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath;
+//    maskLayer.path = endPath.CGPath;
     tempView.layer.mask = maskLayer;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
@@ -503,6 +493,7 @@
         
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
+            
         }else{
             
             [transitionContext completeTransition:YES];
@@ -867,7 +858,7 @@
     UIBezierPath *endPath = [UIBezierPath bezierPathWithOvalInRect:rect];
     
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-//    maskLayer.path = endPath.CGPath;
+    maskLayer.path = endPath.CGPath;
     tempView.layer.mask = maskLayer;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
@@ -1026,7 +1017,6 @@
     [containView addSubview:imgView1];
     
     toVC.view.hidden = YES;
-    
     imgView0.layer.transform = CATransform3DMakeTranslation(0, -screenHeight/2, 0);
     imgView1.layer.transform = CATransform3DMakeTranslation(0, screenHeight/2, 0);
     
@@ -1040,8 +1030,8 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
         }
+        toVC.view.hidden = NO;
         [imgView0 removeFromSuperview];
         [imgView1 removeFromSuperview];
 
@@ -1137,8 +1127,8 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
         }
+        toVC.view.hidden = NO;
         [imgView0 removeFromSuperview];
         [imgView1 removeFromSuperview];
         
@@ -1472,10 +1462,8 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            
-            toVC.view.hidden = NO;
-
         }
+        toVC.view.hidden = NO;
         
     }];
     

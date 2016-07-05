@@ -15,7 +15,7 @@
 
 @property (nonatomic,assign) WXSTransitionType transitionType;
 @property (nonatomic,assign) WXSTransitionAnimationType animationType;
-@property (nonatomic,assign) WXSGestureType gestureType;
+@property (nonatomic,assign) WXSGestureType backGestureType;
 @property (nonatomic,assign) BOOL isSysBackAnimation;
 
 

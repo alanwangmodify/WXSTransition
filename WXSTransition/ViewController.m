@@ -26,16 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    WXSTransitionManager *manager = [[WXSTransitionManager alloc] init];
-//    manager.animationTime = 112;
-//    
-//    WXSTransitionProperty *property = [[WXSTransitionProperty alloc] init];
-//    property.animationTime = 10;
-//    
-//    [WXSTransitionProperty copyPropertyFromObjcet:property toObjcet:manager];
-//    
-//    NSLog(@"%f",manager.animationTime);
-//    
     UIImageView *bgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     bgView.image = [UIImage imageNamed:@"bg4"];
     [self.view addSubview:bgView];
@@ -170,7 +160,6 @@
                         transition.animationTime = 1;
 
                     }];
-                    
                     
                     
 

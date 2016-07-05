@@ -99,6 +99,16 @@ WXSPercentDrivenInteractiveTransition *_interactive;
     transtion.animationType = [self animationType];
     self.callBackTransition ? self.callBackTransition(transtion) : nil;
     transtion.transitionType = WXSTransitionTypeDismiss;
+    
+    
+    //add gesture for dismiss
+    !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
+    !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
+    [_interactive addGestureToViewController:self];
+    _interactive.transitionType = WXSTransitionTypeDismiss;
+    //if set gestureType 
+    _interactive.getstureType = transtion.gestureType != WXSGestureTypeNone ? transtion.gestureType : WXSGestureTypePanRight;
+    
     return transtion;
     
 }
@@ -112,14 +122,13 @@ WXSPercentDrivenInteractiveTransition *_interactive;
     
 }
 
-//- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator{
-//   
-//    return nil;
-//}
-//
-//- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator{
-//    return nil;
-//}
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator{
+    return nil;
+}
+
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator{
+    return _interactive.isInteractive ? _interactive : nil ;
+}
 
 
 //  ********************** Push Pop **********************
@@ -131,6 +140,14 @@ WXSPercentDrivenInteractiveTransition *_interactive;
     self.callBackTransition ? self.callBackTransition(transtion) : nil;
     _operation = operation;
     transtion.transitionType = operation == UINavigationControllerOperationPush ? WXSTransitionTypePush : WXSTransitionTypePop;
+    
+    if (_operation == UINavigationControllerOperationPush) {
+        //add gestrue for pop
+        !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
+        [_interactive addGestureToViewController:self];
+        _interactive.transitionType = WXSTransitionTypePop;
+        _interactive.getstureType = transtion.gestureType != WXSGestureTypeNone ? transtion.gestureType : WXSGestureTypePanRight;
+    }
     return transtion;
     
     
@@ -138,19 +155,13 @@ WXSPercentDrivenInteractiveTransition *_interactive;
 
 - (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
     
-    !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init]
-        :nil;
+    !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
             
     if (_operation == UINavigationControllerOperationPush) {
-        
-        [_interactive addGestureToViewController:self];
-        _interactive.getstureType = WXSGestureTypePanRight;
         return nil;
-        
     }else{
         return _interactive.isInteractive ? _interactive : nil ;
     }
-    return nil;
     
 }
 
