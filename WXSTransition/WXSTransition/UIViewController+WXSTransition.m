@@ -9,17 +9,28 @@ static NSString *startViewKey = @"startViewKey";
 static NSString *CallBackTransitionKey = @"CallBackTransitionKey";
 static NSString *FromVCInteraciveTransitionKey = @"fromVCInteraciveTransitionKey";
 static NSString *ToVCInteraciveTransitionKey = @"ToVCInteraciveTransitionKey";
+static NSString *wxs_DelegateFlagKey = @"wxs_DelegateFlagKey";
 
 UINavigationControllerOperation _operation;
 
 @implementation UIViewController (WXSTransition)
 
 
+#pragma mark Hook
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Method method0 = class_getInstanceMethod(self.class, @selector(wxs_dismissViewControllerAnimated:completion:));
+        Method method1 = class_getInstanceMethod(self.class, @selector(dismissViewControllerAnimated:completion:));
+        method_exchangeImplementations(method0, method1);
+    });
+}
+
 #pragma mark Action Method
 
-
 //Default
--(void)wxs_presentViewController:(UIViewController *)viewControllerToPresent completion:(void (^)(void))completion{
+- (void)wxs_presentViewController:(UIViewController *)viewControllerToPresent completion:(void (^)(void))completion{
 
     [self wxs_presentViewController:viewControllerToPresent makeTransition:nil completion:completion];
 }
@@ -51,7 +62,12 @@ UINavigationControllerOperation _operation;
     
 }
 
-
+- (void)wxs_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
+    if (self.wxs_DelegateFlag) {
+        self.transitioningDelegate = self;
+    }
+    [self wxs_dismissViewControllerAnimated:flag completion:completion];
+}
 
 #pragma mark Property
 
@@ -87,6 +103,13 @@ UINavigationControllerOperation _operation;
     return objc_getAssociatedObject(self, &CallBackTransitionKey);
 }
 
+//----- wxs_DelegateFlag
+-(void)setWxs_DelegateFlag:(BOOL)wxs_DelegateFlag {
+    objc_setAssociatedObject(self, &wxs_DelegateFlagKey, @(wxs_DelegateFlag), OBJC_ASSOCIATION_ASSIGN);
+}
+-(BOOL)wxs_DelegateFlag {
+    return [objc_getAssociatedObject(self, &wxs_DelegateFlagKey) integerValue] == 0 ?  NO : YES;
+}
 
 
 
@@ -107,6 +130,7 @@ UINavigationControllerOperation _operation;
     transtion.animationType = [self animationType];
     self.callBackTransition ? self.callBackTransition(transtion) : nil;
     transtion.transitionType = WXSTransitionTypePresent;
+    self.wxs_DelegateFlag = transtion.isSysBackAnimation ? NO : YES; 
     return transtion;
     
 }
@@ -122,7 +146,12 @@ UINavigationControllerOperation _operation;
     transtion.animationType = [self animationType];
     self.callBackTransition ? self.callBackTransition(transtion) : nil;
     _operation = operation;
-    transtion.transitionType = operation == UINavigationControllerOperationPush ? WXSTransitionTypePush : WXSTransitionTypePop;
+    if ( operation == UINavigationControllerOperationPush ) {
+        self.wxs_DelegateFlag = transtion.isSysBackAnimation ? NO : YES;
+        transtion.transitionType = WXSTransitionTypePush;
+    }else{
+        transtion.transitionType = WXSTransitionTypePop;
+    }
     return transtion;
     
 }
