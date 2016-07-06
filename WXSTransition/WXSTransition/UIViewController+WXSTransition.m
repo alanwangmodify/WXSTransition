@@ -150,7 +150,6 @@ WXSPercentDrivenInteractiveTransition *_interactive;
     }
     return transtion;
     
-    
 }
 
 - (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
