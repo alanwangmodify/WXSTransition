@@ -74,19 +74,26 @@
         case UIGestureRecognizerStateEnded:{
             _isInter = NO;
             if (percent > 0.5) {
-                [self finishInteractiveTransition];
+                [self interactiveFinishAction];
+//                [self finishInteractiveTransition];
             }else{
-                [self cancelInteractiveTransition];
+                [self interactiveCancelAction];
+//                [self cancelInteractiveTransition];
             }
         }
             break;
         default:
             break;
     }
+}
+
+-(void)interactiveFinishAction {
     
-#ifdef DEBUG
-    NSLog(@"%lf",percent);
-#endif
+}
+
+-(void)interactiveCancelAction {
+    
+    
     
 }
 
