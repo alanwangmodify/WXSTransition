@@ -26,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+
     UIImageView *bgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     bgView.image = [UIImage imageNamed:@"bg4"];
     [self.view addSubview:bgView];
@@ -168,7 +169,11 @@
                 case 1:{
                     
             
-                    
+                    ViewController *vc = [[ViewController alloc] init];
+                    [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
+                        transition.animationType  = WXSTransitionAnimationTypePointSpreadPresent;
+                        transition.isSysBackAnimation = YES;
+                    }];
                 }
                     
                 default:

@@ -22,7 +22,6 @@
     [self wxs_pushViewController:viewController makeTransition:^(WXSTransitionManager *transition) {
         transition.animationType = animationType;
     }];
-    
 }
 
 

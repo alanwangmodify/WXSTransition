@@ -21,6 +21,8 @@
         _animationTime = 0.500082;
         self.animationType = WXSTransitionAnimationTypeDefault;
         _completionBlock = nil;
+        _backGestureType = WXSGestureTypePanRight;
+        _backGestureEnable = YES;
         
     }
     return self;
@@ -477,7 +479,7 @@
     UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
     
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-//    maskLayer.path = endPath.CGPath;
+    maskLayer.path = endPath.CGPath;
     tempView.layer.mask = maskLayer;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
@@ -971,6 +973,7 @@
     [containView addSubview:toVC.view];
     [containView addSubview:imgView0];
     [containView addSubview:imgView1];
+
     
   
     [UIView animateWithDuration:_animationTime animations:^{
@@ -997,13 +1000,13 @@
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containView = [transitionContext containerView];
+    UIView *tempToView = containView.subviews.lastObject;
 
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     
     CGRect rect0 = CGRectMake(0 , 0 , screenWidth, screenHeight/2);
     CGRect rect1 = CGRectMake(0 , screenHeight/2 , screenWidth, screenHeight/2);
-    
     
     UIImage *image0 = [self imageFromView:toVC.view atFrame:rect0];
     UIImage *image1 = [self imageFromView:toVC.view atFrame:rect1];

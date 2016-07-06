@@ -107,7 +107,7 @@ WXSPercentDrivenInteractiveTransition *_interactive;
     [_interactive addGestureToViewController:self];
     _interactive.transitionType = WXSTransitionTypeDismiss;
     //if set gestureType 
-    _interactive.getstureType = transtion.gestureType != WXSGestureTypeNone ? transtion.gestureType : WXSGestureTypePanRight;
+    _interactive.getstureType = transtion.backGestureType != WXSGestureTypeNone ? transtion.backGestureType : WXSGestureTypePanRight;
     
     return transtion;
     
@@ -146,7 +146,7 @@ WXSPercentDrivenInteractiveTransition *_interactive;
         !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
         [_interactive addGestureToViewController:self];
         _interactive.transitionType = WXSTransitionTypePop;
-        _interactive.getstureType = transtion.gestureType != WXSGestureTypeNone ? transtion.gestureType : WXSGestureTypePanRight;
+        _interactive.getstureType = transtion.backGestureType != WXSGestureTypeNone ? transtion.backGestureType : WXSGestureTypePanRight;
     }
     return transtion;
     
@@ -158,6 +158,7 @@ WXSPercentDrivenInteractiveTransition *_interactive;
     !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
             
     if (_operation == UINavigationControllerOperationPush) {
+
         return nil;
     }else{
         return _interactive.isInteractive ? _interactive : nil ;
