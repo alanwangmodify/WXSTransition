@@ -13,6 +13,8 @@
 }
 
 @property (nonatomic, strong) UIViewController *vc;
+@property (nonatomic, strong) CADisplayLink *displayLink;
+@property (nonatomic, assign) CGFloat percent;
 
 
 
@@ -30,31 +32,31 @@
 
 -(void)panAction:(UIPanGestureRecognizer *)pan{
     
-    CGFloat percent = 0.0;
+    _percent = 0.0;
     CGFloat totalWidth = pan.view.bounds.size.width;
     CGFloat totalHeight = pan.view.bounds.size.height;
     switch (self.getstureType) {
             
         case WXSGestureTypePanLeft:{
             CGFloat x = [pan translationInView:pan.view].x;
-            percent = -x/totalWidth;
+            _percent = -x/totalWidth;
         }
             break;
         case WXSGestureTypePanRight:{
             CGFloat x = [pan translationInView:pan.view].x;
-            percent = x/totalWidth;
+            _percent = x/totalWidth;
         }
             break;
         case WXSGestureTypePanDown:{
             
             CGFloat y = [pan translationInView:pan.view].y;
-            percent = y/totalHeight;
+            _percent = y/totalHeight;
             
         }
             break;
         case WXSGestureTypePanUp:{
             CGFloat y = [pan translationInView:pan.view].y;
-            percent = -y/totalHeight;
+            _percent = -y/totalHeight;
         }
             
         default:
@@ -68,18 +70,13 @@
         }
             break;
         case UIGestureRecognizerStateChanged:{
-            [self updateInteractiveTransition:percent];
+            [self updateInteractiveTransition:_percent];
         }
             break;
         case UIGestureRecognizerStateEnded:{
             _isInter = NO;
-            if (percent > 0.5) {
-                [self interactiveFinishAction];
-//                [self finishInteractiveTransition];
-            }else{
-                [self interactiveCancelAction];
-//                [self cancelInteractiveTransition];
-            }
+            [self continueAction];
+            
         }
             break;
         default:
@@ -87,15 +84,7 @@
     }
 }
 
--(void)interactiveFinishAction {
-    
-}
 
--(void)interactiveCancelAction {
-    
-    
-    
-}
 
 -(void)beganGesture{
     
@@ -124,8 +113,40 @@
     
 }
 
--(BOOL)isInteractive {
+- (BOOL)isInteractive {
     return _isInter;
 }
+
+- (void)continueAction{
+    if (_displayLink) {
+        return;
+    }
+    _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(UIChange)];
+    [_displayLink  addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+
+}
+
+- (void)UIChange {
+    
+    CGFloat timeDistance = 1.0/60;
+    if (_percent > 0.5) {
+        _percent += timeDistance;
+    }else {
+        _percent -= timeDistance;
+    }
+    [self updateInteractiveTransition:_percent];
+    
+    //jude finish or cancel
+    if (_percent >= 1) {
+        [_displayLink invalidate];
+        [self finishInteractiveTransition];
+    }
+    
+    if (_percent <= 0) {
+        [_displayLink invalidate];
+        [self cancelInteractiveTransition];
+    }
+}
+
 
 @end
