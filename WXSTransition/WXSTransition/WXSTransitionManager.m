@@ -375,7 +375,7 @@
     
     [containView addSubview:fromVC.view];
     [containView addSubview:toVC.view];
-    [containView addSubview:toTempView];
+//    [containView addSubview:toTempView];
     [containView addSubview:tempView];
     
     
@@ -402,12 +402,10 @@
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
 
-            toVC.navigationController.delegate = nil;
-            toVC.transitioningDelegate = nil;
         }
         
         [tempView removeFromSuperview];
-        [toTempView removeFromSuperview];
+//        [toTempView removeFromSuperview];
     }];
     
     
@@ -856,7 +854,7 @@
         rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
     }
     
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:sqrt(screenHeight * screenHeight + screenWidth * screenWidth)  startAngle:0 endAngle:M_PI*2 clockwise:YES];
+    UIBezierPath *startPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:sqrt(screenHeight * screenHeight + screenWidth * screenWidth)/2 startAngle:0 endAngle:M_PI*2 clockwise:YES];
     UIBezierPath *endPath = [UIBezierPath bezierPathWithOvalInRect:rect];
     
     CAShapeLayer *maskLayer = [CAShapeLayer layer];

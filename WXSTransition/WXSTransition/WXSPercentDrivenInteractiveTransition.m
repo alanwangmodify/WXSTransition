@@ -75,6 +75,7 @@
             break;
         case UIGestureRecognizerStateEnded:{
             _isInter = NO;
+
             [self continueAction];
             
         }
@@ -136,14 +137,24 @@
     }
     [self updateInteractiveTransition:_percent];
     
-    //jude finish or cancel
-    if (_percent >= 1) {
-        [_displayLink invalidate];
+    //
+//    if (_percent > 0.9) {
+//        [self finishInteractiveTransition];
+//    }
+//    
+//    if (_percent < 0.1) {
+//        [self cancelInteractiveTransition];
+//    }
+    
+    if (_percent >= 0.99) {
         [self finishInteractiveTransition];
+        [_displayLink invalidate];
+        _displayLink = nil;
     }
     
-    if (_percent <= 0) {
+    if (_percent <= 0.01) {
         [_displayLink invalidate];
+        _displayLink = nil;
         [self cancelInteractiveTransition];
     }
 }
