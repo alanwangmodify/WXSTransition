@@ -118,6 +118,8 @@ WXSPercentDrivenInteractiveTransition *_interactive;
     transtion.animationType = [self animationType];
     self.callBackTransition ? self.callBackTransition(transtion) : nil;
     transtion.transitionType = WXSTransitionTypePresent;
+    _interactive.getstureType = transtion.backGestureType != WXSGestureTypeNone ? transtion.backGestureType : WXSGestureTypePanDown;
+    _interactive.willEndInteractiveBlock =  transtion.willEndInteractiveBlock;
     return transtion;
     
 }
@@ -147,6 +149,10 @@ WXSPercentDrivenInteractiveTransition *_interactive;
         [_interactive addGestureToViewController:self];
         _interactive.transitionType = WXSTransitionTypePop;
         _interactive.getstureType = transtion.backGestureType != WXSGestureTypeNone ? transtion.backGestureType : WXSGestureTypePanRight;
+        _interactive.willEndInteractiveBlock = ^(BOOL suceess) {
+            transtion.willEndInteractiveBlock ? transtion.willEndInteractiveBlock(suceess) : nil;
+        };
+        
     }
     return transtion;
     

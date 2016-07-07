@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger,WXSGestureType){
     WXSGestureTypePanRight,
     WXSGestureTypePanUp,
     WXSGestureTypePanDown,
-    WXSGestureTypeTap,
+//    WXSGestureTypeTap,
     
 };
 //系统动画类型

@@ -23,6 +23,8 @@ typedef void(^ActionBlock)(void);
 @property (nonatomic, copy) ActionBlock dismissBlock;
 @property (nonatomic, copy) ActionBlock popBlock;
 
+@property (nonatomic, copy) void(^willEndInteractiveBlock)(BOOL success);
+
 -(void)addGestureToViewController:(UIViewController *)vc;
 
 @end

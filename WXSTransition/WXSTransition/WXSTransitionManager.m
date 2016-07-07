@@ -370,12 +370,10 @@
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
-    UIView *toTempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
     UIView *containView = [transitionContext containerView];
     
     [containView addSubview:fromVC.view];
     [containView addSubview:toVC.view];
-//    [containView addSubview:toTempView];
     [containView addSubview:tempView];
     
     
@@ -395,10 +393,8 @@
             fromVC.view.hidden = NO;
             [transitionContext completeTransition:NO];
             tempView.alpha = 1;
-            tempView.layer.transform = CATransform3DIdentity;
 
         }else{
-            
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
 
@@ -445,8 +441,6 @@
     [maskLayer addAnimation:animation forKey:@"NextPath"];
     
     _completionBlock = ^(){
-        maskLayer.path = endPath.CGPath;
-        tempView.layer.mask = maskLayer;
         
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
@@ -456,6 +450,7 @@
         }
         [tempView removeFromSuperview];
     };
+    
 }
 -(void)spreadFromRightBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -477,7 +472,6 @@
     UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
     
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath;
     tempView.layer.mask = maskLayer;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
@@ -489,19 +483,34 @@
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
     
+    
+
+    _willEndInteractiveBlock = ^(BOOL success) {
+        
+        if (success) {
+            maskLayer.path = endPath.CGPath;
+
+        }else{
+            maskLayer.path = startPath.CGPath;
+        }
+        
+    };
+    
     _completionBlock = ^(){
         
+        [tempView removeFromSuperview];
+
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
             
         }else{
-            
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
         }
-        [tempView removeFromSuperview];
         
     };
+
+
 }
 -(void)spreadFromLeftNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];

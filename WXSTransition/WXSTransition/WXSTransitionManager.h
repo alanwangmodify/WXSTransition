@@ -17,5 +17,5 @@
 
 @property (nonatomic,assign) BOOL backGestureEnable;
 
-
+@property (nonatomic, copy) void(^willEndInteractiveBlock)(BOOL success);
 @end

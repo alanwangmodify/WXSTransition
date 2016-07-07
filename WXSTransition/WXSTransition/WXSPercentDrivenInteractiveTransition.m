@@ -136,23 +136,19 @@
         _percent -= timeDistance;
     }
     [self updateInteractiveTransition:_percent];
-    
-    //
-//    if (_percent > 0.9) {
-//        [self finishInteractiveTransition];
-//    }
-//    
-//    if (_percent < 0.1) {
-//        [self cancelInteractiveTransition];
-//    }
-    
+        
     if (_percent >= 0.99) {
+        
+        _willEndInteractiveBlock ? _willEndInteractiveBlock(YES) : nil;
         [self finishInteractiveTransition];
         [_displayLink invalidate];
         _displayLink = nil;
     }
     
     if (_percent <= 0.01) {
+        
+        _willEndInteractiveBlock ? _willEndInteractiveBlock(NO) : nil;
+        
         [_displayLink invalidate];
         _displayLink = nil;
         [self cancelInteractiveTransition];
