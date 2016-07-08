@@ -320,11 +320,25 @@
             toVC.startView.hidden = YES;
             toVC.view.hidden = NO;
             [tempView removeFromSuperview];
-            //remove delegate of last view controller from self.
-            toVC.navigationController.delegate = nil;
-            toVC.transitioningDelegate = nil;
+
         }
     }];
+    
+    _willEndInteractiveBlock  = ^(BOOL sucess){
+        
+        if (sucess) {
+            
+            toVC.targetView.hidden = NO;
+            toVC.startView.hidden = YES;
+            toVC.view.hidden = NO;
+            [tempView removeFromSuperview];
+            
+        }else{
+            tempView.hidden = YES;
+            toVC.targetView.hidden = NO;
+            toVC.startView.hidden = NO;
+        }
+    };
     
 }
 
@@ -362,6 +376,9 @@
         [tempView removeFromSuperview];
         
     }];
+    
+    
+    
 }
 
 -(void)coverBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
@@ -399,10 +416,23 @@
             toVC.view.hidden = NO;
 
         }
-        
         [tempView removeFromSuperview];
-//        [toTempView removeFromSuperview];
     }];
+    
+    _willEndInteractiveBlock = ^(BOOL success){
+        
+        if (success) {
+            toVC.view.hidden = NO;
+            [tempView removeFromSuperview];
+
+        }else{
+            fromVC.view.hidden = NO;
+            tempView.alpha = 1;
+            
+        }
+
+    };
+    
     
     
 }
@@ -686,6 +716,15 @@
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            toVC.view.hidden = NO;
+        }else{
+            
+        }
+        [tempView removeFromSuperview];
+    };
+    
     
     _completionBlock = ^(){
         
@@ -776,7 +815,13 @@
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
-    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            
+        }else{
+            
+        }
+    };
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -877,7 +922,15 @@
     animation.duration = _animationTime;
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"PointBackPath"];
-        
+    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            
+        }else{
+            
+        }
+    };
+    
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -952,6 +1005,15 @@
         }
         
     }];
+    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            
+        }else{
+            
+        }
+    };
+    
 
 }
 
@@ -1477,6 +1539,14 @@
         
     }];
     
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            
+        }else{
+            
+        }
+    };
+    
 }
 
 #pragma mark Other
@@ -1622,6 +1692,15 @@
         }
         
     }];
+    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            
+        }else{
+            
+        }
+    };
+    
     
     
 }

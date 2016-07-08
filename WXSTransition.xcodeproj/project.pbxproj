@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E18A5881D2F58B300073215 /* WXSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E18A5871D2F58B300073215 /* WXSBaseViewController.m */; };
 		9217DE4B1D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9217DE4A1D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.m */; };
 		924F1DC41D26CAD600D2E795 /* WXSTransitionProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F1DC31D26CAD600D2E795 /* WXSTransitionProperty.m */; };
 		9257079E1CFC1E87004EB63C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257079D1CFC1E87004EB63C /* main.m */; };
@@ -46,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E18A5861D2F58B300073215 /* WXSBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSBaseViewController.h; sourceTree = "<group>"; };
+		5E18A5871D2F58B300073215 /* WXSBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSBaseViewController.m; sourceTree = "<group>"; };
 		9217DE491D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
 		9217DE4A1D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		924F1DC21D26CAD600D2E795 /* WXSTransitionProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTransitionProperty.h; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 				92ED74701CFD6811008B4935 /* CollectionViewCell.m */,
 				925707DB1CFC44AC004EB63C /* SecondViewController.h */,
 				925707DC1CFC44AC004EB63C /* SecondViewController.m */,
+				5E18A5861D2F58B300073215 /* WXSBaseViewController.h */,
+				5E18A5871D2F58B300073215 /* WXSBaseViewController.m */,
 				929549881D05530100CE4C06 /* WXSTransition */,
 				925707A51CFC1E87004EB63C /* Main.storyboard */,
 				925707AA1CFC1E87004EB63C /* LaunchScreen.storyboard */,
@@ -272,7 +277,7 @@
 				TargetAttributes = {
 					925707981CFC1E87004EB63C = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = XL757M85MR;
+						DevelopmentTeam = PZX8G85BFY;
 					};
 					925707B11CFC1E87004EB63C = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -350,6 +355,7 @@
 				929549951D05530100CE4C06 /* WXSTransitionManager.m in Sources */,
 				9257079E1CFC1E87004EB63C /* main.m in Sources */,
 				929549921D05530100CE4C06 /* UINavigationController+WXSTransition.m in Sources */,
+				5E18A5881D2F58B300073215 /* WXSBaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +427,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -465,6 +472,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -496,6 +504,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = WSX.WXSTransition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -509,6 +518,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = WSX.WXSTransition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

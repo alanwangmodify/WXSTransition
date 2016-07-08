@@ -137,7 +137,7 @@
     }
     [self updateInteractiveTransition:_percent];
         
-    if (_percent >= 0.99) {
+    if (_percent >= 1.0) {
         
         _willEndInteractiveBlock ? _willEndInteractiveBlock(YES) : nil;
         [self finishInteractiveTransition];
@@ -145,7 +145,7 @@
         _displayLink = nil;
     }
     
-    if (_percent <= 0.01) {
+    if (_percent <= 0.0) {
         
         _willEndInteractiveBlock ? _willEndInteractiveBlock(NO) : nil;
         
