@@ -1445,6 +1445,7 @@
             [transitionContext completeTransition:YES];
             
         }
+        toVC.view.hidden = NO;
         [imgView0 removeFromSuperview];
         [imgView1 removeFromSuperview];
     }];

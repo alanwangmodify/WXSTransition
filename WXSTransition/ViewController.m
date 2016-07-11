@@ -45,7 +45,7 @@
         case 0:
             return 1;
             break;
-        case 1:
+        case 1: 
         case 2:
             return WXSTransitionAnimationTypeFragmentHide - WXSTransitionAnimationTypeDefault;
             break;
