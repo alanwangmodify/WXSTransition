@@ -178,12 +178,21 @@
         }else{
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            toVC.transitioningDelegate = nil;
-            toVC.navigationController.delegate = nil;
         }
         [tempView removeFromSuperview];
         [temView1 removeFromSuperview];
     };
+    
+    _willEndInteractiveBlock = ^(BOOL success) {
+        if (success) {
+            toVC.view.hidden = NO;
+        }else{
+            [tempView removeFromSuperview];
+            [temView1 removeFromSuperview];
+        }
+        
+    };
+    
     
 }
 
@@ -247,6 +256,15 @@
             toVC.view.alpha = 1;
         }
     }];
+    _willEndInteractiveBlock = ^(BOOL success) {
+        if (success) {
+            [tempView removeFromSuperview];
+            toVC.view.hidden = NO;
+            toVC.view.alpha = 1;
+        }else{
+            fromVC.view.alpha = 1;
+        }
+    };
     
 }
 
@@ -324,13 +342,12 @@
         }
     }];
     
-    _willEndInteractiveBlock  = ^(BOOL sucess){
+    _willEndInteractiveBlock  = ^(BOOL success){
         
-        if (sucess) {
+        if (success) {
             
             toVC.targetView.hidden = NO;
             toVC.startView.hidden = YES;
-            toVC.view.hidden = NO;
             [tempView removeFromSuperview];
             
         }else{
@@ -503,7 +520,8 @@
     
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     tempView.layer.mask = maskLayer;
-    
+    maskLayer.path = endPath.CGPath;
+
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.delegate = self;
     animation.fromValue = (__bridge id)(startPath.CGPath);
@@ -619,6 +637,13 @@
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            maskLayer.path = endPath.CGPath;
+        }else{
+            maskLayer.path = startPath.CGPath;
+        }
+    };
     
     _completionBlock = ^(){
         
@@ -718,13 +743,11 @@
     
     _willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
-            toVC.view.hidden = NO;
+            maskLayer.path = endPath.CGPath;
         }else{
-            
+            maskLayer.path = startPath.CGPath;
         }
-        [tempView removeFromSuperview];
     };
-    
     
     _completionBlock = ^(){
         
@@ -815,11 +838,12 @@
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
+    
     _willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
-            
+            maskLayer.path = endPath.CGPath;
         }else{
-            
+            maskLayer.path = startPath.CGPath;
         }
     };
     _completionBlock = ^(){
@@ -925,9 +949,9 @@
     
     _willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
-            
+            maskLayer.path = endPath.CGPath;
         }else{
-            
+            maskLayer.path = startPath.CGPath;
         }
     };
     
@@ -1009,6 +1033,8 @@
     _willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
             
+            [tempView removeFromSuperview];
+            
         }else{
             
         }
@@ -1069,7 +1095,6 @@
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containView = [transitionContext containerView];
-    UIView *tempToView = containView.subviews.lastObject;
 
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
@@ -1108,7 +1133,15 @@
         [imgView1 removeFromSuperview];
 
     }];
-    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            toVC.view.hidden = NO;
+            
+        }else{
+            toVC.view.hidden = YES;
+        }
+
+    };
     
 }
 
@@ -1206,6 +1239,15 @@
         
     }];
 
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            toVC.view.hidden = NO;
+            
+        }else{
+            toVC.view.hidden = YES;
+        }
+        
+    };
     
 }
 

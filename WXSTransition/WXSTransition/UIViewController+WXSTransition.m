@@ -101,14 +101,6 @@ WXSTransitionManager *_transtion;
     _transtion.transitionType = WXSTransitionTypeDismiss;
     
     
-    //add gesture for dismiss
-    !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
-    !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
-    [_interactive addGestureToViewController:self];
-    _interactive.transitionType = WXSTransitionTypeDismiss;
-    //if set gestureType 
-    _interactive.getstureType = _transtion.backGestureType != WXSGestureTypeNone ? _transtion.backGestureType : WXSGestureTypePanRight;
-    
     return _transtion;
     
 }
@@ -118,8 +110,14 @@ WXSTransitionManager *_transtion;
     _transtion.animationType = [self animationType];
     self.callBackTransition ? self.callBackTransition(_transtion) : nil;
     _transtion.transitionType = WXSTransitionTypePresent;
-    _interactive.getstureType = _transtion.backGestureType != WXSGestureTypeNone ? _transtion.backGestureType : WXSGestureTypePanDown;
-    _interactive.willEndInteractiveBlock =  _transtion.willEndInteractiveBlock;
+    if (_transtion.isSysBackAnimation == NO) {
+        !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
+        [_interactive addGestureToViewController:self];
+        _interactive.getstureType = _transtion.backGestureType != WXSGestureTypeNone ? _transtion.backGestureType : WXSGestureTypePanDown;
+        _interactive.transitionType = WXSTransitionTypeDismiss;
+        _interactive.willEndInteractiveBlock =  _transtion.willEndInteractiveBlock;
+    }
+    
     return _transtion;
     
 }
@@ -143,7 +141,7 @@ WXSTransitionManager *_transtion;
     _operation = operation;
     _transtion.transitionType = operation == UINavigationControllerOperationPush ? WXSTransitionTypePush : WXSTransitionTypePop;
     
-    if (_operation == UINavigationControllerOperationPush) {
+    if (_operation == UINavigationControllerOperationPush && _transtion.isSysBackAnimation == NO) {
         //add gestrue for pop
         !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
         [_interactive addGestureToViewController:self];
