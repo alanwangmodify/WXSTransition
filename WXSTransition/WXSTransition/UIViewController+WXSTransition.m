@@ -40,7 +40,7 @@ WXSTransitionManager *_transtion;
 //Choose animation type
 -(void)wxs_presentViewController:(UIViewController *)viewControllerToPresent animationType:(WXSTransitionAnimationType )animationType completion:(void (^)(void))completion{
     
-    [self wxs_presentViewController:viewControllerToPresent makeTransition:^(WXSTransitionManager *transition) {
+    [self wxs_presentViewController:viewControllerToPresent makeTransition:^(WXSTransitionProperty *transition) {
         transition.animationType = animationType;
     } completion:completion];
     
@@ -120,7 +120,9 @@ WXSTransitionManager *_transtion;
 -(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     !_transtion ? _transtion = [[WXSTransitionManager alloc] init] : nil ;
     _transtion.animationType = [self animationType];
-    self.callBackTransition ? self.callBackTransition(_transtion) : nil;
+    WXSTransitionProperty *make = [[WXSTransitionProperty alloc] init];
+    self.callBackTransition ? self.callBackTransition(make) : nil;
+    _transtion = [WXSTransitionManager copyPropertyFromObjcet:make toObjcet:_transtion];
     _transtion.transitionType = WXSTransitionTypeDismiss;
     
     
@@ -131,7 +133,9 @@ WXSTransitionManager *_transtion;
     
     !_transtion ? _transtion = [[WXSTransitionManager alloc] init] : nil ;
     _transtion.animationType = [self animationType];
-    self.callBackTransition ? self.callBackTransition(_transtion) : nil;
+    WXSTransitionProperty *make = [[WXSTransitionProperty alloc] init];
+    self.callBackTransition ? self.callBackTransition(make) : nil;
+    _transtion = [WXSTransitionManager copyPropertyFromObjcet:make toObjcet:_transtion];
     _transtion.transitionType = WXSTransitionTypePresent;
     self.wxs_DelegateFlag = _transtion.isSysBackAnimation ? NO : YES;
     return _transtion;
@@ -153,7 +157,9 @@ WXSTransitionManager *_transtion;
     
     !_transtion ? _transtion = [[WXSTransitionManager alloc] init] : nil ;
     _transtion.animationType = [self animationType];
-    self.callBackTransition ? self.callBackTransition(_transtion) : nil;
+    WXSTransitionProperty *make = [[WXSTransitionProperty alloc] init];
+    self.callBackTransition ? self.callBackTransition(make) : nil;
+    _transtion = [WXSTransitionManager copyPropertyFromObjcet:make toObjcet:_transtion];
     _operation = operation;
 
     if ( operation == UINavigationControllerOperationPush ) {
@@ -164,7 +170,7 @@ WXSTransitionManager *_transtion;
     }
 
     
-    if (_operation == UINavigationControllerOperationPush && _transtion.isSysBackAnimation == NO) {
+    if (_operation == UINavigationControllerOperationPush && _transtion.isSysBackAnimation == NO && _transtion.backGestureEnable) {
         //add gestrue for pop
         !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
         [_interactive addGestureToViewController:self];

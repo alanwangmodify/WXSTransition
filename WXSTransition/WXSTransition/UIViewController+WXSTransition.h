@@ -4,7 +4,7 @@
 #import "WXSTransitionProperty.h"
 #import "WXSPercentDrivenInteractiveTransition.h"
 
-typedef void(^WXSTransitionBlock)(WXSTransitionManager *transition);
+typedef void(^WXSTransitionBlock)(WXSTransitionProperty *transition);
 
 @interface UIViewController (WXSTransition) <UIViewControllerTransitioningDelegate,UINavigationControllerDelegate>
 

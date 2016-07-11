@@ -18,4 +18,8 @@
 @property (nonatomic,assign) BOOL backGestureEnable;
 
 @property (nonatomic, copy) void(^willEndInteractiveBlock)(BOOL success);
+
+
++(WXSTransitionManager *)copyPropertyFromObjcet:(id)object toObjcet:(id)targetObjcet;
+
 @end

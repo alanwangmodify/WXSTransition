@@ -14,20 +14,16 @@
 
 @implementation WXSTransitionManager
 
+
 -(instancetype)init {
     self = [super init];
     if (self) {
-     
-        _animationTime = 0.500082;
-        self.animationType = WXSTransitionAnimationTypeDefault;
+        
         _completionBlock = nil;
-        _backGestureType = WXSGestureTypePanRight;
-        _backGestureEnable = YES;
         
     }
     return self;
 }
-
 
 #pragma mark Delegate
 //UIViewControllerAnimatedTransitioning
@@ -177,8 +173,9 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
         }
+        toVC.view.hidden = NO;
+
         [tempView removeFromSuperview];
         [temView1 removeFromSuperview];
     };
@@ -187,6 +184,7 @@
         if (success) {
             toVC.view.hidden = NO;
         }else{
+            toVC.view.hidden = YES;
             [tempView removeFromSuperview];
             [temView1 removeFromSuperview];
         }
@@ -340,12 +338,15 @@
             [tempView removeFromSuperview];
 
         }
+        fromVC.view.hidden = NO;
+
     }];
     
     _willEndInteractiveBlock  = ^(BOOL success){
         
         if (success) {
             
+            fromVC.view.hidden = YES;
             toVC.targetView.hidden = NO;
             toVC.startView.hidden = YES;
             [tempView removeFromSuperview];
@@ -354,6 +355,7 @@
             tempView.hidden = YES;
             toVC.targetView.hidden = NO;
             toVC.startView.hidden = NO;
+            
         }
     };
     
@@ -1337,13 +1339,15 @@
             [transitionContext completeTransition:YES];
             
         }
+        toVC.view.hidden = NO;
         [imgView0 removeFromSuperview];
         [imgView1 removeFromSuperview];
     }];
     
     _willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
-            toVC.view.hidden = NO;
+            [imgView0 removeFromSuperview];
+            [imgView1 removeFromSuperview];
             
         }else{
             toVC.view.hidden = YES;
@@ -1447,7 +1451,8 @@
     
     _willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
-            toVC.view.hidden = NO;
+            [imgView0 removeFromSuperview];
+            [imgView1 removeFromSuperview];
             
         }else{
             toVC.view.hidden = YES;
@@ -2150,5 +2155,21 @@
 }
 
 
++(WXSTransitionManager *)copyPropertyFromObjcet:(id)object toObjcet:(id)targetObjcet {
+    
+    
+    WXSTransitionProperty *propery = object;
+    WXSTransitionManager *transition = targetObjcet;
+    
+    transition.animationTime = propery.animationTime;
+    transition.transitionType = propery.transitionType;
+    transition.animationType = propery.animationType;
+    transition.isSysBackAnimation = propery.isSysBackAnimation;
+    transition.backGestureType = propery.backGestureType;
+    transition.backGestureEnable = propery.backGestureEnable;
+    
+    return transition;
+    
+}
 
 @end

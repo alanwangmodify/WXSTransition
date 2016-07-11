@@ -76,7 +76,7 @@
 
     if (indexPath.section == 0) {
         PresentViewController *vc = [[PresentViewController alloc] init];
-        [self wxs_presentViewController:vc makeTransition:^(WXSTransitionManager *transition) {
+        [self wxs_presentViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
             transition.animationType = indexPath.row + 1;
             transition.isSysBackAnimation = (int)rand()%2 < 1 ?  YES : NO;
         } completion:nil];
@@ -85,9 +85,9 @@
         
         SecondViewController *vc = [[SecondViewController alloc] init];
         
-        [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionManager *transition) {
+        [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
             transition.animationType = indexPath.row + 1;
-            transition.isSysBackAnimation = (int)rand()%2 < 1 ?  YES : NO;
+//            transition.isSysBackAnimation = (int)rand()%2 < 1 ?  YES : NO;
         }];
         
     }
