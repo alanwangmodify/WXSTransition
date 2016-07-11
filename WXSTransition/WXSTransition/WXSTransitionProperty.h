@@ -11,13 +11,20 @@
 
 @interface WXSTransitionProperty : NSObject
 
-
-
+/**
+ *  转场动画时间
+ *
+ *  transitiion animation time
+ */
 @property (nonatomic,assign) NSTimeInterval animationTime;
 
 
 
-
+/**
+ *  转场方式 ：push,pop,present,dismiss
+ *
+ *  transitiion type ：push,pop,present,dismiss
+ */
 @property (nonatomic,assign) WXSTransitionType transitionType;
 
 /**

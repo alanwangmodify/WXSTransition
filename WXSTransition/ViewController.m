@@ -159,6 +159,7 @@
                     [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
                         transition.animationType =  WXSTransitionAnimationTypePointSpreadPresent;
                         transition.animationTime = 1;
+                        transition.backGestureEnable = NO;
 
                     }];
                     
