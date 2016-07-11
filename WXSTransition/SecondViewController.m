@@ -17,8 +17,13 @@
 -(void)dealloc{
     NSLog(@"SecondViewController dealloc");
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -33,7 +38,6 @@
     [btn addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
 //    
-//    self.navigationController.navigationBarHidden = NO;
 
 }
 

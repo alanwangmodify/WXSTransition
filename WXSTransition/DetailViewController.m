@@ -31,8 +31,7 @@
 }
 
 -(void)tapAction {
-    if ([self.navigationController respondsToSelector:@selector(popViewControllerAnimated:)]) {
-    }
+
     [self.navigationController popViewControllerAnimated:YES];
 
 }

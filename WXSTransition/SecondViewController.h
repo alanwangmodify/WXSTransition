@@ -6,8 +6,8 @@
 //  Copyright © 2016年 王小树. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WXSBaseViewController.h"
 #import "UIViewController+WXSTransition.h"
-@interface SecondViewController : UIViewController
+@interface SecondViewController : WXSBaseViewController
 
 @end

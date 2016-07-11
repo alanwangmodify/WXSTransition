@@ -36,7 +36,6 @@
     [self wxs_pushViewController:viewController makeTransition:^(WXSTransitionManager *transition) {
         transition.animationType = animationType;
     }];
-    
 }
 
 - (void)wxs_pushViewController:(UIViewController *)viewController makeTransition:(WXSTransitionBlock) transitionBlock {

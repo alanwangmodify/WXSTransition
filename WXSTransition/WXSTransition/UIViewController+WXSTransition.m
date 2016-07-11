@@ -12,6 +12,8 @@ static NSString *ToVCInteraciveTransitionKey = @"ToVCInteraciveTransitionKey";
 static NSString *wxs_DelegateFlagKey = @"wxs_DelegateFlagKey";
 
 UINavigationControllerOperation _operation;
+WXSPercentDrivenInteractiveTransition *_interactive;
+WXSTransitionManager *_transtion;
 
 @implementation UIViewController (WXSTransition)
 
@@ -116,47 +118,78 @@ UINavigationControllerOperation _operation;
 #pragma mark Delegate
 // ********************** Present Dismiss **********************
 -(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    !_transtion ? _transtion = [[WXSTransitionManager alloc] init] : nil ;
+    _transtion.animationType = [self animationType];
+    self.callBackTransition ? self.callBackTransition(_transtion) : nil;
+    _transtion.transitionType = WXSTransitionTypeDismiss;
     
-    WXSTransitionManager *transtion = [[WXSTransitionManager alloc] init];
-    transtion.animationType = [self animationType];
-    self.callBackTransition ? self.callBackTransition(transtion) : nil;
-    transtion.transitionType = WXSTransitionTypeDismiss;
-    return transtion;
+    
+    return _transtion;
     
 }
 -(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     
-    WXSTransitionManager *transtion = [[WXSTransitionManager alloc] init];
-    transtion.animationType = [self animationType];
-    self.callBackTransition ? self.callBackTransition(transtion) : nil;
-    transtion.transitionType = WXSTransitionTypePresent;
-    self.wxs_DelegateFlag = transtion.isSysBackAnimation ? NO : YES; 
-    return transtion;
+    !_transtion ? _transtion = [[WXSTransitionManager alloc] init] : nil ;
+    _transtion.animationType = [self animationType];
+    self.callBackTransition ? self.callBackTransition(_transtion) : nil;
+    _transtion.transitionType = WXSTransitionTypePresent;
+    self.wxs_DelegateFlag = _transtion.isSysBackAnimation ? NO : YES;
+    return _transtion;
     
 }
 
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator{
+    return nil;
+}
 
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator{
+    return _interactive.isInteractive ? _interactive : nil ;
+}
 
 
 //  ********************** Push Pop **********************
 
 -(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC{
     
-    WXSTransitionManager *transtion = [[WXSTransitionManager alloc] init];
-    transtion.animationType = [self animationType];
-    self.callBackTransition ? self.callBackTransition(transtion) : nil;
+    !_transtion ? _transtion = [[WXSTransitionManager alloc] init] : nil ;
+    _transtion.animationType = [self animationType];
+    self.callBackTransition ? self.callBackTransition(_transtion) : nil;
     _operation = operation;
+
     if ( operation == UINavigationControllerOperationPush ) {
-        self.wxs_DelegateFlag = transtion.isSysBackAnimation ? NO : YES;
-        transtion.transitionType = WXSTransitionTypePush;
+        self.wxs_DelegateFlag = _transtion.isSysBackAnimation ? NO : YES;
+        _transtion.transitionType = WXSTransitionTypePush;
     }else{
-        transtion.transitionType = WXSTransitionTypePop;
+        _transtion.transitionType = WXSTransitionTypePop;
     }
-    return transtion;
+
+    
+    if (_operation == UINavigationControllerOperationPush && _transtion.isSysBackAnimation == NO) {
+        //add gestrue for pop
+        !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
+        [_interactive addGestureToViewController:self];
+        _interactive.transitionType = WXSTransitionTypePop;
+        _interactive.getstureType = _transtion.backGestureType != WXSGestureTypeNone ? _transtion.backGestureType : WXSGestureTypePanRight;
+        _interactive.willEndInteractiveBlock = ^(BOOL suceess) {
+            _transtion.willEndInteractiveBlock ? _transtion.willEndInteractiveBlock(suceess) : nil;
+        };
+        
+    }
+    return _transtion;
     
 }
 
-
+- (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
+    
+    !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
+            
+    if (_operation == UINavigationControllerOperationPush) {
+        return nil;
+    }else{
+        return _interactive.isInteractive ? _interactive : nil ;
+    }
+    
+}
 
 
 @end

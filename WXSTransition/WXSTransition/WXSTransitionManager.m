@@ -21,6 +21,8 @@
         _animationTime = 0.500082;
         self.animationType = WXSTransitionAnimationTypeDefault;
         _completionBlock = nil;
+        _backGestureType = WXSGestureTypePanRight;
+        _backGestureEnable = YES;
         
     }
     return self;
@@ -33,10 +35,9 @@
     return _animationTime ;
 }
 
-- (void)animationEnded:(BOOL) transitionCompleted{
+- (void)animationEnded:(BOOL) transitionCompleted {
     
     if (transitionCompleted) {
-        
         [self removeDelegate];
     }
 }
@@ -177,12 +178,21 @@
         }else{
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            toVC.transitioningDelegate = nil;
-            toVC.navigationController.delegate = nil;
         }
         [tempView removeFromSuperview];
         [temView1 removeFromSuperview];
     };
+    
+    _willEndInteractiveBlock = ^(BOOL success) {
+        if (success) {
+            toVC.view.hidden = NO;
+        }else{
+            [tempView removeFromSuperview];
+            [temView1 removeFromSuperview];
+        }
+        
+    };
+    
     
 }
 
@@ -237,7 +247,6 @@
         
     } completion:^(BOOL finished) {
         if ([transitionContext transitionWasCancelled]) {
-            
             fromVC.view.alpha = 1;
             [transitionContext completeTransition:NO];
         }else{
@@ -247,6 +256,15 @@
             toVC.view.alpha = 1;
         }
     }];
+    _willEndInteractiveBlock = ^(BOOL success) {
+        if (success) {
+            [tempView removeFromSuperview];
+            toVC.view.hidden = NO;
+            toVC.view.alpha = 1;
+        }else{
+            fromVC.view.alpha = 1;
+        }
+    };
     
 }
 
@@ -320,11 +338,24 @@
             toVC.startView.hidden = YES;
             toVC.view.hidden = NO;
             [tempView removeFromSuperview];
-            //remove delegate of last view controller from self.
-            toVC.navigationController.delegate = nil;
-            toVC.transitioningDelegate = nil;
+
         }
     }];
+    
+    _willEndInteractiveBlock  = ^(BOOL success){
+        
+        if (success) {
+            
+            toVC.targetView.hidden = NO;
+            toVC.startView.hidden = YES;
+            [tempView removeFromSuperview];
+            
+        }else{
+            tempView.hidden = YES;
+            toVC.targetView.hidden = NO;
+            toVC.startView.hidden = NO;
+        }
+    };
     
 }
 
@@ -362,6 +393,9 @@
         [tempView removeFromSuperview];
         
     }];
+    
+    
+    
 }
 
 -(void)coverBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
@@ -370,12 +404,10 @@
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
-    UIView *toTempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
     UIView *containView = [transitionContext containerView];
     
     [containView addSubview:fromVC.view];
     [containView addSubview:toVC.view];
-    [containView addSubview:toTempView];
     [containView addSubview:tempView];
     
     
@@ -392,22 +424,32 @@
         
         if ([transitionContext transitionWasCancelled]) {
             
+            fromVC.view.hidden = NO;
             [transitionContext completeTransition:NO];
             tempView.alpha = 1;
-            tempView.layer.transform = CATransform3DIdentity;
 
         }else{
-            
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
 
-            toVC.navigationController.delegate = nil;
-            toVC.transitioningDelegate = nil;
         }
-        
         [tempView removeFromSuperview];
-        [toTempView removeFromSuperview];
     }];
+    
+    _willEndInteractiveBlock = ^(BOOL success){
+        
+        if (success) {
+            toVC.view.hidden = NO;
+            [tempView removeFromSuperview];
+
+        }else{
+            fromVC.view.hidden = NO;
+            tempView.alpha = 1;
+            
+        }
+
+    };
+    
     
     
 }
@@ -446,8 +488,6 @@
     [maskLayer addAnimation:animation forKey:@"NextPath"];
     
     _completionBlock = ^(){
-        maskLayer.path = endPath.CGPath;
-        tempView.layer.mask = maskLayer;
         
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
@@ -457,6 +497,7 @@
         }
         [tempView removeFromSuperview];
     };
+    
 }
 -(void)spreadFromRightBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -478,9 +519,9 @@
     UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
     
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath;
     tempView.layer.mask = maskLayer;
-    
+    maskLayer.path = endPath.CGPath;
+
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.delegate = self;
     animation.fromValue = (__bridge id)(startPath.CGPath);
@@ -490,18 +531,34 @@
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
     
+    
+
+    _willEndInteractiveBlock = ^(BOOL success) {
+        
+        if (success) {
+            maskLayer.path = endPath.CGPath;
+
+        }else{
+            maskLayer.path = startPath.CGPath;
+        }
+        
+    };
+    
     _completionBlock = ^(){
         
+        [tempView removeFromSuperview];
+
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
-        }else{
             
+        }else{
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
         }
-        [tempView removeFromSuperview];
         
     };
+
+
 }
 -(void)spreadFromLeftNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -580,6 +637,13 @@
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            maskLayer.path = endPath.CGPath;
+        }else{
+            maskLayer.path = startPath.CGPath;
+        }
+    };
     
     _completionBlock = ^(){
         
@@ -677,6 +741,13 @@
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            maskLayer.path = endPath.CGPath;
+        }else{
+            maskLayer.path = startPath.CGPath;
+        }
+    };
     
     _completionBlock = ^(){
         
@@ -768,6 +839,13 @@
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
     
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            maskLayer.path = endPath.CGPath;
+        }else{
+            maskLayer.path = startPath.CGPath;
+        }
+    };
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -854,11 +932,11 @@
         rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
     }
     
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:sqrt(screenHeight * screenHeight + screenWidth * screenWidth)  startAngle:0 endAngle:M_PI*2 clockwise:YES];
+    UIBezierPath *startPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:sqrt(screenHeight * screenHeight + screenWidth * screenWidth)/2 startAngle:0 endAngle:M_PI*2 clockwise:YES];
     UIBezierPath *endPath = [UIBezierPath bezierPathWithOvalInRect:rect];
     
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
-//    maskLayer.path = endPath.CGPath;
+    maskLayer.path = endPath.CGPath;
     tempView.layer.mask = maskLayer;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
@@ -868,7 +946,15 @@
     animation.duration = _animationTime;
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"PointBackPath"];
-        
+    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            maskLayer.path = endPath.CGPath;
+        }else{
+            maskLayer.path = startPath.CGPath;
+        }
+    };
+    
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -933,6 +1019,7 @@
 
             [transitionContext completeTransition:NO];
             fromVC.view.hidden = NO;
+            [tempView removeFromSuperview];
             
         }else{
             [transitionContext completeTransition:YES];
@@ -942,6 +1029,17 @@
         }
         
     }];
+    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            
+            [tempView removeFromSuperview];
+            
+        }else{
+            
+        }
+    };
+    
 
 }
 
@@ -970,6 +1068,7 @@
     [containView addSubview:toVC.view];
     [containView addSubview:imgView0];
     [containView addSubview:imgView1];
+
     
   
     [UIView animateWithDuration:_animationTime animations:^{
@@ -980,6 +1079,8 @@
         
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
+            [imgView0 removeFromSuperview];
+            [imgView1 removeFromSuperview];
         }else{
             [transitionContext completeTransition:YES];
             [imgView0 removeFromSuperview];
@@ -1001,7 +1102,6 @@
     CGRect rect0 = CGRectMake(0 , 0 , screenWidth, screenHeight/2);
     CGRect rect1 = CGRectMake(0 , screenHeight/2 , screenWidth, screenHeight/2);
     
-    
     UIImage *image0 = [self imageFromView:toVC.view atFrame:rect0];
     UIImage *image1 = [self imageFromView:toVC.view atFrame:rect1];
     
@@ -1014,7 +1114,6 @@
     [containView addSubview:imgView1];
     
     toVC.view.hidden = YES;
-    
     imgView0.layer.transform = CATransform3DMakeTranslation(0, -screenHeight/2, 0);
     imgView1.layer.transform = CATransform3DMakeTranslation(0, screenHeight/2, 0);
     
@@ -1028,13 +1127,21 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
         }
+        toVC.view.hidden = NO;
         [imgView0 removeFromSuperview];
         [imgView1 removeFromSuperview];
 
     }];
-    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            toVC.view.hidden = NO;
+            
+        }else{
+            toVC.view.hidden = YES;
+        }
+
+    };
     
 }
 
@@ -1073,7 +1180,11 @@
     } completion:^(BOOL finished) {
         
         if ([transitionContext transitionWasCancelled]) {
+            
             [transitionContext completeTransition:NO];
+            [imgView0 removeFromSuperview];
+            [imgView1 removeFromSuperview];
+            
         }else{
             [transitionContext completeTransition:YES];
             [imgView0 removeFromSuperview];
@@ -1121,13 +1232,22 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
         }
+        toVC.view.hidden = NO;
         [imgView0 removeFromSuperview];
         [imgView1 removeFromSuperview];
         
     }];
 
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            toVC.view.hidden = NO;
+            
+        }else{
+            toVC.view.hidden = YES;
+        }
+        
+    };
     
 }
 
@@ -1215,10 +1335,22 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            [imgView0 removeFromSuperview];
-            [imgView1 removeFromSuperview];
+            
         }
+        [imgView0 removeFromSuperview];
+        [imgView1 removeFromSuperview];
     }];
+    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            toVC.view.hidden = NO;
+            
+        }else{
+            toVC.view.hidden = YES;
+        }
+        
+    };
+
 
 }
 
@@ -1307,11 +1439,22 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            [imgView0 removeFromSuperview];
-            [imgView1 removeFromSuperview];
+            
         }
+        [imgView0 removeFromSuperview];
+        [imgView1 removeFromSuperview];
     }];
     
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            toVC.view.hidden = NO;
+            
+        }else{
+            toVC.view.hidden = YES;
+        }
+        
+    };
+
     
 }
 
@@ -1408,6 +1551,9 @@
     }];
     
     
+
+    
+    
 }
 -(void)fragmentHideBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
 
@@ -1454,12 +1600,21 @@
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
-            
-            toVC.view.hidden = NO;
-
         }
+        toVC.view.hidden = NO;
         
     }];
+    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            for (UIView *fragmentView in fragmentViews) {
+                [fragmentView removeFromSuperview];
+            }
+            toVC.view.hidden = NO;
+        }else{
+            
+        }
+    };
     
 }
 
@@ -1606,6 +1761,19 @@
         }
         
     }];
+    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        
+        if (sucess) {
+            for (UIView *fragmentView in fragmentViews) {
+                [fragmentView removeFromSuperview];
+            }
+            
+        }else{
+        }
+        
+    };
+    
     
     
 }

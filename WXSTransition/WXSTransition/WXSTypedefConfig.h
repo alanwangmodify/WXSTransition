@@ -102,13 +102,13 @@ typedef NS_ENUM(NSInteger,WXSTransitionType){
 
 
 typedef NS_ENUM(NSInteger,WXSGestureType){
-    
+
     WXSGestureTypeNone,
     WXSGestureTypePanLeft,
     WXSGestureTypePanRight,
     WXSGestureTypePanUp,
     WXSGestureTypePanDown,
-    WXSGestureTypeTap,
+//    WXSGestureTypeTap,
     
 };
 //系统动画类型
