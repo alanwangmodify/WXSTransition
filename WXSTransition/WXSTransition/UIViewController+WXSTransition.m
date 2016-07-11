@@ -110,13 +110,6 @@ WXSTransitionManager *_transtion;
     _transtion.animationType = [self animationType];
     self.callBackTransition ? self.callBackTransition(_transtion) : nil;
     _transtion.transitionType = WXSTransitionTypePresent;
-    if (_transtion.isSysBackAnimation == NO) {
-        !_interactive ? _interactive = [[WXSPercentDrivenInteractiveTransition alloc] init] : nil;
-        [_interactive addGestureToViewController:self];
-        _interactive.getstureType = _transtion.backGestureType != WXSGestureTypeNone ? _transtion.backGestureType : WXSGestureTypePanDown;
-        _interactive.transitionType = WXSTransitionTypeDismiss;
-        _interactive.willEndInteractiveBlock =  _transtion.willEndInteractiveBlock;
-    }
     
     return _transtion;
     

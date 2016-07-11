@@ -1340,6 +1340,17 @@
         [imgView0 removeFromSuperview];
         [imgView1 removeFromSuperview];
     }];
+    
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            toVC.view.hidden = NO;
+            
+        }else{
+            toVC.view.hidden = YES;
+        }
+        
+    };
+
 
 }
 
@@ -1434,6 +1445,16 @@
         [imgView1 removeFromSuperview];
     }];
     
+    _willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            toVC.view.hidden = NO;
+            
+        }else{
+            toVC.view.hidden = YES;
+        }
+        
+    };
+
     
 }
 
@@ -1530,6 +1551,9 @@
     }];
     
     
+
+    
+    
 }
 -(void)fragmentHideBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
 
@@ -1583,7 +1607,10 @@
     
     _willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
-            
+            for (UIView *fragmentView in fragmentViews) {
+                [fragmentView removeFromSuperview];
+            }
+            toVC.view.hidden = NO;
         }else{
             
         }
@@ -1736,11 +1763,15 @@
     }];
     
     _willEndInteractiveBlock = ^(BOOL sucess) {
+        
         if (sucess) {
+            for (UIView *fragmentView in fragmentViews) {
+                [fragmentView removeFromSuperview];
+            }
             
         }else{
-            
         }
+        
     };
     
     
