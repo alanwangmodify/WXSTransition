@@ -130,7 +130,7 @@
 - (void)UIChange {
     
     CGFloat timeDistance = 2.0/60;
-    if (_percent > 0.5) {
+    if (_percent > 0.35) {
         _percent += timeDistance;
     }else {
         _percent -= timeDistance;
