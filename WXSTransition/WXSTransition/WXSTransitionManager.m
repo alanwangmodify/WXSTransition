@@ -134,6 +134,9 @@
     [containerView addSubview:fromVC.view];
     [containerView addSubview:toVC.view];
 
+    [containerView bringSubviewToFront:fromVC.view];
+    [containerView bringSubviewToFront:toVC.view];
+    
     CATransition *tranAnimation = [self getSysTransitionWithType:type];
     [containerView.layer addAnimation:tranAnimation forKey:nil];
     
@@ -271,25 +274,25 @@
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *startView = [toVC.startView snapshotViewAfterScreenUpdates:NO];
+    UIView *startView = [toVC.wxs_startView snapshotViewAfterScreenUpdates:NO];
     UIView *containerView = [transitionContext containerView];
   
     [containerView addSubview:toVC.view];
     [containerView addSubview:startView];
     
-    startView.frame = [toVC.startView convertRect:toVC.startView.bounds toView: containerView];
+    startView.frame = [toVC.wxs_startView convertRect:toVC.wxs_startView.bounds toView: containerView];
     toVC.view.alpha = 0;
-    toVC.startView.hidden = NO;
-    toVC.targetView.hidden = YES;
+    toVC.wxs_startView.hidden = NO;
+    toVC.wxs_targetView.hidden = YES;
     fromVC.view.alpha = 1;
 
     [UIView animateWithDuration:_animationTime delay:0.0 usingSpringWithDamping:0.6 initialSpringVelocity:1 / 0.6 options:0 animations:^{
-        startView.frame = [toVC.targetView convertRect:toVC.targetView.bounds toView:containerView];
+        startView.frame = [toVC.wxs_targetView convertRect:toVC.wxs_targetView.bounds toView:containerView];
         toVC.view.alpha = 1;
         fromVC.view.alpha = 0.0;
     } completion:^(BOOL finished) {
         startView.hidden = YES;
-        toVC.targetView.hidden = NO;
+        toVC.wxs_targetView.hidden = NO;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 
@@ -301,23 +304,23 @@
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];
     UIView *tempView = containerView.subviews.lastObject;
-    toVC.startView = fromVC.targetView;
-    toVC.targetView = fromVC.startView;
+    toVC.wxs_startView = fromVC.wxs_targetView;
+    toVC.wxs_targetView = fromVC.wxs_startView;
     
     [containerView insertSubview:toVC.view atIndex:0];
     
     //Default values
-    toVC.startView.hidden = YES;
-    toVC.targetView.hidden = YES;
+    toVC.wxs_startView.hidden = YES;
+    toVC.wxs_targetView.hidden = YES;
     tempView.hidden = NO;
     toVC.view.hidden = NO;
     toVC.view.alpha = 1;
     fromVC.view.alpha = 1;
-    tempView.frame = [fromVC.targetView convertRect:fromVC.targetView.bounds toView:fromVC.view];
+    tempView.frame = [fromVC.wxs_targetView convertRect:fromVC.wxs_targetView.bounds toView:fromVC.view];
     
     [UIView animateWithDuration:_animationTime delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:1 / 0.7 options:0 animations:^{
         
-        tempView.frame = [toVC.targetView convertRect:toVC.targetView.bounds toView:containerView];
+        tempView.frame = [toVC.wxs_targetView convertRect:toVC.wxs_targetView.bounds toView:containerView];
         fromVC.view.alpha = 0;
         toVC.view.alpha = 1;
         
@@ -327,13 +330,13 @@
         if ([transitionContext transitionWasCancelled]) {
             
             tempView.hidden = YES;
-            toVC.targetView.hidden = NO;
-            toVC.startView.hidden = NO;
+            toVC.wxs_targetView.hidden = NO;
+            toVC.wxs_startView.hidden = NO;
             
         }else{
             
-            toVC.targetView.hidden = NO;
-            toVC.startView.hidden = YES;
+            toVC.wxs_targetView.hidden = NO;
+            toVC.wxs_startView.hidden = YES;
             toVC.view.hidden = NO;
             [tempView removeFromSuperview];
 
@@ -347,14 +350,14 @@
         if (success) {
             
             fromVC.view.hidden = YES;
-            toVC.targetView.hidden = NO;
-            toVC.startView.hidden = YES;
+            toVC.wxs_targetView.hidden = NO;
+            toVC.wxs_startView.hidden = YES;
             [tempView removeFromSuperview];
             
         }else{
             tempView.hidden = YES;
-            toVC.targetView.hidden = NO;
-            toVC.startView.hidden = NO;
+            toVC.wxs_targetView.hidden = NO;
+            toVC.wxs_startView.hidden = NO;
             
         }
     };
@@ -879,8 +882,8 @@
     
     
     CGRect rect = CGRectMake(containerView.center.x - 1, containerView.center.y - 1, 2, 2);
-    if (toVC.startView) {
-        CGPoint tempCenter = [toVC.startView convertPoint:toVC.startView.center toView:containerView];
+    if (toVC.wxs_startView) {
+        CGPoint tempCenter = [toVC.wxs_startView convertPoint:toVC.wxs_startView.center toView:containerView];
         rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
     }
     
@@ -929,8 +932,8 @@
     
     
     CGRect rect = CGRectMake(containerView.center.x-1, containerView.center.y-1, 2, 2);
-    if (fromVC.startView) {
-        CGPoint tempCenter = [fromVC.startView convertPoint:fromVC.startView.center toView:containerView];
+    if (fromVC.wxs_startView) {
+        CGPoint tempCenter = [fromVC.wxs_startView convertPoint:fromVC.wxs_startView.center toView:containerView];
         rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
     }
     

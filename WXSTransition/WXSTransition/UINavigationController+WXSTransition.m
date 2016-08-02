@@ -40,19 +40,25 @@
 
 - (void)wxs_pushViewController:(UIViewController *)viewController makeTransition:(WXSTransitionBlock) transitionBlock {
     
+    if (self.delegate) {
+        viewController.wxs_tempNavDelegate = self.delegate;
+    }
     self.delegate = viewController;
-    viewController.callBackTransition = transitionBlock ? transitionBlock : nil;
+    viewController.wxs_addTransitionFlag = YES;
+    viewController.wxs_callBackTransition = transitionBlock ? transitionBlock : nil;
     [self pushViewController:viewController animated:YES];
     
 }
 
-
-
 - (UIViewController *)wxs_popViewControllerAnimated:(BOOL)animated {
     
-    if (self.viewControllers.lastObject.wxs_DelegateFlag) {
+    if (self.viewControllers.lastObject.wxs_delegateFlag) {
         self.delegate = self.viewControllers.lastObject;
+        if (self.wxs_tempNavDelegate) {
+            self.delegate = self.wxs_tempNavDelegate;
+        }
     }
+    
     return [self wxs_popViewControllerAnimated:animated];
     
 }

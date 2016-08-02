@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		5E18A5881D2F58B300073215 /* WXSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E18A5871D2F58B300073215 /* WXSBaseViewController.m */; };
-		9217DE4B1D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9217DE4A1D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.m */; };
-		924F1DC41D26CAD600D2E795 /* WXSTransitionProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 924F1DC31D26CAD600D2E795 /* WXSTransitionProperty.m */; };
+		924A5C031D4FBBB800C03D3F /* UINavigationController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5BF91D4FBBB800C03D3F /* UINavigationController+WXSTransition.m */; };
+		924A5C041D4FBBB800C03D3F /* UIViewController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5BFB1D4FBBB800C03D3F /* UIViewController+WXSTransition.m */; };
+		924A5C051D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5BFD1D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m */; };
+		924A5C061D4FBBB800C03D3F /* WXSTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5BFF1D4FBBB800C03D3F /* WXSTransitionManager.m */; };
+		924A5C071D4FBBB800C03D3F /* WXSTransitionProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5C011D4FBBB800C03D3F /* WXSTransitionProperty.m */; };
 		9257079E1CFC1E87004EB63C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257079D1CFC1E87004EB63C /* main.m */; };
 		925707A11CFC1E87004EB63C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707A01CFC1E87004EB63C /* AppDelegate.m */; };
 		925707A41CFC1E87004EB63C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707A31CFC1E87004EB63C /* ViewController.m */; };
@@ -19,9 +22,6 @@
 		925707C21CFC1E87004EB63C /* WXSTransitionUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707C11CFC1E87004EB63C /* WXSTransitionUITests.m */; };
 		925707DD1CFC44AC004EB63C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925707DC1CFC44AC004EB63C /* SecondViewController.m */; };
 		9295497C1CFEC5DE00CE4C06 /* PresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295497B1CFEC5DE00CE4C06 /* PresentViewController.m */; };
-		929549921D05530100CE4C06 /* UINavigationController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295498A1D05530100CE4C06 /* UINavigationController+WXSTransition.m */; };
-		929549931D05530100CE4C06 /* UIViewController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295498C1D05530100CE4C06 /* UIViewController+WXSTransition.m */; };
-		929549951D05530100CE4C06 /* WXSTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 929549901D05530100CE4C06 /* WXSTransitionManager.m */; };
 		92A178F21D13D1FE006D299A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92A178F11D13D1FE006D299A /* Assets.xcassets */; };
 		92ED74621CFD27B8008B4935 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ED74611CFD27B8008B4935 /* TableViewController.m */; };
 		92ED746E1CFD66F9008B4935 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ED746D1CFD66F9008B4935 /* CollectionViewController.m */; };
@@ -49,10 +49,17 @@
 /* Begin PBXFileReference section */
 		5E18A5861D2F58B300073215 /* WXSBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSBaseViewController.h; sourceTree = "<group>"; };
 		5E18A5871D2F58B300073215 /* WXSBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSBaseViewController.m; sourceTree = "<group>"; };
-		9217DE491D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
-		9217DE4A1D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
-		924F1DC21D26CAD600D2E795 /* WXSTransitionProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTransitionProperty.h; sourceTree = "<group>"; };
-		924F1DC31D26CAD600D2E795 /* WXSTransitionProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSTransitionProperty.m; sourceTree = "<group>"; };
+		924A5BF81D4FBBB800C03D3F /* UINavigationController+WXSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+WXSTransition.h"; sourceTree = "<group>"; };
+		924A5BF91D4FBBB800C03D3F /* UINavigationController+WXSTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+WXSTransition.m"; sourceTree = "<group>"; };
+		924A5BFA1D4FBBB800C03D3F /* UIViewController+WXSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WXSTransition.h"; sourceTree = "<group>"; };
+		924A5BFB1D4FBBB800C03D3F /* UIViewController+WXSTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WXSTransition.m"; sourceTree = "<group>"; };
+		924A5BFC1D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
+		924A5BFD1D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
+		924A5BFE1D4FBBB800C03D3F /* WXSTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTransitionManager.h; sourceTree = "<group>"; };
+		924A5BFF1D4FBBB800C03D3F /* WXSTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSTransitionManager.m; sourceTree = "<group>"; };
+		924A5C001D4FBBB800C03D3F /* WXSTransitionProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTransitionProperty.h; sourceTree = "<group>"; };
+		924A5C011D4FBBB800C03D3F /* WXSTransitionProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSTransitionProperty.m; sourceTree = "<group>"; };
+		924A5C021D4FBBB800C03D3F /* WXSTypedefConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTypedefConfig.h; sourceTree = "<group>"; };
 		925707991CFC1E87004EB63C /* WXSTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WXSTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9257079D1CFC1E87004EB63C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9257079F1CFC1E87004EB63C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -72,13 +79,6 @@
 		925707DC1CFC44AC004EB63C /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		9295497A1CFEC5DE00CE4C06 /* PresentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentViewController.h; sourceTree = "<group>"; };
 		9295497B1CFEC5DE00CE4C06 /* PresentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentViewController.m; sourceTree = "<group>"; };
-		929549891D05530100CE4C06 /* UINavigationController+WXSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+WXSTransition.h"; sourceTree = "<group>"; };
-		9295498A1D05530100CE4C06 /* UINavigationController+WXSTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+WXSTransition.m"; sourceTree = "<group>"; };
-		9295498B1D05530100CE4C06 /* UIViewController+WXSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WXSTransition.h"; sourceTree = "<group>"; };
-		9295498C1D05530100CE4C06 /* UIViewController+WXSTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WXSTransition.m"; sourceTree = "<group>"; };
-		9295498F1D05530100CE4C06 /* WXSTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTransitionManager.h; sourceTree = "<group>"; };
-		929549901D05530100CE4C06 /* WXSTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSTransitionManager.m; sourceTree = "<group>"; };
-		929549911D05530100CE4C06 /* WXSTypedefConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSTypedefConfig.h; sourceTree = "<group>"; };
 		92A178F11D13D1FE006D299A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92ED74601CFD27B8008B4935 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		92ED74611CFD27B8008B4935 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
@@ -115,6 +115,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		924A5BF71D4FBBB800C03D3F /* WXSTransition */ = {
+			isa = PBXGroup;
+			children = (
+				924A5BF81D4FBBB800C03D3F /* UINavigationController+WXSTransition.h */,
+				924A5BF91D4FBBB800C03D3F /* UINavigationController+WXSTransition.m */,
+				924A5BFA1D4FBBB800C03D3F /* UIViewController+WXSTransition.h */,
+				924A5BFB1D4FBBB800C03D3F /* UIViewController+WXSTransition.m */,
+				924A5BFC1D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.h */,
+				924A5BFD1D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m */,
+				924A5BFE1D4FBBB800C03D3F /* WXSTransitionManager.h */,
+				924A5BFF1D4FBBB800C03D3F /* WXSTransitionManager.m */,
+				924A5C001D4FBBB800C03D3F /* WXSTransitionProperty.h */,
+				924A5C011D4FBBB800C03D3F /* WXSTransitionProperty.m */,
+				924A5C021D4FBBB800C03D3F /* WXSTypedefConfig.h */,
+			);
+			path = WXSTransition;
+			sourceTree = "<group>";
+		};
 		925707901CFC1E87004EB63C = {
 			isa = PBXGroup;
 			children = (
@@ -156,7 +174,7 @@
 				925707DC1CFC44AC004EB63C /* SecondViewController.m */,
 				5E18A5861D2F58B300073215 /* WXSBaseViewController.h */,
 				5E18A5871D2F58B300073215 /* WXSBaseViewController.m */,
-				929549881D05530100CE4C06 /* WXSTransition */,
+				924A5BF71D4FBBB800C03D3F /* WXSTransition */,
 				925707A51CFC1E87004EB63C /* Main.storyboard */,
 				925707AA1CFC1E87004EB63C /* LaunchScreen.storyboard */,
 				925707AD1CFC1E87004EB63C /* Info.plist */,
@@ -190,24 +208,6 @@
 				925707C31CFC1E87004EB63C /* Info.plist */,
 			);
 			path = WXSTransitionUITests;
-			sourceTree = "<group>";
-		};
-		929549881D05530100CE4C06 /* WXSTransition */ = {
-			isa = PBXGroup;
-			children = (
-				929549891D05530100CE4C06 /* UINavigationController+WXSTransition.h */,
-				9295498A1D05530100CE4C06 /* UINavigationController+WXSTransition.m */,
-				9295498B1D05530100CE4C06 /* UIViewController+WXSTransition.h */,
-				9295498C1D05530100CE4C06 /* UIViewController+WXSTransition.m */,
-				9217DE491D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.h */,
-				9217DE4A1D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.m */,
-				9295498F1D05530100CE4C06 /* WXSTransitionManager.h */,
-				929549901D05530100CE4C06 /* WXSTransitionManager.m */,
-				924F1DC21D26CAD600D2E795 /* WXSTransitionProperty.h */,
-				924F1DC31D26CAD600D2E795 /* WXSTransitionProperty.m */,
-				929549911D05530100CE4C06 /* WXSTypedefConfig.h */,
-			);
-			path = WXSTransition;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,20 +341,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				924A5C041D4FBBB800C03D3F /* UIViewController+WXSTransition.m in Sources */,
+				924A5C061D4FBBB800C03D3F /* WXSTransitionManager.m in Sources */,
+				924A5C071D4FBBB800C03D3F /* WXSTransitionProperty.m in Sources */,
+				924A5C051D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m in Sources */,
 				9295497C1CFEC5DE00CE4C06 /* PresentViewController.m in Sources */,
-				9217DE4B1D257F3B0023AF9F /* WXSPercentDrivenInteractiveTransition.m in Sources */,
 				92ED746E1CFD66F9008B4935 /* CollectionViewController.m in Sources */,
 				925707A41CFC1E87004EB63C /* ViewController.m in Sources */,
 				92ED74711CFD6811008B4935 /* CollectionViewCell.m in Sources */,
 				925707DD1CFC44AC004EB63C /* SecondViewController.m in Sources */,
-				929549931D05530100CE4C06 /* UIViewController+WXSTransition.m in Sources */,
 				92ED74741CFD6F5B008B4935 /* DetailViewController.m in Sources */,
-				924F1DC41D26CAD600D2E795 /* WXSTransitionProperty.m in Sources */,
 				925707A11CFC1E87004EB63C /* AppDelegate.m in Sources */,
+				924A5C031D4FBBB800C03D3F /* UINavigationController+WXSTransition.m in Sources */,
 				92ED74621CFD27B8008B4935 /* TableViewController.m in Sources */,
-				929549951D05530100CE4C06 /* WXSTransitionManager.m in Sources */,
 				9257079E1CFC1E87004EB63C /* main.m in Sources */,
-				929549921D05530100CE4C06 /* UINavigationController+WXSTransition.m in Sources */,
 				5E18A5881D2F58B300073215 /* WXSBaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

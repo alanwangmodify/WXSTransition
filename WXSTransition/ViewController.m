@@ -155,7 +155,7 @@
                  
                     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
                     SecondViewController *vc = [[SecondViewController alloc] init];
-                    vc.startView = cell.contentView;
+                    vc.wxs_startView = cell.contentView;
                     [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
                         transition.animationType =  WXSTransitionAnimationTypePointSpreadPresent;
                         transition.animationTime = 1;
