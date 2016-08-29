@@ -28,6 +28,10 @@
     [btn setTitle:@"点我 返回上个界面" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(click) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)];
+    [self.view addGestureRecognizer:tap];
+    
 }
 
 -(void)click{
