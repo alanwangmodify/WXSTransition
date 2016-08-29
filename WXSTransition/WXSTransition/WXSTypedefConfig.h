@@ -64,6 +64,7 @@ typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
     WXSTransitionAnimationTypePageTransition,
     
     WXSTransitionAnimationTypeViewMoveToNextVC,
+    WXSTransitionAnimationTypeViewMoveNormalToNextVC,
     
     WXSTransitionAnimationTypeCover,
     
