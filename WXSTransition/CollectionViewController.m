@@ -47,7 +47,6 @@ static NSString *identifier  = @"identifier";
     
     DetailViewController *vc = [[DetailViewController alloc] init];
     CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//    vc.wxs_startView = cell.imgView;
     
     if (indexPath.row % 2 == 0) {
         [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {

@@ -282,17 +282,18 @@
     
     startView.frame = [self.startView convertRect:self.startView.bounds toView: containerView];
     toVC.view.alpha = 0;
-    toVC.wxs_startView.hidden = NO;
-    toVC.wxs_targetView.hidden = YES;
+    self.startView.hidden = NO;
+    self.targetView.hidden = YES;
     fromVC.view.alpha = 1;
 
+    __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:_animationTime delay:0.0 usingSpringWithDamping:0.6 initialSpringVelocity:1 / 0.6 options:0 animations:^{
-        startView.frame = [toVC.wxs_targetView convertRect:toVC.wxs_targetView.bounds toView:containerView];
+        startView.frame = [weakSelf.targetView convertRect:weakSelf.targetView.bounds toView:containerView];
         toVC.view.alpha = 1;
         fromVC.view.alpha = 0.0;
     } completion:^(BOOL finished) {
         startView.hidden = YES;
-        toVC.wxs_targetView.hidden = NO;
+        weakSelf.targetView.hidden = NO;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 
@@ -310,17 +311,18 @@
     [containerView insertSubview:toVC.view atIndex:0];
     
     //Default values
-    toVC.wxs_startView.hidden = YES;
-    toVC.wxs_targetView.hidden = YES;
+    self.targetView.hidden = YES;
+    self.startView.hidden = YES;
     tempView.hidden = NO;
     toVC.view.hidden = NO;
     toVC.view.alpha = 1;
     fromVC.view.alpha = 1;
     tempView.frame = [fromVC.wxs_targetView convertRect:fromVC.wxs_targetView.bounds toView:fromVC.view];
     
+    __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:_animationTime delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:1 / 0.7 options:0 animations:^{
         
-        tempView.frame = [toVC.wxs_targetView convertRect:toVC.wxs_targetView.bounds toView:containerView];
+        tempView.frame = [weakSelf.startView convertRect:weakSelf.startView.bounds toView:containerView];
         fromVC.view.alpha = 0;
         toVC.view.alpha = 1;
         
@@ -330,13 +332,13 @@
         if ([transitionContext transitionWasCancelled]) {
             
             tempView.hidden = YES;
-            toVC.wxs_targetView.hidden = NO;
-            toVC.wxs_startView.hidden = NO;
+            weakSelf.targetView.hidden = NO;
+            weakSelf.startView.hidden = NO;
             
         }else{
             
-            toVC.wxs_targetView.hidden = NO;
-            toVC.wxs_startView.hidden = YES;
+            weakSelf.startView.hidden = NO;
+            weakSelf.targetView.hidden = YES;
             toVC.view.hidden = NO;
             [tempView removeFromSuperview];
 
@@ -350,14 +352,14 @@
         if (success) {
             
             fromVC.view.hidden = YES;
-            toVC.wxs_targetView.hidden = NO;
-            toVC.wxs_startView.hidden = YES;
+            weakSelf.startView.hidden = NO;
+            weakSelf.targetView.hidden = YES;
             [tempView removeFromSuperview];
             
         }else{
             tempView.hidden = YES;
-            toVC.wxs_targetView.hidden = NO;
-            toVC.wxs_startView.hidden = NO;
+            weakSelf.startView.hidden = NO;
+            weakSelf.targetView.hidden = NO;
             
         }
     };
