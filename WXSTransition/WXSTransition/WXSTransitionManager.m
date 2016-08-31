@@ -274,13 +274,13 @@
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *startView = [toVC.wxs_startView snapshotViewAfterScreenUpdates:NO];
+    UIView *startView = [self.startView snapshotViewAfterScreenUpdates:NO];
     UIView *containerView = [transitionContext containerView];
   
     [containerView addSubview:toVC.view];
     [containerView addSubview:startView];
     
-    startView.frame = [toVC.wxs_startView convertRect:toVC.wxs_startView.bounds toView: containerView];
+    startView.frame = [self.startView convertRect:self.startView.bounds toView: containerView];
     toVC.view.alpha = 0;
     toVC.wxs_startView.hidden = NO;
     toVC.wxs_targetView.hidden = YES;
@@ -2269,6 +2269,8 @@
     transition.isSysBackAnimation = propery.isSysBackAnimation;
     transition.backGestureType = propery.backGestureType;
     transition.backGestureEnable = propery.backGestureEnable;
+    transition.startView = propery.startView;
+    transition.targetView = propery.targetView;
     
     return transition;
     

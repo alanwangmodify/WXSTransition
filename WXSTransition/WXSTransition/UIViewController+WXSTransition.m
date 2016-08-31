@@ -173,7 +173,6 @@ WXSTransitionManager *_transtion;
     self.wxs_callBackTransition ? self.wxs_callBackTransition(make) : nil;
     _transtion = [WXSTransitionManager copyPropertyFromObjcet:make toObjcet:_transtion];
     _transtion.transitionType = WXSTransitionTypeDismiss;
-    
     return _transtion;
     
 }

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "WXSTypedefConfig.h"
 
 @interface WXSTransitionProperty : NSObject
@@ -51,6 +52,11 @@
  *  choose type of gesture for back , default : WXSGestureTypePanRight
  */
 @property (nonatomic,assign) WXSGestureType backGestureType;
+
+
+@property (nonatomic, strong) UIView     *startView;
+@property (nonatomic, strong) UIView     *targetView;
+
 
 
 

@@ -20,6 +20,7 @@
         _backGestureType = WXSGestureTypePanRight;
         _backGestureEnable = YES;
         
+        
     }
     return self;
 }
