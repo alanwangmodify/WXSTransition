@@ -42,13 +42,31 @@ static NSString *identifier  = @"identifier";
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
     DetailViewController *vc = [[DetailViewController alloc] init];
     CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    vc.wxs_startView = cell.imgView;
-    [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
-        transition.animationType = WXSTransitionAnimationTypeViewMoveToNextVC;
-        transition.animationTime = 1;
-    }];
+    
+    if (indexPath.row % 2 == 0) {
+        [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
+            transition.animationType = WXSTransitionAnimationTypeViewMoveToNextVC;
+            transition.animationTime = 1;
+            transition.startView  = cell.imgView;
+            transition.targetView = vc.imageView;
+        }];
+    }else {
+        
+        [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
+            transition.animationType = WXSTransitionAnimationTypeViewMoveNormalToNextVC;
+            transition.animationTime = 0.4;
+            transition.startView  = cell.imgView;
+            transition.targetView = vc.imageView;
+
+        }];
+    }
+    
+    
 }
 
 #pragma mark Getter
