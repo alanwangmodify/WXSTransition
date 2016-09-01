@@ -10,7 +10,6 @@
 
 @interface DetailViewController ()
 
-@property (nonatomic,strong) UIImageView *imageView;
 
 @end
 

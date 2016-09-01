@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+WXSTransition.h"
 @interface DetailViewController : UIViewController
+@property (nonatomic,strong) UIImageView *imageView;
 
 @end
