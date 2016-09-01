@@ -35,7 +35,7 @@
     self.navigationController.view.layer.cornerRadius = 7.0;
     self.navigationController.view.layer.masksToBounds = YES;
     
-    _names = @[@"pageTransition",@"viewMove",@"cover",@"spreadFromRight",@"spreadFromLeft",@"spreadFromTop",@"spreadFromBottom",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH",@"fragmentShowFromRight",@"fragmentShowFromLeft",@"fragmentShowFromTop",@"fragmentShowFromBottom",@"fragmenHide"];
+    _names = @[@"pageTransition",@"viewMove",@"viewMove",@"cover",@"spreadFromRight",@"spreadFromLeft",@"spreadFromTop",@"spreadFromBottom",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH",@"fragmentShowFromRight",@"fragmentShowFromLeft",@"fragmentShowFromTop",@"fragmentShowFromBottom",@"fragmenHide"];
     _customNames = @[@"poitnt spread from tap center",@" "];
     
 }
@@ -125,7 +125,7 @@
         }
             break;
         case 1:{
-            if (indexPath.row == 1) {
+            if (indexPath.row == 1 || indexPath.row == 2) {
                 CollectionViewController *vc = [[CollectionViewController alloc] init];
                 self.navigationController.delegate = nil;
                 [self.navigationController pushViewController:vc animated:YES];
@@ -136,7 +136,7 @@
         }
             break;
         case 2:{
-            if (indexPath.row == 1) {
+            if (indexPath.row == 1 || indexPath.row == 2) { 
                 CollectionViewController *vc = [[CollectionViewController alloc] init];
                 [self.navigationController pushViewController:vc animated:YES];
                 return;
