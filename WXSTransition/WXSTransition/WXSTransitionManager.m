@@ -978,7 +978,7 @@
     
     CGRect rect = CGRectMake(containerView.center.x - 1, containerView.center.y - 1, 2, 2);
     if (self.startView) {
-        CGPoint tempCenter = [self.startView convertPoint:sefl.startView.center toView:containerView];
+        CGPoint tempCenter = [self.startView convertPoint:self.startView.center toView:containerView];
         rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
     }
     
