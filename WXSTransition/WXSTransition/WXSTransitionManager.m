@@ -316,7 +316,7 @@
     toVC.view.hidden = NO;
     toVC.view.alpha = 1;
     fromVC.view.alpha = 1;
-    tempView.frame = [fromVC.wxs_targetView convertRect:fromVC.wxs_targetView.bounds toView:fromVC.view];
+    tempView.frame = [self.targetView convertRect:self.targetView.bounds toView:fromVC.view];
     
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:_animationTime delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:1 / 0.7 options:0 animations:^{
@@ -411,7 +411,7 @@
     toVC.view.hidden = NO;
     toVC.view.alpha = 1;
     fromVC.view.alpha = 1;
-    tempView.frame = [fromVC.wxs_targetView convertRect:fromVC.wxs_targetView.bounds toView:fromVC.view];
+    tempView.frame = [self.targetView convertRect:self.targetView.bounds toView:fromVC.view];
     
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:_animationTime animations:^{
