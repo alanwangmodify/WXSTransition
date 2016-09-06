@@ -305,8 +305,7 @@
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];
     UIView *tempView = containerView.subviews.lastObject;
-    toVC.wxs_startView = fromVC.wxs_targetView;
-    toVC.wxs_targetView = fromVC.wxs_startView;
+    
     
     [containerView insertSubview:toVC.view atIndex:0];
     
@@ -401,8 +400,7 @@
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];
     UIView *tempView = containerView.subviews.lastObject;
-    toVC.wxs_startView = fromVC.wxs_targetView;
-    toVC.wxs_targetView = fromVC.wxs_startView;
+
     
     [containerView insertSubview:toVC.view atIndex:0];
     
@@ -979,8 +977,8 @@
     
     
     CGRect rect = CGRectMake(containerView.center.x - 1, containerView.center.y - 1, 2, 2);
-    if (toVC.wxs_startView) {
-        CGPoint tempCenter = [toVC.wxs_startView convertPoint:toVC.wxs_startView.center toView:containerView];
+    if (self.startView) {
+        CGPoint tempCenter = [self.startView convertPoint:sefl.startView.center toView:containerView];
         rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
     }
     
@@ -1029,8 +1027,8 @@
     
     
     CGRect rect = CGRectMake(containerView.center.x-1, containerView.center.y-1, 2, 2);
-    if (fromVC.wxs_startView) {
-        CGPoint tempCenter = [fromVC.wxs_startView convertPoint:fromVC.wxs_startView.center toView:containerView];
+    if (self.startView) {
+        CGPoint tempCenter = [self.startView convertPoint:self.startView.center toView:containerView];
         rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
     }
     
