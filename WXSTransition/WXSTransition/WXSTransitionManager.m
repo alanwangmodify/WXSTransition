@@ -305,8 +305,7 @@
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];
     UIView *tempView = containerView.subviews.lastObject;
-    toVC.wxs_startView = fromVC.wxs_targetView;
-    toVC.wxs_targetView = fromVC.wxs_startView;
+    
     
     [containerView insertSubview:toVC.view atIndex:0];
     
@@ -317,7 +316,7 @@
     toVC.view.hidden = NO;
     toVC.view.alpha = 1;
     fromVC.view.alpha = 1;
-    tempView.frame = [fromVC.wxs_targetView convertRect:fromVC.wxs_targetView.bounds toView:fromVC.view];
+    tempView.frame = [self.targetView convertRect:self.targetView.bounds toView:fromVC.view];
     
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:_animationTime delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:1 / 0.7 options:0 animations:^{
@@ -401,8 +400,7 @@
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];
     UIView *tempView = containerView.subviews.lastObject;
-    toVC.wxs_startView = fromVC.wxs_targetView;
-    toVC.wxs_targetView = fromVC.wxs_startView;
+
     
     [containerView insertSubview:toVC.view atIndex:0];
     
@@ -413,7 +411,7 @@
     toVC.view.hidden = NO;
     toVC.view.alpha = 1;
     fromVC.view.alpha = 1;
-    tempView.frame = [fromVC.wxs_targetView convertRect:fromVC.wxs_targetView.bounds toView:fromVC.view];
+    tempView.frame = [self.targetView convertRect:self.targetView.bounds toView:fromVC.view];
     
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:_animationTime animations:^{
@@ -979,8 +977,8 @@
     
     
     CGRect rect = CGRectMake(containerView.center.x - 1, containerView.center.y - 1, 2, 2);
-    if (toVC.wxs_startView) {
-        CGPoint tempCenter = [toVC.wxs_startView convertPoint:toVC.wxs_startView.center toView:containerView];
+    if (self.startView) {
+        CGPoint tempCenter = [self.startView convertPoint:self.startView.center toView:containerView];
         rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
     }
     
@@ -1029,8 +1027,8 @@
     
     
     CGRect rect = CGRectMake(containerView.center.x-1, containerView.center.y-1, 2, 2);
-    if (fromVC.wxs_startView) {
-        CGPoint tempCenter = [fromVC.wxs_startView convertPoint:fromVC.wxs_startView.center toView:containerView];
+    if (self.startView) {
+        CGPoint tempCenter = [self.startView convertPoint:self.startView.center toView:containerView];
         rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
     }
     

@@ -23,7 +23,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.imageView];
     
-    self.wxs_targetView = self.imageView;
+
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     [self.view addGestureRecognizer:tap];
