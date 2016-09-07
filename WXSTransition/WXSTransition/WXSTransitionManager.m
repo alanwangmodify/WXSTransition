@@ -1722,9 +1722,37 @@
     
 }
 
+//
+-(void)insideThenPushNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *containerView = [transitionContext containerView];
+    
+    UIView *fromView = fromVC.view;
+    UIView *toView = toVC.view;
+    
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
 
-//- (void
+    
+    toView.layer.transform = CATransform3DMakeTranslation(screenWidth,0,0);
+    [UIView animateWithDuration:_animationTime animations:^{
+        
+        fromView.layer.transform = CATransform3DMakeScale(0.8,0.8,1);
+        toView.layer.transform = CATransform3DIdentity;
+        
+    } completion:^(BOOL finished){
+        
+    }];
+    
+    
+    
+}
 
+-(void)insideThenPushHideBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext {
+    
+    
+    
+}
 #pragma mark Other
 -(void)fragmentShowNextType:(WXSTransitionAnimationType)type andContext:(id<UIViewControllerContextTransitioning>)transitionContext {
     
