@@ -10,6 +10,7 @@
 		5E18A5881D2F58B300073215 /* WXSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E18A5871D2F58B300073215 /* WXSBaseViewController.m */; };
 		5E393C871D913E6900800818 /* WXSTransitionManager+FragmentAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E393C861D913E6900800818 /* WXSTransitionManager+FragmentAnimation.m */; };
 		5E393C8A1D91409300800818 /* WXSTransitionManager+TypeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E393C891D91409300800818 /* WXSTransitionManager+TypeTool.m */; };
+		5E393C8D1D9150CB00800818 /* WXSTransitionManager+BrickAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E393C8C1D9150CB00800818 /* WXSTransitionManager+BrickAnimation.m */; };
 		924A5C031D4FBBB800C03D3F /* UINavigationController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5BF91D4FBBB800C03D3F /* UINavigationController+WXSTransition.m */; };
 		924A5C041D4FBBB800C03D3F /* UIViewController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5BFB1D4FBBB800C03D3F /* UIViewController+WXSTransition.m */; };
 		924A5C051D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5BFD1D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m */; };
@@ -55,6 +56,8 @@
 		5E393C861D913E6900800818 /* WXSTransitionManager+FragmentAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WXSTransitionManager+FragmentAnimation.m"; sourceTree = "<group>"; };
 		5E393C881D91409300800818 /* WXSTransitionManager+TypeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WXSTransitionManager+TypeTool.h"; sourceTree = "<group>"; };
 		5E393C891D91409300800818 /* WXSTransitionManager+TypeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WXSTransitionManager+TypeTool.m"; sourceTree = "<group>"; };
+		5E393C8B1D9150CB00800818 /* WXSTransitionManager+BrickAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WXSTransitionManager+BrickAnimation.h"; sourceTree = "<group>"; };
+		5E393C8C1D9150CB00800818 /* WXSTransitionManager+BrickAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WXSTransitionManager+BrickAnimation.m"; sourceTree = "<group>"; };
 		924A5BF81D4FBBB800C03D3F /* UINavigationController+WXSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+WXSTransition.h"; sourceTree = "<group>"; };
 		924A5BF91D4FBBB800C03D3F /* UINavigationController+WXSTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+WXSTransition.m"; sourceTree = "<group>"; };
 		924A5BFA1D4FBBB800C03D3F /* UIViewController+WXSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WXSTransition.h"; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				924A5BFD1D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m */,
 				924A5BFE1D4FBBB800C03D3F /* WXSTransitionManager.h */,
 				924A5BFF1D4FBBB800C03D3F /* WXSTransitionManager.m */,
+				5E393C8B1D9150CB00800818 /* WXSTransitionManager+BrickAnimation.h */,
+				5E393C8C1D9150CB00800818 /* WXSTransitionManager+BrickAnimation.m */,
 				5E393C881D91409300800818 /* WXSTransitionManager+TypeTool.h */,
 				5E393C891D91409300800818 /* WXSTransitionManager+TypeTool.m */,
 				5E393C851D913E6900800818 /* WXSTransitionManager+FragmentAnimation.h */,
@@ -351,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E393C8D1D9150CB00800818 /* WXSTransitionManager+BrickAnimation.m in Sources */,
 				924A5C041D4FBBB800C03D3F /* UIViewController+WXSTransition.m in Sources */,
 				924A5C061D4FBBB800C03D3F /* WXSTransitionManager.m in Sources */,
 				924A5C071D4FBBB800C03D3F /* WXSTransitionProperty.m in Sources */,
