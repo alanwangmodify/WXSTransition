@@ -147,7 +147,7 @@ WXSTransitionManager *_transtion;
     objc_setAssociatedObject(self, &wxs_transitioningDelegateKey, wxs_transitioningDelegate, OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (BOOL)wxs_transitioningDelegate {
+- (id)wxs_transitioningDelegate {
     return objc_getAssociatedObject(self, &wxs_transitioningDelegateKey);
 }
 //----- wxs_tempNavDelegate

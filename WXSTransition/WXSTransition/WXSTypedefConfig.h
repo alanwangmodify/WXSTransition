@@ -88,11 +88,11 @@ typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
     WXSTransitionAnimationTypeFragmentShowFromTop,
     WXSTransitionAnimationTypeFragmentShowFromBottom,
     
-    WXSTransitionAnimationTypeFragmentHide,
-//    WXSTransitionAnimationTypeFragmentHideFromLeft,
-//    WXSTransitionAnimationTypeFragmentHideFromTop,
-//    WXSTransitionAnimationTypeFragmentHideFromBottom,
-        
+    WXSTransitionAnimationTypeFragmentHideFromRight,
+    WXSTransitionAnimationTypeFragmentHideFromLeft,
+    WXSTransitionAnimationTypeFragmentHideFromTop,
+    WXSTransitionAnimationTypeFragmentHideFromBottom,
+    
 };
 
 typedef NS_ENUM(NSInteger,WXSTransitionType){

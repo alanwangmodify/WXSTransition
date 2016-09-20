@@ -35,7 +35,7 @@
     self.navigationController.view.layer.cornerRadius = 7.0;
     self.navigationController.view.layer.masksToBounds = YES;
     
-    _names = @[@"pageTransition",@"viewMove",@"viewMove",@"cover",@"spreadFromRight",@"spreadFromLeft",@"spreadFromTop",@"spreadFromBottom",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH",@"InsideThenPush",@"fragmentShowFromRight",@"fragmentShowFromLeft",@"fragmentShowFromTop",@"fragmentShowFromBottom",@"fragmenHide"];
+    _names = @[@"pageTransition",@"viewMove",@"viewMove",@"cover",@"spreadFromRight",@"spreadFromLeft",@"spreadFromTop",@"spreadFromBottom",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH",@"InsideThenPush",@"fragmentShowFromRight",@"fragmentShowFromLeft",@"fragmentShowFromTop",@"fragmentShowFromBottom",@"fragmenHideFromRight",@"fragmenHideFromLeft",@"fragmenHideFromTop",@"fragmenHideFromBottom"];
     _customNames = @[@"poitnt spread from tap center",@" "];
     
 }
@@ -47,7 +47,7 @@
             break;
         case 1: 
         case 2:
-            return WXSTransitionAnimationTypeFragmentHide - WXSTransitionAnimationTypeDefault;
+            return WXSTransitionAnimationTypeFragmentHideFromBottom - WXSTransitionAnimationTypeDefault;
             break;
         default:
             return _customNames.count;
@@ -171,9 +171,9 @@
                 case 1:{
                     
             
-                    ViewController *vc = [[ViewController alloc] init];
+                    SecondViewController *vc = [[SecondViewController alloc] init];
                     [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
-                        transition.animationType  = WXSTransitionAnimationTypePointSpreadPresent;
+                        transition.animationType  = WXSTransitionAnimationTypeBoom;
                         transition.isSysBackAnimation = YES;
                     }];
                 }
