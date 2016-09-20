@@ -53,8 +53,15 @@
  */
 @property (nonatomic,assign) WXSGestureType backGestureType;
 
-
+/**
+ *  View move 等动画中指定的起始视图
+ *
+ */
 @property (nonatomic, strong) UIView     *startView;
+/**
+ *  View move 等动画中指定的结束视图
+ *
+ */
 @property (nonatomic, strong) UIView     *targetView;
 
 

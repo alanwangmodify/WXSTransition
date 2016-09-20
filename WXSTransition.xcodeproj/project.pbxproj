@@ -118,6 +118,8 @@
 		924A5BF71D4FBBB800C03D3F /* WXSTransition */ = {
 			isa = PBXGroup;
 			children = (
+				924A5C001D4FBBB800C03D3F /* WXSTransitionProperty.h */,
+				924A5C011D4FBBB800C03D3F /* WXSTransitionProperty.m */,
 				924A5BF81D4FBBB800C03D3F /* UINavigationController+WXSTransition.h */,
 				924A5BF91D4FBBB800C03D3F /* UINavigationController+WXSTransition.m */,
 				924A5BFA1D4FBBB800C03D3F /* UIViewController+WXSTransition.h */,
@@ -126,8 +128,6 @@
 				924A5BFD1D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m */,
 				924A5BFE1D4FBBB800C03D3F /* WXSTransitionManager.h */,
 				924A5BFF1D4FBBB800C03D3F /* WXSTransitionManager.m */,
-				924A5C001D4FBBB800C03D3F /* WXSTransitionProperty.h */,
-				924A5C011D4FBBB800C03D3F /* WXSTransitionProperty.m */,
 				924A5C021D4FBBB800C03D3F /* WXSTypedefConfig.h */,
 			);
 			path = WXSTransition;
@@ -277,7 +277,7 @@
 				TargetAttributes = {
 					925707981CFC1E87004EB63C = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = DHE6GUA4LT;
+						DevelopmentTeam = PZX8G85BFY;
 					};
 					925707B11CFC1E87004EB63C = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -427,8 +427,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yu Qi (NH5PMZAAZ5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yu Qi (NH5PMZAAZ5)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -450,6 +450,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -472,8 +473,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yu Qi (NH5PMZAAZ5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yu Qi (NH5PMZAAZ5)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -488,6 +489,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -498,7 +500,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yu Qi (NH5PMZAAZ5)";
 				INFOPLIST_FILE = WXSTransition/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -512,7 +514,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yu Qi (NH5PMZAAZ5)";
 				INFOPLIST_FILE = WXSTransition/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
