@@ -10,6 +10,7 @@
 @property (nonatomic, assign) WXSTransitionType                 transitionType;
 
 @property (nonatomic, assign) WXSTransitionAnimationType        animationType;
+@property (nonatomic, assign) WXSTransitionAnimationType        backAnimationType;
 
 @property (nonatomic, assign) WXSGestureType                    backGestureType;
 

@@ -3,10 +3,11 @@
 #import "UIViewController+WXSTransition.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import "WXSTransitionManager+FragmentAnimation.h"
+#import "WXSTransitionManager+TypeTool.h"
 @interface WXSTransitionManager ()
 
 @property (nonatomic, copy) void(^completionBlock)();
-@property (nonatomic, assign) WXSTransitionAnimationType backAnimationType;
 @property (nonatomic, assign) id <UIViewControllerContextTransitioning> transitionContext;
 
 @end
@@ -1398,6 +1399,8 @@
     }];
     
 }
+
+
 -(void)brickCloseVerticalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
     
@@ -1453,10 +1456,9 @@
         
     };
 
-
 }
 
-//
+
 -(void)brickCloseHorizontalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -1561,7 +1563,9 @@
 
     
 }
-//
+
+
+
 -(void)insideThenPushNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -1590,13 +1594,8 @@
         }else{
             [transitionContext completeTransition:YES];
             fromView.layer.transform = CATransform3DIdentity;
-
         }
-        
     }];
-    
-    
-    
 }
 
 -(void)insideThenPushBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -1646,9 +1645,6 @@
     
 }
 
-
-
-//
 -(void)fragmentShowFromRightNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
     [self fragmentShowNextType:WXSTransitionAnimationTypeFragmentShowFromRight andContext:transitionContext];
@@ -1730,307 +1726,8 @@
 
 
 #pragma mark Other
--(void)fragmentShowNextType:(WXSTransitionAnimationType)type andContext:(id<UIViewControllerContextTransitioning>)transitionContext {
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    
-    UIView *toVCTempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    
-    [containerView addSubview:toVC.view];
-    //    [containerView addSubview:fromVCTempView];
-    [containerView addSubview:fromVC.view];
-    
-    NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
-    
-    CGSize size = fromVC.view.frame.size;
-    CGFloat fragmentWidth = 20.0f;
-    
-    NSInteger rowNum = size.width/fragmentWidth + 1;
-    for (int i = 0; i < rowNum ; i++) {
-        
-        for (int j = 0; j < size.height/fragmentWidth + 1; j++) {
-            
-            CGRect rect = CGRectMake(i*fragmentWidth, j*fragmentWidth, fragmentWidth, fragmentWidth);
-            UIView *fragmentView = [toVCTempView resizableSnapshotViewFromRect:rect  afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-            [containerView addSubview:fragmentView];
-            [fragmentViews addObject:fragmentView];
-            fragmentView.frame = rect;
-            switch (type) {
-                case WXSTransitionAnimationTypeFragmentShowFromRight:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation( random()%50 *50, 0, 0);
 
-                    break;
-                case WXSTransitionAnimationTypeFragmentShowFromLeft:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation( - random()%50 *50 , 0 , 0);
 
-                    break;
-                case WXSTransitionAnimationTypeFragmentShowFromTop:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation(0, - random()%50 *50, 0);
-
-                    break;
-                    
-                default:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation(0, random()%50 *50, 0);
-
-                    break;
-            }
-            fragmentView.alpha = 0;
-        }
-        
-    }
-    
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        for (UIView *fragmentView in fragmentViews) {
-            fragmentView.layer.transform = CATransform3DIdentity;
-            fragmentView.alpha = 1;
-            
-        }
-    } completion:^(BOOL finished) {
-        for (UIView *fragmentView in fragmentViews) {
-            [fragmentView removeFromSuperview];
-        }
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-            fromVC.view.hidden = NO;
-        }else{
-            [transitionContext completeTransition:YES];
-            fromVC.view.hidden = NO;
-        }
-        
-    }];
-}
--(void)fragmentShowBackType:(WXSTransitionAnimationType)type andContext:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    UIView *fromTempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
-    
-    [containerView addSubview:toVC.view];
-    
-    NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
-    
-    CGSize size = fromVC.view.frame.size;
-    CGFloat fragmentWidth = 20.0f;
-    
-    NSInteger rowNum = size.width/fragmentWidth + 1;
-    for (int i = 0; i < rowNum ; i++) {
-        
-        for (int j = 0; j < size.height/fragmentWidth + 1; j++) {
-            
-            CGRect rect = CGRectMake(i*fragmentWidth, j*fragmentWidth, fragmentWidth, fragmentWidth);
-            UIView *fragmentView = [fromTempView resizableSnapshotViewFromRect:rect  afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-            [containerView addSubview:fragmentView];
-            [fragmentViews addObject:fragmentView];
-            fragmentView.frame = rect;
-        }
-        
-    }
-    
-    toVC.view.hidden = NO;
-    fromVC.view.hidden = YES;
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        for (UIView *fragmentView in fragmentViews) {
-            
-            CGRect rect = fragmentView.frame;
-            
-            switch (type) {
-                case WXSTransitionAnimationTypeFragmentShowFromRight:
-                    rect.origin.x = rect.origin.x + random()%50 *50;
-                    break;
-                case WXSTransitionAnimationTypeFragmentShowFromLeft:
-                    rect.origin.x = rect.origin.x - random()%50 *50;
-                    
-                    break;
-                case WXSTransitionAnimationTypeFragmentShowFromTop:
-                    rect.origin.y = rect.origin.y - random()%50 *50;
-                    break;
-                    
-                default:
-                    rect.origin.y = rect.origin.y + random()%50 *50;
-                    
-                    break;
-            }
-            
-            fragmentView.frame = rect;
-            fragmentView.alpha = 0.0;
-        }
-    } completion:^(BOOL finished) {
-        for (UIView *fragmentView in fragmentViews) {
-            [fragmentView removeFromSuperview];
-        }
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-            fromVC.view.hidden = NO;
-        }else{
-            [transitionContext completeTransition:YES];
-            fromVC.view.hidden = NO;
-        }
-        
-    }];
-    
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        
-        if (sucess) {
-            for (UIView *fragmentView in fragmentViews) {
-                [fragmentView removeFromSuperview];
-            }
-            
-        }else{
-        }
-        
-    };
-    
-    
-    
-}
-
--(void)fragmentHideNextType:(WXSTransitionAnimationType)type andContext:(id<UIViewControllerContextTransitioning>)transitionContext {
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    UIView *fromTempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
-    
-    [containerView addSubview:toVC.view];
-    
-    NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
-
-    CGSize size = fromVC.view.frame.size;
-    CGFloat fragmentWidth = 20.0f;
-    
-    NSInteger rowNum = size.width/fragmentWidth + 1;
-    for (int i = 0; i < rowNum ; i++) {
-        
-        for (int j = 0; j < size.height/fragmentWidth + 1; j++) {
-            
-            CGRect rect = CGRectMake(i*fragmentWidth, j*fragmentWidth, fragmentWidth, fragmentWidth);
-            UIView *fragmentView = [fromTempView resizableSnapshotViewFromRect:rect  afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-            [containerView addSubview:fragmentView];
-            [fragmentViews addObject:fragmentView];
-            fragmentView.frame = rect;
-        }
-        
-    }
-    
-    toVC.view.hidden = NO;
-    fromVC.view.hidden = YES;
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        for (UIView *fragmentView in fragmentViews) {
-            CGRect rect = fragmentView.frame;
-            switch (type) {
-                case WXSTransitionAnimationTypeFragmentHideFromRight:
-                    rect.origin.x = rect.origin.x - random()%50 *50;
-                    break;
-                case WXSTransitionAnimationTypeFragmentHideFromLeft:
-                    rect.origin.x = rect.origin.x + random()%50 *50;
-                    break;
-                case WXSTransitionAnimationTypeFragmentHideFromTop:
-                    rect.origin.y = rect.origin.y + random()%50 *50;
-                    break;
-                default:
-                    rect.origin.y = rect.origin.y - random()%50 *50;
-                    break;
-            }
-            fragmentView.frame = rect;
-            fragmentView.alpha = 0.0;
-        }
-    } completion:^(BOOL finished) {
-        
-        for (UIView *fragmentView in fragmentViews) {
-            [fragmentView removeFromSuperview];
-        }
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-            fromVC.view.hidden = NO;
-        }else{
-            [transitionContext completeTransition:YES];
-            fromVC.view.hidden = NO;
-        }
-        
-    }];
-
-}
--(void)fragmentHideBackType:(WXSTransitionAnimationType)type andContext:(id<UIViewControllerContextTransitioning>)transitionContext {
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    
-    NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
-    CGSize size = fromVC.view.frame.size;
-    CGFloat fragmentWidth = 20.0f;
-    
-    NSInteger rowNum = size.width/fragmentWidth + 1;
-    for (int i = 0; i < rowNum ; i++) {
-        
-        for (int j = 0; j < size.height/fragmentWidth + 1; j++) {
-            
-            CGRect rect = CGRectMake(i*fragmentWidth, j*fragmentWidth, fragmentWidth, fragmentWidth);
-            UIView *fragmentView = [toVC.view resizableSnapshotViewFromRect:rect  afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-            [containerView addSubview:fragmentView];
-            [fragmentViews addObject:fragmentView];
-            fragmentView.frame = rect;
-            switch (type) {
-                case WXSTransitionAnimationTypeFragmentHideFromRight:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation(-random()%50 *50, 0, 0);
-                    break;
-                case WXSTransitionAnimationTypeFragmentHideFromLeft:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation(random()%50 *50, 0, 0);
-                    break;
-                case WXSTransitionAnimationTypeFragmentHideFromTop:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation(0, random()%50 *50, 0);
-                    break;
-                default:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation(0, -random()%50 *50, 0);
-                    break;
-            }
-            fragmentView.alpha = 0;
-        }
-        
-    }
-    
-    toVC.view.hidden = YES;
-    fromVC.view.hidden = NO;
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        
-        for (UIView *fragmentView in fragmentViews) {
-            fragmentView.alpha = 1;
-            fragmentView.layer.transform = CATransform3DIdentity;
-        }
-    } completion:^(BOOL finished) {
-        for (UIView *fragmentView in fragmentViews) {
-            [fragmentView removeFromSuperview];
-        }
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            [transitionContext completeTransition:YES];
-        }
-        toVC.view.hidden = NO;
-        
-    }];
-    
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        if (sucess) {
-            for (UIView *fragmentView in fragmentViews) {
-                [fragmentView removeFromSuperview];
-            }
-            toVC.view.hidden = NO;
-        }else{
-            
-        }
-    };
-
-}
 
 - (void)removeDelegate {
     
@@ -2066,9 +1763,8 @@
 }
 
 
-
 - (UIImage *)imageFromView: (UIView *)view atFrame:(CGRect)rect{
-    
+
     UIGraphicsBeginImageContext(view.frame.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
@@ -2085,326 +1781,7 @@
     [self backAnimationTypeFromAnimationType:animationType];
 }
 
--(void)backAnimationTypeFromAnimationType:(WXSTransitionAnimationType)type{
-    
-    switch (type) {
-        case WXSTransitionAnimationTypeSysFade:{
-            _backAnimationType = WXSTransitionAnimationTypeSysFade;
-            
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPushFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPushFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPushFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPushFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromRight;
-
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromTop;
-
-        }
-            break;
-        case WXSTransitionAnimationTypeSysSuckEffect:{
-            _backAnimationType = WXSTransitionAnimationTypeSysSuckEffect;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRippleEffect:{
-            _backAnimationType = WXSTransitionAnimationTypeSysRippleEffect;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCameraIrisHollowOpen:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCameraIrisHollowClose;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCameraIrisHollowClose:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCameraIrisHollowOpen;
-
-        }
-            break;
-        default:
-            break;
-    }
-}
-
--(CATransition *)getSysTransitionWithType:(WXSTransitionAnimationType )type{
-    
-    CATransition *tranAnimation=[CATransition animation];
-    tranAnimation.duration= _animationTime;
-    tranAnimation.delegate = self;
-    switch (type) {
-        case WXSTransitionAnimationTypeSysFade:{
-            tranAnimation.type=kCATransitionFade;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromRight:{
-            tranAnimation.type = kCATransitionPush;
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromLeft:{
-            tranAnimation.type = kCATransitionPush;
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromTop:{
-            tranAnimation.type = kCATransitionPush;
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromBottom:{
-            tranAnimation.type = kCATransitionPush;
-            tranAnimation.subtype=kCATransitionFromBottom;
-            
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromRight:{
-            tranAnimation.type = kCATransitionReveal;
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromLeft:{
-            tranAnimation.type = kCATransitionReveal;
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromTop:{
-            tranAnimation.type = kCATransitionReveal;
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromBottom:{
-            tranAnimation.type = kCATransitionReveal;
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromRight:{
-            tranAnimation.type = kCATransitionMoveIn;
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromLeft:{
-            tranAnimation.type = kCATransitionMoveIn;
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromTop:{
-            tranAnimation.type = kCATransitionMoveIn;
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromBottom:{
-            tranAnimation.type = kCATransitionMoveIn;
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromRight:{
-            tranAnimation.type = @"cube";
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromLeft:{
-            tranAnimation.type = @"cube";
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromTop:{
-            tranAnimation.type=@"cube";
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromBottom:{
-            tranAnimation.type=@"cube";
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysSuckEffect:{
-            tranAnimation.type=@"suckEffect";
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromRight:{
-            tranAnimation.type=@"oglFlip";
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromLeft:{
-            tranAnimation.type=@"oglFlip";
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromTop:{
-            tranAnimation.type=@"oglFlip";
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromBottom:{
-            tranAnimation.type=@"oglFlip";
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRippleEffect:{
-            tranAnimation.type=@"rippleEffect";
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromRight:{
-            tranAnimation.type=@"pageCurl";
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromLeft:{
-            tranAnimation.type=@"pageCurl";
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromTop:{
-            tranAnimation.type=@"pageCurl";
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromBottom:{
-            tranAnimation.type=@"pageCurl";
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromRight:{
-            tranAnimation.type=@"pageUnCurl";
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromLeft:{
-            tranAnimation.type=@"pageUnCurl";
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromTop:{
-            tranAnimation.type=@"pageUnCurl";
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromBottom:{
-            tranAnimation.type=@"pageUnCurl";
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCameraIrisHollowOpen:{
-            tranAnimation.type=@"cameraIrisHollowOpen";
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCameraIrisHollowClose:{
-            tranAnimation.type=@"cameraIrisHollowClose";
-        }
-            break;
-        default:
-            break;
-    }
-    return tranAnimation;
-}
-
-
 +(WXSTransitionManager *)copyPropertyFromObjcet:(id)object toObjcet:(id)targetObjcet {
-    
     
     WXSTransitionProperty *propery = object;
     WXSTransitionManager *transition = targetObjcet;
