@@ -26,6 +26,7 @@
 
 +(WXSTransitionManager *)copyPropertyFromObjcet:(id)object toObjcet:(id)targetObjcet;
 
+@property (nonatomic, copy) void(^completionBlock)();
 
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E0468871D9228C000F7AF2D /* WXSTransitionManager+SpreadAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0468861D9228C000F7AF2D /* WXSTransitionManager+SpreadAnimation.m */; };
 		5E18A5881D2F58B300073215 /* WXSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E18A5871D2F58B300073215 /* WXSBaseViewController.m */; };
 		5E393C871D913E6900800818 /* WXSTransitionManager+FragmentAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E393C861D913E6900800818 /* WXSTransitionManager+FragmentAnimation.m */; };
 		5E393C8A1D91409300800818 /* WXSTransitionManager+TypeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E393C891D91409300800818 /* WXSTransitionManager+TypeTool.m */; };
@@ -50,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E0468851D9228C000F7AF2D /* WXSTransitionManager+SpreadAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WXSTransitionManager+SpreadAnimation.h"; sourceTree = "<group>"; };
+		5E0468861D9228C000F7AF2D /* WXSTransitionManager+SpreadAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WXSTransitionManager+SpreadAnimation.m"; sourceTree = "<group>"; };
 		5E18A5861D2F58B300073215 /* WXSBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSBaseViewController.h; sourceTree = "<group>"; };
 		5E18A5871D2F58B300073215 /* WXSBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSBaseViewController.m; sourceTree = "<group>"; };
 		5E393C851D913E6900800818 /* WXSTransitionManager+FragmentAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WXSTransitionManager+FragmentAnimation.h"; sourceTree = "<group>"; };
@@ -137,6 +140,8 @@
 				924A5BFD1D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m */,
 				924A5BFE1D4FBBB800C03D3F /* WXSTransitionManager.h */,
 				924A5BFF1D4FBBB800C03D3F /* WXSTransitionManager.m */,
+				5E0468851D9228C000F7AF2D /* WXSTransitionManager+SpreadAnimation.h */,
+				5E0468861D9228C000F7AF2D /* WXSTransitionManager+SpreadAnimation.m */,
 				5E393C8B1D9150CB00800818 /* WXSTransitionManager+BrickAnimation.h */,
 				5E393C8C1D9150CB00800818 /* WXSTransitionManager+BrickAnimation.m */,
 				5E393C881D91409300800818 /* WXSTransitionManager+TypeTool.h */,
@@ -366,6 +371,7 @@
 				5E393C8A1D91409300800818 /* WXSTransitionManager+TypeTool.m in Sources */,
 				925707A41CFC1E87004EB63C /* ViewController.m in Sources */,
 				92ED74711CFD6811008B4935 /* CollectionViewCell.m in Sources */,
+				5E0468871D9228C000F7AF2D /* WXSTransitionManager+SpreadAnimation.m in Sources */,
 				925707DD1CFC44AC004EB63C /* SecondViewController.m in Sources */,
 				92ED74741CFD6F5B008B4935 /* DetailViewController.m in Sources */,
 				5E393C871D913E6900800818 /* WXSTransitionManager+FragmentAnimation.m in Sources */,
