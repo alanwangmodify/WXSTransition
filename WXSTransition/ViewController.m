@@ -132,7 +132,10 @@
                 return;
             }
             
-            [self.navigationController wxs_pushViewController:[[SecondViewController alloc] init] animationType:WXSTransitionAnimationTypePageTransition + indexPath.row];
+            [self.navigationController wxs_pushViewController:[[SecondViewController alloc] init] makeTransition:^(WXSTransitionProperty *transition) {
+                transition.backGestureType = WXSGestureTypePanRight;
+                transition.animationType =WXSTransitionAnimationTypePageTransition + indexPath.row;
+            }];
         }
             break;
         case 2:{
@@ -142,9 +145,6 @@
                 return;
             }
             [self wxs_presentViewController:[[PresentViewController alloc] init] animationType:WXSTransitionAnimationTypePageTransition + indexPath.row completion:nil];
-            
-            
-    
             
         }
             break;
@@ -161,15 +161,12 @@
                         transition.animationTime = 1;
                         transition.backGestureEnable = NO;
                         transition.startView = cell.contentView;
-
+                    
                     }];
                     
-                    
-
                 }
                     break;
                 case 1:{
-                    
             
                     SecondViewController *vc = [[SecondViewController alloc] init];
                     [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {

@@ -1142,50 +1142,32 @@
             
         }
     };
-    
 
 }
 
 -(void)brickOpenVerticalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
     [self brickOpenNextWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
-    
 }
-
 -(void)brickOpenVerticalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
     [self brickOpenBackWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
 }
-
 -(void)brickOpenHorizontalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-     [self brickOpenNextWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
-        
+     [self brickOpenNextWithType:WXSTransitionAnimationTypeBrickOpenHorizontal andTransitionContext:transitionContext];
 }
 -(void)brickOpenHorizontalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    [self brickOpenBackWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
-        
+    [self brickOpenBackWithType:WXSTransitionAnimationTypeBrickOpenHorizontal andTransitionContext:transitionContext];
 }
-
 -(void)brickCloseVerticalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-     [self brickOpenNextWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
+     [self brickCloseNextWithType:WXSTransitionAnimationTypeBrickCloseVertical andTransitionContext:transitionContext];
 }
-
-
 -(void)brickCloseVerticalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    [self brickOpenBackWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
-    
+    [self brickCloseBackWithType:WXSTransitionAnimationTypeBrickCloseVertical andTransitionContext:transitionContext];
 }
-
-
 -(void)brickCloseHorizontalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
-    [self brickOpenNextWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
-    
+    [self brickCloseNextWithType:WXSTransitionAnimationTypeBrickCloseHorizontal andTransitionContext:transitionContext];
 }
 -(void)brickCloseHorizontalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
-    [self brickOpenBackWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
-    
+    [self brickCloseBackWithType:WXSTransitionAnimationTypeBrickCloseHorizontal andTransitionContext:transitionContext];
 }
 
 
@@ -1270,82 +1252,54 @@
 }
 
 -(void)fragmentShowFromRightNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
     [self fragmentShowNextType:WXSTransitionAnimationTypeFragmentShowFromRight andContext:transitionContext];
-    
 }
 -(void)fragmentShowFromRightBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentShowBackType:WXSTransitionAnimationTypeFragmentShowFromRight andContext:transitionContext];
 }
-
 -(void)fragmentShowFromLeftNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
     [self fragmentShowNextType:WXSTransitionAnimationTypeFragmentShowFromLeft andContext:transitionContext];
-    
 }
 -(void)fragmentShowFromLeftBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentShowBackType:WXSTransitionAnimationTypeFragmentShowFromLeft andContext:transitionContext];
 }
-
 -(void)fragmentShowFromTopNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
     [self fragmentShowNextType:WXSTransitionAnimationTypeFragmentShowFromTop andContext:transitionContext];
-    
 }
 -(void)fragmentShowFromTopBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentShowBackType:WXSTransitionAnimationTypeFragmentShowFromTop andContext:transitionContext];
 }
-
 -(void)fragmentShowFromBottomNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
     [self fragmentShowNextType:WXSTransitionAnimationTypeFragmentShowFromBottom andContext:transitionContext];
-    
 }
 -(void)fragmentShowFromBottomBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentShowBackType:WXSTransitionAnimationTypeFragmentShowFromBottom andContext:transitionContext];
 }
-
-
-//
-
 -(void)fragmentHideFromRightNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideNextType:WXSTransitionAnimationTypeFragmentHideFromRight andContext:transitionContext];
- 
 }
 -(void)fragmentHideFromRightBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromRight andContext:transitionContext];
-    
 }
 
 -(void)fragmentHideFromLefttNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideNextType:WXSTransitionAnimationTypeFragmentHideFromLeft andContext:transitionContext];
-    
 }
 -(void)fragmentHideFromLeftBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromLeft andContext:transitionContext];
-
-    
 }
 
 -(void)fragmentHideFromTopNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideNextType:WXSTransitionAnimationTypeFragmentHideFromTop andContext:transitionContext];
-    
 }
 -(void)fragmentHideFromTopBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromTop andContext:transitionContext];
-    
 }
 -(void)fragmentHideFromBottomNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
     [self fragmentHideNextType:WXSTransitionAnimationTypeFragmentHideFromBottom andContext:transitionContext];
-    
 }
-
 -(void)fragmentHideFromBottomBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
     [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromBottom andContext:transitionContext];
-
-    
 }
 
 
