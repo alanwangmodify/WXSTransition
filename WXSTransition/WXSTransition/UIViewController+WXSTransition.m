@@ -98,23 +98,6 @@ WXSTransitionManager *_transtion;
     return (WXSTransitionAnimationType)type;
 }
 
-////----- wxs_targetView
-//
-//- (void)setWxs_targetView:(UIView *)wxs_targetView {
-//    objc_setAssociatedObject(self, &wxs_targetViewKey, wxs_targetView, OBJC_ASSOCIATION_RETAIN);
-//}
-//-(UIView *)wxs_targetView{
-//    return objc_getAssociatedObject(self, &wxs_targetViewKey);
-//}
-//
-////----- startView
-//- (void)setWxs_startView:(UIView *)wxs_startView {
-//    objc_setAssociatedObject(self, &wxs_startViewKey, wxs_startView, OBJC_ASSOCIATION_RETAIN);
-//}
-//
-//- (UIView *)wxs_startView {
-//    return objc_getAssociatedObject(self, &wxs_startViewKey);
-//}
 
 
 //----- CallBackTransition

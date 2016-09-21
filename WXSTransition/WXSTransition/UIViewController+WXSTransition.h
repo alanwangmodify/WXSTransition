@@ -9,8 +9,6 @@ typedef void(^WXSTransitionBlock)(WXSTransitionProperty *transition);
 @interface UIViewController (WXSTransition) <UIViewControllerTransitioningDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, assign) WXSTransitionAnimationType    wxs_animationType;
-//@property (nonatomic, strong) UIView                        *wxs_targetView;
-//@property (nonatomic, strong) UIView                        *wxs_startView;
 @property (nonatomic, copy  ) WXSTransitionBlock            wxs_callBackTransition;
 @property (nonatomic, assign) BOOL                          wxs_delegateFlag;
 @property (nonatomic, assign) BOOL                          wxs_addTransitionFlag;
