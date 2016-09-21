@@ -76,24 +76,20 @@ spread:
 ![point_spread.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/point_spread.gif)
 ![spread_from_right.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/spread_from_right.gif)
 ![spread_from_top.gif](http://upload-images.jianshu.io/upload_images/1819750-3886af1868ca5484.gif?imageMogr2/auto-orient/strip)
+![gestureSpread.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/gestureSpread.gif)
+
 
 view move:
 ![view_move_next.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/view_move_next.gif)
+![normalViewMove.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/normalViewMove.gif)
 
-frgmentFromRight:
+frgment:
 ![frgmentFromRight.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/frgmentFromRight.gif)
-
-fragmentFromTop:
 ![fragmentFromTop.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/fragmentFromTop.gif)
 
-normalViewMove:
-![normalViewMove.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/normalViewMove.gif)
 
 insideThenPush:
 ![insideThenPush.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/insideThenPush.gif)
-
-gestureSpread:
-![gestureSpread.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/gestureSpread.gif)
 
 ######系统动画
 iOS自身其实有许多不错的转场动画，在这个转场动画集里也进行了封装，使用方法跟自定义转场动画一样。
