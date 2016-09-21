@@ -296,9 +296,7 @@
         }
         
     };
-    
 }
-
 
 - (UIImage *)imageFromView: (UIView *)view atFrame:(CGRect)rect{
     
