@@ -65,7 +65,7 @@ transition.targetView = vc.imageView;
 boom:   
 ![boom.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/boom.gif)
 
-brick:
+brick:  
 ![brick_close_H.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/brick_close_H.gif)
 ![brick_open_V.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/brick_open_V.gif)
 
@@ -75,7 +75,6 @@ cover:
 spread:  
 ![point_spread.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/point_spread.gif)
 ![spread_from_right.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/spread_from_right.gif)
-![spread_from_top.gif](http://upload-images.jianshu.io/upload_images/1819750-3886af1868ca5484.gif?imageMogr2/auto-orient/strip)
 ![gestureSpread.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/gestureSpread.gif)
 
 
