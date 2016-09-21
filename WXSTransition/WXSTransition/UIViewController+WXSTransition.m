@@ -209,7 +209,6 @@ WXSTransitionManager *_transtion;
 -(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC{
     
     if (!self.wxs_addTransitionFlag) {
-        
         return nil;
     }
     !_transtion ? _transtion = [[WXSTransitionManager alloc] init] : nil ;
@@ -254,7 +253,7 @@ WXSTransitionManager *_transtion;
     }else{
         return _interactive.isInteractive ? _interactive : nil ;
     }
-    
+
 }
 
 
