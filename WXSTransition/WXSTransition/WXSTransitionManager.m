@@ -546,6 +546,8 @@
     };
 }
 
+
+
 -(void)spreadFromRightNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self spreadNextWithType:WXSTransitionAnimationTypeSpreadFromRight andTransitonContext:transitionContext];
 }
@@ -570,14 +572,15 @@
 -(void)spreadFromBottomBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self spreadBackWithType:WXSTransitionAnimationTypeSpreadFromBottom andTransitonContext:transitionContext];
 }
-
-
 -(void)pointSpreadPresentNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self pointSpreadNextWithContext:transitionContext];
 }
 -(void)pointSpreadPresentBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self pointSpreadBackWithContext:transitionContext];
 }
+
+
+
 
 -(void)boomPresentNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     

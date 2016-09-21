@@ -20,9 +20,8 @@ UINavigationControllerOperation _operation;
 WXSPercentDrivenInteractiveTransition *_interactive;
 WXSTransitionManager *_transtion;
 
+
 @implementation UIViewController (WXSTransition)
-
-
 #pragma mark Hook
 
 + (void)load {
@@ -80,9 +79,6 @@ WXSTransitionManager *_transtion;
             self.transitioningDelegate = self.wxs_transitioningDelegate;
         }
     }
-    
-    
-    
     [self wxs_dismissViewControllerAnimated:flag completion:completion];
 }
 
