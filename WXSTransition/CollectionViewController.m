@@ -44,7 +44,6 @@ static NSString *identifier  = @"identifier";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     
-    
     DetailViewController *vc = [[DetailViewController alloc] init];
     CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
@@ -64,6 +63,7 @@ static NSString *identifier  = @"identifier";
             transition.targetView = vc.imageView;
 
         }];
+        
     }
     
     
