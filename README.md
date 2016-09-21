@@ -62,33 +62,33 @@ transition.targetView = vc.imageView;
 
 #####自定义动画
 
-boom:
+boom:   
 ![boom.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/boom.gif)
 
 brick:
 ![brick_close_H.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/brick_close_H.gif)
 ![brick_open_V.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/brick_open_V.gif)
 
-cover:
+cover:  
 ![cover.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/cover.gif)
 
-spread:
+spread:  
 ![point_spread.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/point_spread.gif)
 ![spread_from_right.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/spread_from_right.gif)
 ![spread_from_top.gif](http://upload-images.jianshu.io/upload_images/1819750-3886af1868ca5484.gif?imageMogr2/auto-orient/strip)
 ![gestureSpread.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/gestureSpread.gif)
 
 
-view move:
+view move:  
 ![view_move_next.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/view_move_next.gif)
 ![normalViewMove.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/normalViewMove.gif)
-
-frgment:
+ 
+frgment:  
 ![frgmentFromRight.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/frgmentFromRight.gif)
 ![fragmentFromTop.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/fragmentFromTop.gif)
 
 
-insideThenPush:
+insideThenPush:  
 ![insideThenPush.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/insideThenPush.gif)
 
 ######系统动画
