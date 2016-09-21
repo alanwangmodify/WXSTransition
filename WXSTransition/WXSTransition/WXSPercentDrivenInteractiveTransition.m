@@ -22,7 +22,6 @@
 
 @implementation WXSPercentDrivenInteractiveTransition
 
-
 -(void)addGestureToViewController:(UIViewController *)vc{
     
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];

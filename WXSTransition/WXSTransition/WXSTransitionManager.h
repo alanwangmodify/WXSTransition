@@ -10,6 +10,7 @@
 @property (nonatomic, assign) WXSTransitionType                 transitionType;
 
 @property (nonatomic, assign) WXSTransitionAnimationType        animationType;
+@property (nonatomic, assign) WXSTransitionAnimationType        backAnimationType;
 
 @property (nonatomic, assign) WXSGestureType                    backGestureType;
 
@@ -25,6 +26,7 @@
 
 +(WXSTransitionManager *)copyPropertyFromObjcet:(id)object toObjcet:(id)targetObjcet;
 
+@property (nonatomic, copy) void(^completionBlock)();
 
 
 @end

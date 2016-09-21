@@ -88,11 +88,11 @@ typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
     WXSTransitionAnimationTypeFragmentShowFromTop,
     WXSTransitionAnimationTypeFragmentShowFromBottom,
     
-    WXSTransitionAnimationTypeFragmentHide,
-//    WXSTransitionAnimationTypeFragmentHideFromLeft,
-//    WXSTransitionAnimationTypeFragmentHideFromTop,
-//    WXSTransitionAnimationTypeFragmentHideFromBottom,
-        
+    WXSTransitionAnimationTypeFragmentHideFromRight,
+    WXSTransitionAnimationTypeFragmentHideFromLeft,
+    WXSTransitionAnimationTypeFragmentHideFromTop,
+    WXSTransitionAnimationTypeFragmentHideFromBottom,
+    
 };
 
 typedef NS_ENUM(NSInteger,WXSTransitionType){
@@ -111,7 +111,6 @@ typedef NS_ENUM(NSInteger,WXSGestureType){
     WXSGestureTypePanRight,
     WXSGestureTypePanUp,
     WXSGestureTypePanDown,
-//    WXSGestureTypeTap,
     
 };
 //系统动画类型

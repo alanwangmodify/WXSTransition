@@ -3,17 +3,19 @@
 #import "UIViewController+WXSTransition.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import "WXSTransitionManager+FragmentAnimation.h"
+#import "WXSTransitionManager+TypeTool.h"
+#import "WXSTransitionManager+BrickAnimation.h"
+#import "WXSTransitionManager+SpreadAnimation.h"
+
+
 @interface WXSTransitionManager ()
 
-@property (nonatomic, copy) void(^completionBlock)();
-@property (nonatomic, assign) WXSTransitionAnimationType backAnimationType;
 @property (nonatomic, assign) id <UIViewControllerContextTransitioning> transitionContext;
 
 @end
 
-
 @implementation WXSTransitionManager
-
 
 -(instancetype)init {
     self = [super init];
@@ -25,7 +27,7 @@
     return self;
 }
 
-#pragma mark Delegate
+#pragma mark - Delegate
 //UIViewControllerAnimatedTransitioning
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{
     return _animationTime ;
@@ -66,13 +68,12 @@
     }
     
 }
-#pragma mark Action
+#pragma mark - Action
 -(void)transitionActionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext withAnimationType:(WXSTransitionAnimationType )animationType{
     
     if ((NSInteger)animationType < (NSInteger)WXSTransitionAnimationTypeDefault) {
         [self sysTransitionAnimationWithType:animationType  context:transitionContext];
     }
-//    
     unsigned int count = 0;
     Method *methodlist = class_copyMethodList([WXSTransitionManager class], &count);
     int tag= 0;
@@ -119,8 +120,6 @@
 
 }
 
-
-//
 -(void)sysTransitionAnimationWithType:(WXSTransitionAnimationType) type context:(id<UIViewControllerContextTransitioning>)transitionContext{
     
     
@@ -139,7 +138,6 @@
     CATransition *tranAnimation = [self getSysTransitionWithType:type];
     [containerView.layer addAnimation:tranAnimation forKey:nil];
     
-//    __weak __typeof (&*self)weakSelf = self;
     _completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -195,9 +193,7 @@
     
     
 }
-#pragma mark Animations
-
-//
+#pragma mark - Animations
 -(void)pageNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext {
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -459,7 +455,7 @@
     };
     
 }
-//
+
 -(void)coverNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -510,7 +506,6 @@
     [containView addSubview:toVC.view];
     [containView addSubview:tempView];
     
-    
     fromVC.view.hidden = YES;
     toVC.view.hidden = NO;
     toVC.view.alpha = 1;
@@ -549,526 +544,43 @@
         }
 
     };
-    
-    
-    
 }
+
 
 
 -(void)spreadFromRightNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:fromVC.view];
-    [containerView addSubview:tempView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    
-    CGRect rect0 = CGRectMake(screenWidth, 0, 2, screenHeight);
-    CGRect rect1 = CGRectMake(0, 0, screenWidth, screenHeight);
-    
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithRect:rect0];
-    UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
-    
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath; //动画结束后的值
-    tempView.layer.mask = maskLayer;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
-    animation.fromValue = (__bridge id)(startPath.CGPath);
-    animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime;
-    animation.delegate = self;
-    [maskLayer addAnimation:animation forKey:@"NextPath"];
-    
-    _completionBlock = ^(){
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            
-            [transitionContext completeTransition:YES];
-        }
-        [tempView removeFromSuperview];
-    };
-    
+    [self spreadNextWithType:WXSTransitionAnimationTypeSpreadFromRight andTransitonContext:transitionContext];
 }
 -(void)spreadFromRightBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:fromVC.view];
-    [containerView addSubview:tempView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    CGRect rect0 = CGRectMake(0, 0, 2, screenHeight);
-    CGRect rect1 = CGRectMake(0, 0, screenWidth, screenHeight);
-    
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithRect:rect0];
-    UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
-    
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    tempView.layer.mask = maskLayer;
-    maskLayer.path = endPath.CGPath;
-
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
-    animation.fromValue = (__bridge id)(startPath.CGPath);
-    animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime;
-    animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [maskLayer addAnimation:animation forKey:@"BackPath"];
-    
-    
-    
-
-    _willEndInteractiveBlock = ^(BOOL success) {
-        
-        if (success) {
-            maskLayer.path = endPath.CGPath;
-
-        }else{
-            maskLayer.path = startPath.CGPath;
-        }
-        
-    };
-    
-    _completionBlock = ^(){
-        
-        [tempView removeFromSuperview];
-
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-            
-        }else{
-            [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
-        }
-        
-    };
-
-
+    [self spreadBackWithType:WXSTransitionAnimationTypeSpreadFromRight andTransitonContext:transitionContext];
 }
 -(void)spreadFromLeftNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:fromVC.view];
-    [containerView addSubview:tempView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    
-    CGRect rect0 = CGRectMake(0, 0, 2, screenHeight);
-    CGRect rect1 = CGRectMake(0, 0, screenWidth, screenHeight);
-    
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithRect:rect0];
-    UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
-    
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath; //动画结束后的值
-    tempView.layer.mask = maskLayer;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
-    animation.fromValue = (__bridge id)(startPath.CGPath);
-    animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime;
-    animation.delegate = self;
-    [maskLayer addAnimation:animation forKey:@"NextPath"];
-    
-    _completionBlock = ^(){
-        maskLayer.path = endPath.CGPath;
-        tempView.layer.mask = maskLayer;
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            
-            [transitionContext completeTransition:YES];
-        }
-        [tempView removeFromSuperview];
-    };
+    [self spreadNextWithType:WXSTransitionAnimationTypeSpreadFromLeft andTransitonContext:transitionContext];
 }
 -(void)spreadFromLeftBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:fromVC.view];
-    [containerView addSubview:tempView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    
-    CGRect rect0 = CGRectMake(screenWidth, 0, 2, screenHeight);
-    CGRect rect1 = CGRectMake(0, 0, screenWidth, screenHeight);
-    
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithRect:rect0];
-    UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
-    
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath;
-    tempView.layer.mask = maskLayer;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
-    animation.fromValue = (__bridge id)(startPath.CGPath);
-    animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime;
-    animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [maskLayer addAnimation:animation forKey:@"BackPath"];
-    
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        if (sucess) {
-            maskLayer.path = endPath.CGPath;
-        }else{
-            maskLayer.path = startPath.CGPath;
-        }
-    };
-    
-    _completionBlock = ^(){
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            
-            [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
-        }
-        [tempView removeFromSuperview];
-        
-    };
+    [self spreadBackWithType:WXSTransitionAnimationTypeSpreadFromLeft andTransitonContext:transitionContext];
 }
-
 -(void)spreadFromTopNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:fromVC.view];
-    [containerView addSubview:tempView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    
-    CGRect rect0 = CGRectMake(0, 0, screenWidth, 2);
-    CGRect rect1 = CGRectMake(0, 0, screenWidth, screenHeight);
-    
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithRect:rect0];
-    UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
-    
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath; //动画结束后的值
-    tempView.layer.mask = maskLayer;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
-    animation.fromValue = (__bridge id)(startPath.CGPath);
-    animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime;
-    animation.delegate = self;
-    [maskLayer addAnimation:animation forKey:@"NextPath"];
-
-    _completionBlock = ^(){
-        maskLayer.path = endPath.CGPath;
-        tempView.layer.mask = maskLayer;
-
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            
-            [transitionContext completeTransition:YES];
-        }
-        [tempView removeFromSuperview];
-    };
-    
-    
+    [self spreadNextWithType:WXSTransitionAnimationTypeSpreadFromTop andTransitonContext:transitionContext];
 }
-
 -(void)spreadFromTopBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:fromVC.view];
-    [containerView addSubview:tempView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    
-    CGRect rect0 = CGRectMake(0, screenHeight , screenWidth, 2);
-    CGRect rect1 = CGRectMake(0, 0, screenWidth, screenHeight);
-    
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithRect:rect0];
-    UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
-    
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath;
-    tempView.layer.mask = maskLayer;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
-    animation.fromValue = (__bridge id)(startPath.CGPath);
-    animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime;
-    animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [maskLayer addAnimation:animation forKey:@"BackPath"];
-    
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        if (sucess) {
-            maskLayer.path = endPath.CGPath;
-        }else{
-            maskLayer.path = startPath.CGPath;
-        }
-    };
-    
-    _completionBlock = ^(){
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            
-            [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
-        }
-        [tempView removeFromSuperview];
-        
-    };
+    [self spreadBackWithType:WXSTransitionAnimationTypeSpreadFromTop andTransitonContext:transitionContext];
 }
 -(void)spreadFromBottomNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:fromVC.view];
-    [containerView addSubview:tempView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    
-    CGRect rect0 = CGRectMake(0, screenHeight, screenWidth, 2);
-    CGRect rect1 = CGRectMake(0, 0, screenWidth, screenHeight);
-    
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithRect:rect0];
-    UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
-    
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath; //动画结束后的值
-    tempView.layer.mask = maskLayer;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
-    animation.fromValue = (__bridge id)(startPath.CGPath);
-    animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime;
-    animation.delegate = self;
-    [maskLayer addAnimation:animation forKey:@"NextPath"];
-    
-    _completionBlock = ^(){
-        maskLayer.path = endPath.CGPath;
-        tempView.layer.mask = maskLayer;
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            
-            [transitionContext completeTransition:YES];
-        }
-        [tempView removeFromSuperview];
-    };
+    [self spreadNextWithType:WXSTransitionAnimationTypeSpreadFromBottom andTransitonContext:transitionContext];
 }
 -(void)spreadFromBottomBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:fromVC.view];
-    [containerView addSubview:tempView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    CGRect rect0 = CGRectMake(0, 0, screenWidth, 2);
-    CGRect rect1 = CGRectMake(0, 0, screenWidth, screenHeight);
-    
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithRect:rect0];
-    UIBezierPath *endPath =[UIBezierPath bezierPathWithRect:rect1];
-    
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath;
-    tempView.layer.mask = maskLayer;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
-    animation.fromValue = (__bridge id)(startPath.CGPath);
-    animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime;
-    animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [maskLayer addAnimation:animation forKey:@"BackPath"];
-    
-    
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        if (sucess) {
-            maskLayer.path = endPath.CGPath;
-        }else{
-            maskLayer.path = startPath.CGPath;
-        }
-    };
-    _completionBlock = ^(){
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            
-            [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
-        }
-        [tempView removeFromSuperview];
-        
-    };
+    [self spreadBackWithType:WXSTransitionAnimationTypeSpreadFromBottom andTransitonContext:transitionContext];
 }
-
-
 -(void)pointSpreadPresentNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:fromVC.view];
-    [containerView addSubview:tempView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    
-    CGRect rect = CGRectMake(containerView.center.x - 1, containerView.center.y - 1, 2, 2);
-    if (self.startView) {
-        CGPoint tempCenter = [self.startView convertPoint:self.startView.center toView:containerView];
-        rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
-    }
-    
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithOvalInRect:rect];
-    UIBezierPath *endPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:sqrt(screenHeight * screenHeight + screenWidth * screenWidth)  startAngle:0 endAngle:M_PI*2 clockwise:YES];
-    
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath;
-    tempView.layer.mask = maskLayer;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
-    
-    animation.fromValue = (__bridge id)(startPath.CGPath);
-    animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime;
-    animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [maskLayer addAnimation:animation forKey:@"PointNextPath"];
-    
-    _completionBlock = ^(){
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-            [tempView removeFromSuperview];
-        }else{
-            [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
-            [tempView removeFromSuperview];
-        }
-        
-    };
-    
+    [self pointSpreadNextWithContext:transitionContext];
 }
 -(void)pointSpreadPresentBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:NO]; //YES会导致闪一下
-
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:tempView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    
-    CGRect rect = CGRectMake(containerView.center.x-1, containerView.center.y-1, 2, 2);
-    if (self.startView) {
-        CGPoint tempCenter = [self.startView convertPoint:self.startView.center toView:containerView];
-        rect = CGRectMake(tempCenter.x - 1, tempCenter.y - 1, 2, 2);
-    }
-    
-    UIBezierPath *startPath = [UIBezierPath bezierPathWithArcCenter:containerView.center radius:sqrt(screenHeight * screenHeight + screenWidth * screenWidth)/2 startAngle:0 endAngle:M_PI*2 clockwise:YES];
-    UIBezierPath *endPath = [UIBezierPath bezierPathWithOvalInRect:rect];
-    
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = endPath.CGPath;
-    tempView.layer.mask = maskLayer;
-    
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
-    animation.fromValue = (__bridge id)(startPath.CGPath);
-    animation.toValue = (__bridge id)((endPath.CGPath));
-    animation.duration = _animationTime;
-    animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [maskLayer addAnimation:animation forKey:@"PointBackPath"];
-    
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        if (sucess) {
-            maskLayer.path = endPath.CGPath;
-        }else{
-            maskLayer.path = startPath.CGPath;
-        }
-    };
-    
-    _completionBlock = ^(){
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            
-            [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
-        }
-        [tempView removeFromSuperview];
-        
-    };
-    
+    [self pointSpreadBackWithContext:transitionContext];
 }
+
+
+
 
 -(void)boomPresentNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
@@ -1139,429 +651,37 @@
             
         }
     };
-    
 
 }
+
 
 -(void)brickOpenVerticalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containView = [transitionContext containerView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    CGRect rect0 = CGRectMake(0 , 0 , screenWidth, screenHeight/2);
-    CGRect rect1 = CGRectMake(0 , screenHeight/2 , screenWidth, screenHeight/2);
-    
-
-    
-    UIImage *image0 = [self imageFromView:fromVC.view atFrame:rect0];
-    UIImage *image1 = [self imageFromView:fromVC.view atFrame:rect1];
-    
-    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
-    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
-    
-    [containView addSubview:fromVC.view];
-    [containView addSubview:toVC.view];
-    [containView addSubview:imgView0];
-    [containView addSubview:imgView1];
-
-    
-  
-    [UIView animateWithDuration:_animationTime animations:^{
-        imgView0.layer.transform = CATransform3DMakeTranslation(0, -screenHeight/2, 0);
-        imgView1.layer.transform = CATransform3DMakeTranslation(0, screenHeight/2, 0);
-        
-    } completion:^(BOOL finished) {
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-            [imgView0 removeFromSuperview];
-            [imgView1 removeFromSuperview];
-        }else{
-            [transitionContext completeTransition:YES];
-            [imgView0 removeFromSuperview];
-            [imgView1 removeFromSuperview];
-        }
-    }];
-    
+    [self brickOpenNextWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
 }
-
 -(void)brickOpenVerticalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containView = [transitionContext containerView];
-
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    CGRect rect0 = CGRectMake(0 , 0 , screenWidth, screenHeight/2);
-    CGRect rect1 = CGRectMake(0 , screenHeight/2 , screenWidth, screenHeight/2);
-    
-    UIImage *image0 = [self imageFromView:toVC.view atFrame:rect0];
-    UIImage *image1 = [self imageFromView:toVC.view atFrame:rect1];
-    
-    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
-    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
-    
-    [containView addSubview:fromVC.view];
-    [containView addSubview:toVC.view];
-    [containView addSubview:imgView0];
-    [containView addSubview:imgView1];
-    
-    toVC.view.hidden = YES;
-    imgView0.layer.transform = CATransform3DMakeTranslation(0, -screenHeight/2, 0);
-    imgView1.layer.transform = CATransform3DMakeTranslation(0, screenHeight/2, 0);
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        imgView0.layer.transform = CATransform3DIdentity;
-        imgView1.layer.transform = CATransform3DIdentity;
-        
-    } completion:^(BOOL finished) {
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            [transitionContext completeTransition:YES];
-        }
-        toVC.view.hidden = NO;
-        [imgView0 removeFromSuperview];
-        [imgView1 removeFromSuperview];
-
-    }];
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        if (sucess) {
-            toVC.view.hidden = NO;
-            
-        }else{
-            toVC.view.hidden = YES;
-        }
-
-    };
-    
+    [self brickOpenBackWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
 }
-
-//水平方向
 -(void)brickOpenHorizontalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containView = [transitionContext containerView];
-    
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    CGRect rect0 = CGRectMake(0 , 0 , screenWidth/2, screenHeight);
-    CGRect rect1 = CGRectMake(screenWidth/2 , 0 , screenWidth/2, screenHeight);
-    
-    
-    UIImage *image0 = [self imageFromView:fromVC.view atFrame:rect0];
-    UIImage *image1 = [self imageFromView:fromVC.view atFrame:rect1];
-    
-    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
-    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
-    
-    [containView addSubview:fromVC.view];
-    [containView addSubview:toVC.view];
-    [containView addSubview:imgView0];
-    [containView addSubview:imgView1];
-    
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        
-        imgView0.layer.transform = CATransform3DMakeTranslation(-screenWidth/2, 0, 0);
-        imgView1.layer.transform = CATransform3DMakeTranslation(screenWidth/2, 0, 0);
-        
-    } completion:^(BOOL finished) {
-        
-        if ([transitionContext transitionWasCancelled]) {
-            
-            [transitionContext completeTransition:NO];
-            [imgView0 removeFromSuperview];
-            [imgView1 removeFromSuperview];
-            
-        }else{
-            [transitionContext completeTransition:YES];
-            [imgView0 removeFromSuperview];
-            [imgView1 removeFromSuperview];
-        }
-    }];
-    
+     [self brickOpenNextWithType:WXSTransitionAnimationTypeBrickOpenHorizontal andTransitionContext:transitionContext];
 }
 -(void)brickOpenHorizontalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containView = [transitionContext containerView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    CGRect rect0 = CGRectMake(0, 0 , screenWidth/2, screenHeight);
-    CGRect rect1 = CGRectMake(screenWidth/2 , 0 , screenWidth/2, screenHeight);
-    
-    
-    UIImage *image0 = [self imageFromView:toVC.view atFrame:rect0];
-    UIImage *image1 = [self imageFromView:toVC.view atFrame:rect1];
-    
-    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
-    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
-    
-    [containView addSubview:fromVC.view];
-    [containView addSubview:toVC.view];
-    [containView addSubview:imgView0];
-    [containView addSubview:imgView1];
-    
-    toVC.view.hidden = YES;
-    
-    imgView0.layer.transform = CATransform3DMakeTranslation(-screenWidth/2, 0, 0);
-    imgView1.layer.transform = CATransform3DMakeTranslation(screenWidth/2, 0, 0);
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        imgView0.layer.transform = CATransform3DIdentity;
-        imgView1.layer.transform = CATransform3DIdentity;
-        
-    } completion:^(BOOL finished) {
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            [transitionContext completeTransition:YES];
-        }
-        toVC.view.hidden = NO;
-        [imgView0 removeFromSuperview];
-        [imgView1 removeFromSuperview];
-        
-    }];
-
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        if (sucess) {
-            toVC.view.hidden = NO;
-            
-        }else{
-            toVC.view.hidden = YES;
-        }
-        
-    };
-    
+    [self brickOpenBackWithType:WXSTransitionAnimationTypeBrickOpenHorizontal andTransitionContext:transitionContext];
 }
-
 -(void)brickCloseVerticalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containView = [transitionContext containerView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    CGRect rect0 = CGRectMake(0 , 0 , screenWidth, screenHeight/2);
-    CGRect rect1 = CGRectMake(0 , screenHeight/2 , screenWidth, screenHeight/2);
-    
-    
-    UIImage *image0 = [self imageFromView:toVC.view atFrame:rect0];
-    UIImage *image1 = [self imageFromView:toVC.view atFrame:rect1];
-    
-    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
-    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
-    
-    [containView addSubview:fromVC.view];
-    [containView addSubview:toVC.view];
-    [containView addSubview:imgView0];
-    [containView addSubview:imgView1];
-    
-    toVC.view.hidden = YES;
-    
-    imgView0.layer.transform = CATransform3DMakeTranslation(0, -screenHeight/2, 0);
-    imgView1.layer.transform = CATransform3DMakeTranslation(0, screenHeight/2, 0);
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        imgView0.layer.transform = CATransform3DIdentity;
-        imgView1.layer.transform = CATransform3DIdentity;
-        
-    } completion:^(BOOL finished) {
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
-        }
-        [imgView0 removeFromSuperview];
-        [imgView1 removeFromSuperview];
-        
-    }];
-    
+     [self brickCloseNextWithType:WXSTransitionAnimationTypeBrickCloseVertical andTransitionContext:transitionContext];
 }
 -(void)brickCloseVerticalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containView = [transitionContext containerView];
-    
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    CGRect rect0 = CGRectMake(0 , 0 , screenWidth, screenHeight/2);
-    CGRect rect1 = CGRectMake(0 , screenHeight/2 , screenWidth, screenHeight/2);
-    
-    
-    UIImage *image0 = [self imageFromView:fromVC.view atFrame:rect0];
-    UIImage *image1 = [self imageFromView:fromVC.view atFrame:rect1];
-    
-    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
-    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
-    
-    [containView addSubview:fromVC.view];
-    [containView addSubview:toVC.view];
-    [containView addSubview:imgView0];
-    [containView addSubview:imgView1];
-    
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        imgView0.layer.transform = CATransform3DMakeTranslation(0, -screenHeight/2, 0);
-        imgView1.layer.transform = CATransform3DMakeTranslation(0, screenHeight/2, 0);
-        
-    } completion:^(BOOL finished) {
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            [transitionContext completeTransition:YES];
-            
-        }
-        toVC.view.hidden = NO;
-        [imgView0 removeFromSuperview];
-        [imgView1 removeFromSuperview];
-    }];
-    
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        if (sucess) {
-            [imgView0 removeFromSuperview];
-            [imgView1 removeFromSuperview];
-            
-        }else{
-            toVC.view.hidden = YES;
-        }
-        
-    };
-
-
+    [self brickCloseBackWithType:WXSTransitionAnimationTypeBrickCloseVertical andTransitionContext:transitionContext];
 }
-
-//
 -(void)brickCloseHorizontalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containView = [transitionContext containerView];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    CGRect rect0 = CGRectMake(0, 0 , screenWidth/2, screenHeight);
-    CGRect rect1 = CGRectMake(screenWidth/2 , 0 , screenWidth/2, screenHeight);
-    
-    
-    UIImage *image0 = [self imageFromView:toVC.view atFrame:rect0];
-    UIImage *image1 = [self imageFromView:toVC.view atFrame:rect1];
-    
-    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
-    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
-    
-    [containView addSubview:fromVC.view];
-    [containView addSubview:toVC.view];
-    [containView addSubview:imgView0];
-    [containView addSubview:imgView1];
-    
-    toVC.view.hidden = YES;
-    
-    imgView0.layer.transform = CATransform3DMakeTranslation(-screenWidth/2, 0, 0);
-    imgView1.layer.transform = CATransform3DMakeTranslation(screenWidth/2, 0, 0);
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        imgView0.layer.transform = CATransform3DIdentity;
-        imgView1.layer.transform = CATransform3DIdentity;
-        
-    } completion:^(BOOL finished) {
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
-        }
-        [imgView0 removeFromSuperview];
-        [imgView1 removeFromSuperview];
-        
-    }];
-
-    
+    [self brickCloseNextWithType:WXSTransitionAnimationTypeBrickCloseHorizontal andTransitionContext:transitionContext];
 }
 -(void)brickCloseHorizontalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containView = [transitionContext containerView];
-    
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-
-    CGRect rect0 = CGRectMake(0, 0 , screenWidth/2, screenHeight);
-    CGRect rect1 = CGRectMake(screenWidth/2 , 0 , screenWidth/2, screenHeight);
-    
-    
-    UIImage *image0 = [self imageFromView:fromVC.view atFrame:rect0];
-    UIImage *image1 = [self imageFromView:fromVC.view atFrame:rect1];
-    
-    UIImageView *imgView0 = [[UIImageView alloc] initWithImage:image0];
-    UIImageView *imgView1 = [[UIImageView alloc] initWithImage:image1];
-    
-    [containView addSubview:fromVC.view];
-    [containView addSubview:toVC.view];
-    [containView addSubview:imgView0];
-    [containView addSubview:imgView1];
-    
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        imgView0.layer.transform = CATransform3DMakeTranslation(-screenWidth/2, 0, 0);
-        imgView1.layer.transform = CATransform3DMakeTranslation(screenWidth/2, 0, 0);
-        
-    } completion:^(BOOL finished) {
-        
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            [transitionContext completeTransition:YES];
-            
-        }
-        toVC.view.hidden = NO;
-        [imgView0 removeFromSuperview];
-        [imgView1 removeFromSuperview];
-    }];
-    
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        if (sucess) {
-            [imgView0 removeFromSuperview];
-            [imgView1 removeFromSuperview];
-            
-        }else{
-            toVC.view.hidden = YES;
-        }
-        
-    };
-
-    
+    [self brickCloseBackWithType:WXSTransitionAnimationTypeBrickCloseHorizontal andTransitionContext:transitionContext];
 }
-//
+
+
+
 -(void)insideThenPushNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -1590,13 +710,8 @@
         }else{
             [transitionContext completeTransition:YES];
             fromView.layer.transform = CATransform3DIdentity;
-
         }
-        
     }];
-    
-    
-    
 }
 
 -(void)insideThenPushBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -1646,330 +761,59 @@
     
 }
 
-
-
-//
 -(void)fragmentShowFromRightNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
     [self fragmentShowNextType:WXSTransitionAnimationTypeFragmentShowFromRight andContext:transitionContext];
-    
 }
 -(void)fragmentShowFromRightBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentShowBackType:WXSTransitionAnimationTypeFragmentShowFromRight andContext:transitionContext];
 }
-
 -(void)fragmentShowFromLeftNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
     [self fragmentShowNextType:WXSTransitionAnimationTypeFragmentShowFromLeft andContext:transitionContext];
-    
 }
 -(void)fragmentShowFromLeftBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentShowBackType:WXSTransitionAnimationTypeFragmentShowFromLeft andContext:transitionContext];
 }
-
 -(void)fragmentShowFromTopNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
     [self fragmentShowNextType:WXSTransitionAnimationTypeFragmentShowFromTop andContext:transitionContext];
-    
 }
 -(void)fragmentShowFromTopBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentShowBackType:WXSTransitionAnimationTypeFragmentShowFromTop andContext:transitionContext];
 }
-
 -(void)fragmentShowFromBottomNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
     [self fragmentShowNextType:WXSTransitionAnimationTypeFragmentShowFromBottom andContext:transitionContext];
-    
 }
 -(void)fragmentShowFromBottomBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentShowBackType:WXSTransitionAnimationTypeFragmentShowFromBottom andContext:transitionContext];
 }
-
-
-//
--(void)fragmentHideNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    UIView *fromTempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
-    
-    [containerView addSubview:toVC.view];
-
-    NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
-    
-    CGSize size = fromVC.view.frame.size;
-    CGFloat fragmentWidth = 20.0f;
-  
-    NSInteger rowNum = size.width/fragmentWidth + 1;
-    for (int i = 0; i < rowNum ; i++) {
-        
-        for (int j = 0; j < size.height/fragmentWidth + 1; j++) {
-            
-            CGRect rect = CGRectMake(i*fragmentWidth, j*fragmentWidth, fragmentWidth, fragmentWidth);
-            UIView *fragmentView = [fromTempView resizableSnapshotViewFromRect:rect  afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-            [containerView addSubview:fragmentView];
-            [fragmentViews addObject:fragmentView];
-            fragmentView.frame = rect;
-        }
-        
-    }
-
-    toVC.view.hidden = NO;
-    fromVC.view.hidden = YES;
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        for (UIView *fragmentView in fragmentViews) {
-            
-            CGRect rect = fragmentView.frame;
-            rect.origin.y = rect.origin.y - random()%50 *50;
-            fragmentView.frame = rect;
-            fragmentView.alpha = 0.0;
-        }
-    } completion:^(BOOL finished) {
-        for (UIView *fragmentView in fragmentViews) {
-            [fragmentView removeFromSuperview];
-        }
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-            fromVC.view.hidden = NO;
-        }else{
-            [transitionContext completeTransition:YES];
-            fromVC.view.hidden = NO;
-        }
-        
-    }];
-    
-    
-
-    
-    
+-(void)fragmentHideFromRightNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    [self fragmentHideNextType:WXSTransitionAnimationTypeFragmentHideFromRight andContext:transitionContext];
 }
--(void)fragmentHideBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+-(void)fragmentHideFromRightBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromRight andContext:transitionContext];
+}
 
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    
-    NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
-    CGSize size = fromVC.view.frame.size;
-    CGFloat fragmentWidth = 20.0f;
-    
-    NSInteger rowNum = size.width/fragmentWidth + 1;
-    for (int i = 0; i < rowNum ; i++) {
-        
-        for (int j = 0; j < size.height/fragmentWidth + 1; j++) {
-            
-            CGRect rect = CGRectMake(i*fragmentWidth, j*fragmentWidth, fragmentWidth, fragmentWidth);
-            UIView *fragmentView = [toVC.view resizableSnapshotViewFromRect:rect  afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-            [containerView addSubview:fragmentView];
-            [fragmentViews addObject:fragmentView];
-            fragmentView.frame = rect;
-            fragmentView.layer.transform = CATransform3DMakeTranslation(0, - random()%50 *50, 0);
-            fragmentView.alpha = 0;
-        }
-        
-    }
-    
-    toVC.view.hidden = YES;
-    fromVC.view.hidden = NO;
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        
-            for (UIView *fragmentView in fragmentViews) {
-                fragmentView.alpha = 1;
-                fragmentView.layer.transform = CATransform3DIdentity;
-            }
-    } completion:^(BOOL finished) {
-        for (UIView *fragmentView in fragmentViews) {
-            [fragmentView removeFromSuperview];
-        }
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-        }else{
-            [transitionContext completeTransition:YES];
-        }
-        toVC.view.hidden = NO;
-        
-    }];
-    
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        if (sucess) {
-            for (UIView *fragmentView in fragmentViews) {
-                [fragmentView removeFromSuperview];
-            }
-            toVC.view.hidden = NO;
-        }else{
-            
-        }
-    };
-    
+-(void)fragmentHideFromLefttNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    [self fragmentHideNextType:WXSTransitionAnimationTypeFragmentHideFromLeft andContext:transitionContext];
+}
+-(void)fragmentHideFromLeftBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromLeft andContext:transitionContext];
+}
+
+-(void)fragmentHideFromTopNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    [self fragmentHideNextType:WXSTransitionAnimationTypeFragmentHideFromTop andContext:transitionContext];
+}
+-(void)fragmentHideFromTopBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromTop andContext:transitionContext];
+}
+-(void)fragmentHideFromBottomNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    [self fragmentHideNextType:WXSTransitionAnimationTypeFragmentHideFromBottom andContext:transitionContext];
+}
+-(void)fragmentHideFromBottomBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromBottom andContext:transitionContext];
 }
 
 
-#pragma mark Other
--(void)fragmentShowNextType:(WXSTransitionAnimationType)type andContext:(id<UIViewControllerContextTransitioning>)transitionContext {
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    
-    UIView *toVCTempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    
-    [containerView addSubview:toVC.view];
-    //    [containerView addSubview:fromVCTempView];
-    [containerView addSubview:fromVC.view];
-    
-    NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
-    
-    CGSize size = fromVC.view.frame.size;
-    CGFloat fragmentWidth = 20.0f;
-    
-    NSInteger rowNum = size.width/fragmentWidth + 1;
-    for (int i = 0; i < rowNum ; i++) {
-        
-        for (int j = 0; j < size.height/fragmentWidth + 1; j++) {
-            
-            CGRect rect = CGRectMake(i*fragmentWidth, j*fragmentWidth, fragmentWidth, fragmentWidth);
-            UIView *fragmentView = [toVCTempView resizableSnapshotViewFromRect:rect  afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-            [containerView addSubview:fragmentView];
-            [fragmentViews addObject:fragmentView];
-            fragmentView.frame = rect;
-            switch (type) {
-                case WXSTransitionAnimationTypeFragmentShowFromRight:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation( random()%50 *50, 0, 0);
-
-                    break;
-                case WXSTransitionAnimationTypeFragmentShowFromLeft:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation( - random()%50 *50 , 0 , 0);
-
-                    break;
-                case WXSTransitionAnimationTypeFragmentShowFromTop:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation(0, - random()%50 *50, 0);
-
-                    break;
-                    
-                default:
-                    fragmentView.layer.transform = CATransform3DMakeTranslation(0, random()%50 *50, 0);
-
-                    break;
-            }
-            fragmentView.alpha = 0;
-        }
-        
-    }
-    
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        for (UIView *fragmentView in fragmentViews) {
-            fragmentView.layer.transform = CATransform3DIdentity;
-            fragmentView.alpha = 1;
-            
-        }
-    } completion:^(BOOL finished) {
-        for (UIView *fragmentView in fragmentViews) {
-            [fragmentView removeFromSuperview];
-        }
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-            fromVC.view.hidden = NO;
-        }else{
-            [transitionContext completeTransition:YES];
-            fromVC.view.hidden = NO;
-        }
-        
-    }];
-}
--(void)fragmentShowBackType:(WXSTransitionAnimationType)type andContext:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    UIView *fromTempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
-    
-    [containerView addSubview:toVC.view];
-    
-    NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
-    
-    CGSize size = fromVC.view.frame.size;
-    CGFloat fragmentWidth = 20.0f;
-    
-    NSInteger rowNum = size.width/fragmentWidth + 1;
-    for (int i = 0; i < rowNum ; i++) {
-        
-        for (int j = 0; j < size.height/fragmentWidth + 1; j++) {
-            
-            CGRect rect = CGRectMake(i*fragmentWidth, j*fragmentWidth, fragmentWidth, fragmentWidth);
-            UIView *fragmentView = [fromTempView resizableSnapshotViewFromRect:rect  afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-            [containerView addSubview:fragmentView];
-            [fragmentViews addObject:fragmentView];
-            fragmentView.frame = rect;
-        }
-        
-    }
-    
-    toVC.view.hidden = NO;
-    fromVC.view.hidden = YES;
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        for (UIView *fragmentView in fragmentViews) {
-            
-            CGRect rect = fragmentView.frame;
-            
-            switch (type) {
-                case WXSTransitionAnimationTypeFragmentShowFromRight:
-                    rect.origin.x = rect.origin.x + random()%50 *50;
-                    break;
-                case WXSTransitionAnimationTypeFragmentShowFromLeft:
-                    rect.origin.x = rect.origin.x - random()%50 *50;
-                    
-                    break;
-                case WXSTransitionAnimationTypeFragmentShowFromTop:
-                    rect.origin.y = rect.origin.y - random()%50 *50;
-                    break;
-                    
-                default:
-                    rect.origin.y = rect.origin.y + random()%50 *50;
-                    
-                    break;
-            }
-            
-            fragmentView.frame = rect;
-            fragmentView.alpha = 0.0;
-        }
-    } completion:^(BOOL finished) {
-        for (UIView *fragmentView in fragmentViews) {
-            [fragmentView removeFromSuperview];
-        }
-        if ([transitionContext transitionWasCancelled]) {
-            [transitionContext completeTransition:NO];
-            fromVC.view.hidden = NO;
-        }else{
-            [transitionContext completeTransition:YES];
-            fromVC.view.hidden = NO;
-        }
-        
-    }];
-    
-    _willEndInteractiveBlock = ^(BOOL sucess) {
-        
-        if (sucess) {
-            for (UIView *fragmentView in fragmentViews) {
-                [fragmentView removeFromSuperview];
-            }
-            
-        }else{
-        }
-        
-    };
-    
-    
-    
-}
-
-
+#pragma mark - Other
 - (void)removeDelegate {
     
     UIViewController *fromVC = [_transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -2005,344 +849,12 @@
 
 
 
-- (UIImage *)imageFromView: (UIView *)view atFrame:(CGRect)rect{
-    
-    UIGraphicsBeginImageContext(view.frame.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(context);
-    UIRectClip(rect);
-    [view.layer renderInContext:context];
-    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return  theImage;
-
-}
-
 -(void)setAnimationType:(WXSTransitionAnimationType)animationType {
     _animationType = animationType;
     [self backAnimationTypeFromAnimationType:animationType];
 }
 
--(void)backAnimationTypeFromAnimationType:(WXSTransitionAnimationType)type{
-    
-    switch (type) {
-        case WXSTransitionAnimationTypeSysFade:{
-            _backAnimationType = WXSTransitionAnimationTypeSysFade;
-            
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPushFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPushFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPushFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPushFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysMoveInFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromRight;
-
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysRevealFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCubeFromTop;
-
-        }
-            break;
-        case WXSTransitionAnimationTypeSysSuckEffect:{
-            _backAnimationType = WXSTransitionAnimationTypeSysSuckEffect;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysOglFlipFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRippleEffect:{
-            _backAnimationType = WXSTransitionAnimationTypeSysRippleEffect;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageUnCurlFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromRight:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromLeft:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromTop:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromBottom:{
-            _backAnimationType = WXSTransitionAnimationTypeSysPageCurlFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCameraIrisHollowOpen:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCameraIrisHollowClose;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCameraIrisHollowClose:{
-            _backAnimationType = WXSTransitionAnimationTypeSysCameraIrisHollowOpen;
-
-        }
-            break;
-        default:
-            break;
-    }
-}
-
--(CATransition *)getSysTransitionWithType:(WXSTransitionAnimationType )type{
-    
-    CATransition *tranAnimation=[CATransition animation];
-    tranAnimation.duration= _animationTime;
-    tranAnimation.delegate = self;
-    switch (type) {
-        case WXSTransitionAnimationTypeSysFade:{
-            tranAnimation.type=kCATransitionFade;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromRight:{
-            tranAnimation.type = kCATransitionPush;
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromLeft:{
-            tranAnimation.type = kCATransitionPush;
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromTop:{
-            tranAnimation.type = kCATransitionPush;
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPushFromBottom:{
-            tranAnimation.type = kCATransitionPush;
-            tranAnimation.subtype=kCATransitionFromBottom;
-            
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromRight:{
-            tranAnimation.type = kCATransitionReveal;
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromLeft:{
-            tranAnimation.type = kCATransitionReveal;
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromTop:{
-            tranAnimation.type = kCATransitionReveal;
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRevealFromBottom:{
-            tranAnimation.type = kCATransitionReveal;
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromRight:{
-            tranAnimation.type = kCATransitionMoveIn;
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromLeft:{
-            tranAnimation.type = kCATransitionMoveIn;
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromTop:{
-            tranAnimation.type = kCATransitionMoveIn;
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysMoveInFromBottom:{
-            tranAnimation.type = kCATransitionMoveIn;
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromRight:{
-            tranAnimation.type = @"cube";
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromLeft:{
-            tranAnimation.type = @"cube";
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromTop:{
-            tranAnimation.type=@"cube";
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCubeFromBottom:{
-            tranAnimation.type=@"cube";
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysSuckEffect:{
-            tranAnimation.type=@"suckEffect";
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromRight:{
-            tranAnimation.type=@"oglFlip";
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromLeft:{
-            tranAnimation.type=@"oglFlip";
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromTop:{
-            tranAnimation.type=@"oglFlip";
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysOglFlipFromBottom:{
-            tranAnimation.type=@"oglFlip";
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysRippleEffect:{
-            tranAnimation.type=@"rippleEffect";
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromRight:{
-            tranAnimation.type=@"pageCurl";
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromLeft:{
-            tranAnimation.type=@"pageCurl";
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromTop:{
-            tranAnimation.type=@"pageCurl";
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageCurlFromBottom:{
-            tranAnimation.type=@"pageCurl";
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromRight:{
-            tranAnimation.type=@"pageUnCurl";
-            tranAnimation.subtype=kCATransitionFromRight;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromLeft:{
-            tranAnimation.type=@"pageUnCurl";
-            tranAnimation.subtype=kCATransitionFromLeft;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromTop:{
-            tranAnimation.type=@"pageUnCurl";
-            tranAnimation.subtype=kCATransitionFromTop;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysPageUnCurlFromBottom:{
-            tranAnimation.type=@"pageUnCurl";
-            tranAnimation.subtype=kCATransitionFromBottom;
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCameraIrisHollowOpen:{
-            tranAnimation.type=@"cameraIrisHollowOpen";
-        }
-            break;
-        case WXSTransitionAnimationTypeSysCameraIrisHollowClose:{
-            tranAnimation.type=@"cameraIrisHollowClose";
-        }
-            break;
-        default:
-            break;
-    }
-    return tranAnimation;
-}
-
-
 +(WXSTransitionManager *)copyPropertyFromObjcet:(id)object toObjcet:(id)targetObjcet {
-    
     
     WXSTransitionProperty *propery = object;
     WXSTransitionManager *transition = targetObjcet;

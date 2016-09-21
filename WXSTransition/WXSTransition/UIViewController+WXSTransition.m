@@ -20,9 +20,8 @@ UINavigationControllerOperation _operation;
 WXSPercentDrivenInteractiveTransition *_interactive;
 WXSTransitionManager *_transtion;
 
+
 @implementation UIViewController (WXSTransition)
-
-
 #pragma mark Hook
 
 + (void)load {
@@ -80,9 +79,6 @@ WXSTransitionManager *_transtion;
             self.transitioningDelegate = self.wxs_transitioningDelegate;
         }
     }
-    
-    
-    
     [self wxs_dismissViewControllerAnimated:flag completion:completion];
 }
 
@@ -98,23 +94,6 @@ WXSTransitionManager *_transtion;
     return (WXSTransitionAnimationType)type;
 }
 
-////----- wxs_targetView
-//
-//- (void)setWxs_targetView:(UIView *)wxs_targetView {
-//    objc_setAssociatedObject(self, &wxs_targetViewKey, wxs_targetView, OBJC_ASSOCIATION_RETAIN);
-//}
-//-(UIView *)wxs_targetView{
-//    return objc_getAssociatedObject(self, &wxs_targetViewKey);
-//}
-//
-////----- startView
-//- (void)setWxs_startView:(UIView *)wxs_startView {
-//    objc_setAssociatedObject(self, &wxs_startViewKey, wxs_startView, OBJC_ASSOCIATION_RETAIN);
-//}
-//
-//- (UIView *)wxs_startView {
-//    return objc_getAssociatedObject(self, &wxs_startViewKey);
-//}
 
 
 //----- CallBackTransition
@@ -147,7 +126,7 @@ WXSTransitionManager *_transtion;
     objc_setAssociatedObject(self, &wxs_transitioningDelegateKey, wxs_transitioningDelegate, OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (BOOL)wxs_transitioningDelegate {
+- (id)wxs_transitioningDelegate {
     return objc_getAssociatedObject(self, &wxs_transitioningDelegateKey);
 }
 //----- wxs_tempNavDelegate

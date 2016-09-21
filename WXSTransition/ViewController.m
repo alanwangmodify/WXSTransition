@@ -35,7 +35,7 @@
     self.navigationController.view.layer.cornerRadius = 7.0;
     self.navigationController.view.layer.masksToBounds = YES;
     
-    _names = @[@"pageTransition",@"viewMove",@"viewMove",@"cover",@"spreadFromRight",@"spreadFromLeft",@"spreadFromTop",@"spreadFromBottom",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH",@"InsideThenPush",@"fragmentShowFromRight",@"fragmentShowFromLeft",@"fragmentShowFromTop",@"fragmentShowFromBottom",@"fragmenHide"];
+    _names = @[@"pageTransition",@"viewMove",@"viewMove",@"cover",@"spreadFromRight",@"spreadFromLeft",@"spreadFromTop",@"spreadFromBottom",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH",@"InsideThenPush",@"fragmentShowFromRight",@"fragmentShowFromLeft",@"fragmentShowFromTop",@"fragmentShowFromBottom",@"fragmenHideFromRight",@"fragmenHideFromLeft",@"fragmenHideFromTop",@"fragmenHideFromBottom"];
     _customNames = @[@"poitnt spread from tap center",@" "];
     
 }
@@ -47,7 +47,7 @@
             break;
         case 1: 
         case 2:
-            return WXSTransitionAnimationTypeFragmentHide - WXSTransitionAnimationTypeDefault;
+            return WXSTransitionAnimationTypeFragmentHideFromBottom - WXSTransitionAnimationTypeDefault;
             break;
         default:
             return _customNames.count;
@@ -132,7 +132,10 @@
                 return;
             }
             
-            [self.navigationController wxs_pushViewController:[[SecondViewController alloc] init] animationType:WXSTransitionAnimationTypePageTransition + indexPath.row];
+            [self.navigationController wxs_pushViewController:[[SecondViewController alloc] init] makeTransition:^(WXSTransitionProperty *transition) {
+                transition.backGestureType = WXSGestureTypePanRight;
+                transition.animationType =WXSTransitionAnimationTypePageTransition + indexPath.row;
+            }];
         }
             break;
         case 2:{
@@ -143,9 +146,6 @@
             }
             [self wxs_presentViewController:[[PresentViewController alloc] init] animationType:WXSTransitionAnimationTypePageTransition + indexPath.row completion:nil];
             
-            
-    
-            
         }
             break;
             
@@ -155,25 +155,19 @@
                  
                     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
                     SecondViewController *vc = [[SecondViewController alloc] init];
-
                     [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
                         transition.animationType =  WXSTransitionAnimationTypePointSpreadPresent;
                         transition.animationTime = 1;
                         transition.backGestureEnable = NO;
                         transition.startView = cell.contentView;
-
                     }];
-                    
-                    
-
                 }
                     break;
                 case 1:{
-                    
             
-                    ViewController *vc = [[ViewController alloc] init];
+                    SecondViewController *vc = [[SecondViewController alloc] init];
                     [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
-                        transition.animationType  = WXSTransitionAnimationTypePointSpreadPresent;
+                        transition.animationType  = WXSTransitionAnimationTypeBoom;
                         transition.isSysBackAnimation = YES;
                     }];
                 }
