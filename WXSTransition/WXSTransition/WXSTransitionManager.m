@@ -7,6 +7,7 @@
 #import "WXSTransitionManager+TypeTool.h"
 #import "WXSTransitionManager+BrickAnimation.h"
 #import "WXSTransitionManager+SpreadAnimation.h"
+#import "WXSTransitionManager+ViewMoveAnimation.h"
 
 
 @interface WXSTransitionManager ()
@@ -267,194 +268,20 @@
 
 
 -(void)viewMoveNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *startView = [self.startView snapshotViewAfterScreenUpdates:NO];
-    UIView *containerView = [transitionContext containerView];
-  
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:startView];
-    
-    startView.frame = [self.startView convertRect:self.startView.bounds toView: containerView];
-    toVC.view.alpha = 0;
-    self.startView.hidden = YES;
-    self.targetView.hidden = YES;
-    fromVC.view.alpha = 1;
-
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:_animationTime delay:0.0 usingSpringWithDamping:0.6 initialSpringVelocity:1 / 0.6 options:0 animations:^{
-        startView.frame = [weakSelf.targetView convertRect:weakSelf.targetView.bounds toView:containerView];
-        toVC.view.alpha = 1;
-        fromVC.view.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        startView.hidden = YES;
-        weakSelf.targetView.hidden = NO;
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-    }];
-
-    
+    [self viewMoveNextWithType:WXSTransitionAnimationTypeViewMoveToNextVC andContext:transitionContext];
 }
 -(void)viewMoveBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    UIView *tempView = containerView.subviews.lastObject;
-    
-    
-    [containerView insertSubview:toVC.view atIndex:0];
-    
-    //Default values
-    self.targetView.hidden = YES;
-    self.startView.hidden = YES;
-    tempView.hidden = NO;
-    toVC.view.hidden = NO;
-    toVC.view.alpha = 1;
-    fromVC.view.alpha = 1;
-    tempView.frame = [self.targetView convertRect:self.targetView.bounds toView:fromVC.view];
-    
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:_animationTime delay:0.0 usingSpringWithDamping:0.7 initialSpringVelocity:1 / 0.7 options:0 animations:^{
-        
-        tempView.frame = [weakSelf.startView convertRect:weakSelf.startView.bounds toView:containerView];
-        fromVC.view.alpha = 0;
-        toVC.view.alpha = 1;
-        
-    } completion:^(BOOL finished) {
-        
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-        if ([transitionContext transitionWasCancelled]) {
-            
-            tempView.hidden = YES;
-            weakSelf.targetView.hidden = NO;
-            weakSelf.startView.hidden = NO;
-            
-        }else{
-            
-            weakSelf.startView.hidden = NO;
-            weakSelf.targetView.hidden = YES;
-            toVC.view.hidden = NO;
-            [tempView removeFromSuperview];
-
-        }
-        fromVC.view.hidden = NO;
-
-    }];
-    
-    _willEndInteractiveBlock  = ^(BOOL success){
-        
-        if (success) {
-            
-            fromVC.view.hidden = YES;
-            weakSelf.startView.hidden = NO;
-            weakSelf.targetView.hidden = YES;
-            [tempView removeFromSuperview];
-            
-        }else{
-            tempView.hidden = YES;
-            weakSelf.startView.hidden = NO;
-            weakSelf.targetView.hidden = NO;
-            
-        }
-    };
-    
+    [self viewMoveBackWithType:WXSTransitionAnimationTypeViewMoveToNextVC andContext:transitionContext];
 }
 
 -(void)viewMoveNormalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *startView = [self.startView snapshotViewAfterScreenUpdates:NO];
-    UIView *containerView = [transitionContext containerView];
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:startView];
-    
-    startView.frame = [self.startView convertRect:self.startView.bounds toView: containerView];
-    toVC.view.alpha = 0;
-    self.startView.hidden = YES;
-    self.targetView.hidden = YES;
-    fromVC.view.alpha = 1;
-    
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:_animationTime animations:^{
-        startView.frame = [weakSelf.targetView convertRect:weakSelf.targetView.bounds toView:containerView];
-        toVC.view.alpha = 1;
-        fromVC.view.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        startView.hidden = YES;
-        weakSelf.targetView.hidden = NO;
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-    }];
-    
-    
+    [self viewMoveNextWithType:WXSTransitionAnimationTypeViewMoveNormalToNextVC andContext:transitionContext];
 }
 -(void)viewMoveNormalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = [transitionContext containerView];
-    UIView *tempView = containerView.subviews.lastObject;
-
-    
-    [containerView insertSubview:toVC.view atIndex:0];
-    
-    //Default values
-    self.targetView.hidden = YES;
-    self.startView.hidden = YES;
-    tempView.hidden = NO;
-    toVC.view.hidden = NO;
-    toVC.view.alpha = 1;
-    fromVC.view.alpha = 1;
-    tempView.frame = [self.targetView convertRect:self.targetView.bounds toView:fromVC.view];
-    
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:_animationTime animations:^{
-        
-        tempView.frame = [weakSelf.startView convertRect:weakSelf.startView.bounds toView:containerView];
-        fromVC.view.alpha = 0;
-        toVC.view.alpha = 1;
-        
-    } completion:^(BOOL finished) {
-        
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-        if ([transitionContext transitionWasCancelled]) {
-            
-            tempView.hidden = YES;
-            weakSelf.targetView.hidden = NO;
-            weakSelf.startView.hidden = NO;
-            
-        }else{
-            
-            weakSelf.startView.hidden = NO;
-            weakSelf.targetView.hidden = YES;
-            toVC.view.hidden = NO;
-            [tempView removeFromSuperview];
-            
-        }
-        fromVC.view.hidden = NO;
-        
-    }];
-    
-    _willEndInteractiveBlock  = ^(BOOL success){
-        
-        if (success) {
-            
-            fromVC.view.hidden = YES;
-            weakSelf.startView.hidden = NO;
-            weakSelf.targetView.hidden = YES;
-            [tempView removeFromSuperview];
-            
-        }else{
-            tempView.hidden = YES;
-            weakSelf.startView.hidden = NO;
-            weakSelf.targetView.hidden = NO;
-            
-        }
-    };
-    
+    [self viewMoveBackWithType:WXSTransitionAnimationTypeViewMoveNormalToNextVC andContext:transitionContext];
 }
+
+
 
 -(void)coverNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
