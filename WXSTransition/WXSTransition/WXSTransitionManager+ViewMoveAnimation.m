@@ -71,10 +71,7 @@
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];
     UIView *tempView = containerView.subviews.lastObject;
-    
-    
     [containerView insertSubview:toVC.view atIndex:0];
-    
     //Default values
     self.targetView.hidden = YES;
     self.startView.hidden = YES;
@@ -83,10 +80,7 @@
     toVC.view.alpha = 1;
     fromVC.view.alpha = 1;
     tempView.frame = [self.targetView convertRect:self.targetView.bounds toView:fromVC.view];
-    
     __weak typeof(self) weakSelf = self;
-    
-    
     void(^AnimationBlock)() = ^(){
         tempView.frame = [weakSelf.startView convertRect:weakSelf.startView.bounds toView:containerView];
         fromVC.view.alpha = 0;

@@ -49,7 +49,7 @@ static NSString *identifier  = @"identifier";
     if (indexPath.row % 2 == 0) {
         [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
             transition.animationType = WXSTransitionAnimationTypeViewMoveToNextVC;
-            transition.animationTime = 1;
+            transition.animationTime = 0.64;
             transition.startView  = cell.imgView;
             transition.targetView = vc.imageView;
         }];
@@ -57,7 +57,7 @@ static NSString *identifier  = @"identifier";
         
         [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
             transition.animationType = WXSTransitionAnimationTypeViewMoveNormalToNextVC;
-            transition.animationTime = 0.4;
+            transition.animationTime = 0.5;
             transition.startView  = cell.imgView;
             transition.targetView = vc.imageView;
         }];

@@ -246,8 +246,6 @@
 -(void)insideThenPushBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext {
     [self insideThenPushBackAnimationWithContext:transitionContext];
 }
-// *********************************************************************************************
-
 
 
 
@@ -335,7 +333,6 @@
     }
 
 }
-
 
 
 -(void)setAnimationType:(WXSTransitionAnimationType)animationType {
