@@ -1,18 +1,18 @@
 //
-//  WXSTransitionManager+CoverAnimation.m
+//  WXSTransitionManager+BoomAnimation.m
 //  WXSTransition
 //
 //  Created by AlanWang on 16/9/22.
 //  Copyright © 2016年 王小树. All rights reserved.
 //
 
-#import "WXSTransitionManager+CoverAnimation.h"
+#import "WXSTransitionManager+BoomAnimation.h"
 
-@implementation WXSTransitionManager (CoverAnimation)
+@implementation WXSTransitionManager (BoomAnimation)
 
 
 
--(void)coverTransitionNextAnimationWithContext:(id<UIViewControllerContextTransitioning>)transitionContext{
+-(void)boomPresentTransitionNextAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -23,79 +23,66 @@
     [containView addSubview:fromVC.view];
     [containView addSubview:tempView];
     
-    tempView.layer.transform = CATransform3DMakeScale(4, 4, 1);
-    tempView.alpha = 0.1;
-    tempView.hidden = NO;
+    tempView.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1);
     
-    
-    [UIView animateWithDuration:self.animationTime animations:^{
-        
+    [UIView animateWithDuration:self.animationTime delay:0.0 usingSpringWithDamping:0.4 initialSpringVelocity:1/0.4 options:0 animations:^{
         tempView.layer.transform = CATransform3DIdentity;
-        tempView.alpha = 1;
-        
     } completion:^(BOOL finished) {
         
         if ([transitionContext transitionWasCancelled]) {
-            toVC.view.hidden = YES;
             [transitionContext completeTransition:NO];
         }else{
-            toVC.view.hidden = NO;
             [transitionContext completeTransition:YES];
+            toVC.view.hidden = NO;
         }
         [tempView removeFromSuperview];
-        
     }];
     
 }
 
--(void)coverTransitionBackAnimationWithContext:(id<UIViewControllerContextTransitioning>)transitionContext{
+-(void)boomPresentTransitionBackAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    
     UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
     UIView *containView = [transitionContext containerView];
     
-    [containView addSubview:fromVC.view];
+    
     [containView addSubview:toVC.view];
     [containView addSubview:tempView];
     
-    fromVC.view.hidden = YES;
-    toVC.view.hidden = NO;
-    toVC.view.alpha = 1;
-    tempView.hidden = NO;
-    tempView.alpha = 1;
+    tempView.layer.transform = CATransform3DIdentity;
     
     [UIView animateWithDuration:self.animationTime animations:^{
-        tempView.layer.transform = CATransform3DMakeScale(4, 4, 1);
-        tempView.alpha = 0.0;
+        tempView.layer.transform = CATransform3DMakeScale(0.01, 0.01, 1);
     } completion:^(BOOL finished) {
         
         if ([transitionContext transitionWasCancelled]) {
             
-            fromVC.view.hidden = NO;
             [transitionContext completeTransition:NO];
-            tempView.alpha = 1;
+            fromVC.view.hidden = NO;
+            [tempView removeFromSuperview];
             
         }else{
             [transitionContext completeTransition:YES];
             toVC.view.hidden = NO;
-            
+            fromVC.view.hidden = YES;
+            [tempView removeFromSuperview];
         }
-        [tempView removeFromSuperview];
+        
     }];
     
-    self.willEndInteractiveBlock = ^(BOOL success){
-        
-        if (success) {
-            toVC.view.hidden = NO;
+    self.willEndInteractiveBlock = ^(BOOL sucess) {
+        if (sucess) {
+            
             [tempView removeFromSuperview];
             
         }else{
-            fromVC.view.hidden = NO;
-            tempView.alpha = 1;
+            
         }
     };
+    
 }
+
 
 @end

@@ -10,7 +10,9 @@
 
 @interface WXSTransitionManager (CoverAnimation)
 
--(void)coverNextTransitionAnimationWithContext:(id<UIViewControllerContextTransitioning>)transitionContext;
--(void)coverBackTransitionAnimationWithContext:(id<UIViewControllerContextTransitioning>)transitionContext;
+
+-(void)coverTransitionNextAnimationWithContext:(id<UIViewControllerContextTransitioning>)transitionContext;
+-(void)coverTransitionBackAnimationWithContext:(id<UIViewControllerContextTransitioning>)transitionContext;
+
 
 @end
