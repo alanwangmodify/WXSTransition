@@ -57,7 +57,7 @@ static NSString *identifier  = @"identifier";
         
         [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
             transition.animationType = WXSTransitionAnimationTypeViewMoveNormalToNextVC;
-            transition.animationTime = 0.5;
+            transition.animationTime = 0.4;
             transition.startView  = cell.imgView;
             transition.targetView = vc.imageView;
         }];
