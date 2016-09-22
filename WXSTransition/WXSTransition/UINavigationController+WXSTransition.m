@@ -8,6 +8,7 @@
 
 #import "UINavigationController+WXSTransition.h"
 #import <objc/runtime.h>
+#import "UIViewController+WXSTransitionProperty.h"
 @implementation UINavigationController (WXSTransition)
 
 
