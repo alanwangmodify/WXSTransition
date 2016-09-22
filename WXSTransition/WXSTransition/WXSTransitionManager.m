@@ -8,7 +8,7 @@
 #import "WXSTransitionManager+BrickAnimation.h"
 #import "WXSTransitionManager+SpreadAnimation.h"
 #import "WXSTransitionManager+ViewMoveAnimation.h"
-
+#import "WXSTransitionManager+CoverAnimation.h"
 
 @interface WXSTransitionManager ()
 
@@ -195,6 +195,7 @@
     
 }
 #pragma mark - Animations
+// *********************************************************************************************
 -(void)pageNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext {
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -265,116 +266,39 @@
     };
     
 }
+// *********************************************************************************************
 
 
+// *********************************************************************************************
 -(void)viewMoveNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self viewMoveNextWithType:WXSTransitionAnimationTypeViewMoveToNextVC andContext:transitionContext];
 }
 -(void)viewMoveBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self viewMoveBackWithType:WXSTransitionAnimationTypeViewMoveToNextVC andContext:transitionContext];
 }
-
 -(void)viewMoveNormalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self viewMoveNextWithType:WXSTransitionAnimationTypeViewMoveNormalToNextVC andContext:transitionContext];
 }
 -(void)viewMoveNormalBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self viewMoveBackWithType:WXSTransitionAnimationTypeViewMoveNormalToNextVC andContext:transitionContext];
 }
+// *********************************************************************************************
 
 
 
+// *********************************************************************************************
 -(void)coverNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *tempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-    UIView *containView = [transitionContext containerView];
-
-    [containView addSubview:toVC.view];
-    [containView addSubview:fromVC.view];
-    [containView addSubview:tempView];
-    
-    tempView.layer.transform = CATransform3DMakeScale(4, 4, 1);
-    tempView.alpha = 0.1;
-    tempView.hidden = NO;
-    
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        
-        tempView.layer.transform = CATransform3DIdentity;
-        tempView.alpha = 1;
-        
-    } completion:^(BOOL finished) {
-        
-        if ([transitionContext transitionWasCancelled]) {
-            toVC.view.hidden = YES;
-            [transitionContext completeTransition:NO];
-        }else{
-            toVC.view.hidden = NO;
-            [transitionContext completeTransition:YES];
-        }
-        [tempView removeFromSuperview];
-        
-    }];
-    
-    
-    
+    [self coverNextTransitionAnimationWithContext:transitionContext];
 }
-
 -(void)coverBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    
-    UIView *tempView = [fromVC.view snapshotViewAfterScreenUpdates:NO];
-    UIView *containView = [transitionContext containerView];
-    
-    [containView addSubview:fromVC.view];
-    [containView addSubview:toVC.view];
-    [containView addSubview:tempView];
-    
-    fromVC.view.hidden = YES;
-    toVC.view.hidden = NO;
-    toVC.view.alpha = 1;
-    tempView.hidden = NO;
-    tempView.alpha = 1;
-    
-    [UIView animateWithDuration:_animationTime animations:^{
-        tempView.layer.transform = CATransform3DMakeScale(4, 4, 1);
-        tempView.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        
-        if ([transitionContext transitionWasCancelled]) {
-            
-            fromVC.view.hidden = NO;
-            [transitionContext completeTransition:NO];
-            tempView.alpha = 1;
-
-        }else{
-            [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
-
-        }
-        [tempView removeFromSuperview];
-    }];
-    
-    _willEndInteractiveBlock = ^(BOOL success){
-        
-        if (success) {
-            toVC.view.hidden = NO;
-            [tempView removeFromSuperview];
-
-        }else{
-            fromVC.view.hidden = NO;
-            tempView.alpha = 1;
-            
-        }
-
-    };
+    [self coverBackTransitionAnimationWithContext:transitionContext];
 }
+// *********************************************************************************************
 
 
 
+
+// *********************************************************************************************
 -(void)spreadFromRightNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self spreadNextWithType:WXSTransitionAnimationTypeSpreadFromRight andTransitonContext:transitionContext];
 }
@@ -405,10 +329,10 @@
 -(void)pointSpreadPresentBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self pointSpreadBackWithContext:transitionContext];
 }
+// *********************************************************************************************
 
 
-
-
+// *********************************************************************************************
 -(void)boomPresentNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -480,8 +404,10 @@
     };
 
 }
+// *********************************************************************************************
 
 
+// *********************************************************************************************
 -(void)brickOpenVerticalNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self brickOpenNextWithType:WXSTransitionAnimationTypeBrickOpenVertical andTransitionContext:transitionContext];
 }
@@ -508,7 +434,7 @@
 }
 
 
-
+// *********************************************************************************************
 -(void)insideThenPushNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -587,7 +513,12 @@
     };
     
 }
+// *********************************************************************************************
 
+
+
+
+// *********************************************************************************************
 -(void)fragmentShowFromRightNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentShowNextType:WXSTransitionAnimationTypeFragmentShowFromRight andContext:transitionContext];
 }
@@ -618,14 +549,12 @@
 -(void)fragmentHideFromRightBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromRight andContext:transitionContext];
 }
-
 -(void)fragmentHideFromLefttNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideNextType:WXSTransitionAnimationTypeFragmentHideFromLeft andContext:transitionContext];
 }
 -(void)fragmentHideFromLeftBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromLeft andContext:transitionContext];
 }
-
 -(void)fragmentHideFromTopNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideNextType:WXSTransitionAnimationTypeFragmentHideFromTop andContext:transitionContext];
 }
@@ -638,7 +567,7 @@
 -(void)fragmentHideFromBottomBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromBottom andContext:transitionContext];
 }
-
+// *********************************************************************************************
 
 #pragma mark - Other
 - (void)removeDelegate {
