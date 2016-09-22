@@ -19,8 +19,6 @@
  */
 @property (nonatomic,assign) NSTimeInterval animationTime;
 
-
-
 /**
  *  转场方式 ：push,pop,present,dismiss
  *
