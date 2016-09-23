@@ -74,11 +74,8 @@
     
     self.willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
-            
             [tempView removeFromSuperview];
-            
         }else{
-            
         }
     };
     

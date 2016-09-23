@@ -131,13 +131,9 @@ typedef NS_ENUM(NSInteger,WXSTransitionSysAnimationType){
     WXSTransitionSysAnimationTypeCurlDown,                   //下翻页
     WXSTransitionSysAnimationTypeCurlUp,                     //上翻页
     WXSTransitionSysAnimationTypeFlipFromLeft,               //左翻转
-    WXSTransitionSysAnimationTypeFlipFromRight, //右翻转
-    
+    WXSTransitionSysAnimationTypeFlipFromRight,              //右翻转
     
 };
-
-
-
 
 
 

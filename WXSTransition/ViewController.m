@@ -136,6 +136,8 @@
                 transition.backGestureType = WXSGestureTypePanRight;
                 transition.animationType =WXSTransitionAnimationTypePageTransition + indexPath.row;
             }];
+            
+         
         }
             break;
         case 2:{

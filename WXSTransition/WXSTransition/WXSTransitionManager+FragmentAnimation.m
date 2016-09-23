@@ -19,7 +19,6 @@
     UIView *toVCTempView = [toVC.view snapshotViewAfterScreenUpdates:YES];
     
     [containerView addSubview:toVC.view];
-    //    [containerView addSubview:fromVCTempView];
     [containerView addSubview:fromVC.view];
     
     NSMutableArray *fragmentViews = [[NSMutableArray alloc] init];
