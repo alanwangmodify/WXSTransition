@@ -8,8 +8,7 @@ It includes about 50 kinds of animations.
 Now, it support 4 kinds of gesture for pop view controller. You can see the property  in ```WXSTransitionProperty```
 
 
-
-这一个界面转场动画集。
+这是一个界面转场动画集。
 目前只支持纯代码。
 在平时开发中，有时候需要一些转场动画给界面调整增添一些活力，而实现这些动画相对比较繁琐。为了让实现转场更简单，我写了这个界面转场动画集。跳转界面时，只要一行代码就可以实现这里面的动画。包括系统提供的动画在内，目前有大概50种动画。
 
