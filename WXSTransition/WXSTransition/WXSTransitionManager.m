@@ -47,6 +47,7 @@
 }
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
     
+    
     _transitionContext = transitionContext;
     if (self.animationType == WXSTransitionAnimationTypeDefault) {
         self.animationType = WXSTransitionAnimationTypeSysPushFromLeft;
@@ -91,9 +92,8 @@
             tag++;
             if (tag == animationType - WXSTransitionAnimationTypeDefault) {
                 ((void (*)(id,SEL,id<UIViewControllerContextTransitioning>,WXSTransitionAnimationType))objc_msgSend)(self,selector,transitionContext,animationType);
-//                break;
+                break;
             }
-            NSLog(@"%@",methodName);
 
         }
     }

@@ -7,7 +7,7 @@
 //
 
 #import "WXSBaseViewController.h"
-#import "UIViewController+WXSTransition.h"
+#import "UINavigationController+WXSTransition.h"
 @interface SecondViewController : WXSBaseViewController
 
 @end
