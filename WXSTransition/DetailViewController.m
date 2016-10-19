@@ -14,9 +14,7 @@
 @end
 
 @implementation DetailViewController
--(void)dealloc{
-    NSLog(@"DetailViewController dealloc");
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;

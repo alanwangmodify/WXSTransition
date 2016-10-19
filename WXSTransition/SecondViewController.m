@@ -14,9 +14,7 @@
 
 @implementation SecondViewController
 
--(void)dealloc{
-    NSLog(@"SecondViewController dealloc");
-}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 //    self.navigationController.navigationBarHidden = NO;

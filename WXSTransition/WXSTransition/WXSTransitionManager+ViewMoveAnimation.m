@@ -11,6 +11,27 @@
 @implementation WXSTransitionManager (ViewMoveAnimation)
 
 
+- (void)viewMoveRollNextWithType:(WXSTransitionAnimationType )type andContext:(id<UIViewControllerContextTransitioning>)transitionContext {
+    
+    
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView *startView = [self.startView snapshotViewAfterScreenUpdates:NO];
+    UIView *containerView = [transitionContext containerView];
+    
+    [containerView addSubview:toVC.view];
+    [containerView addSubview:startView];
+    
+    startView.frame = [self.startView convertRect:self.startView.bounds toView: containerView];
+    toVC.view.alpha = 0;
+    self.startView.hidden = YES;
+    self.targetView.hidden = YES;
+    fromVC.view.alpha = 1;
+    
+    
+    
+}
+
 
 - (void)viewMoveNextWithType:(WXSTransitionAnimationType )type andContext:(id<UIViewControllerContextTransitioning>)transitionContext{
     

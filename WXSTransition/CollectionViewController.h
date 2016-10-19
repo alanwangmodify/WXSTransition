@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WXSBaseViewController.h"
 
-@interface CollectionViewController : UIViewController
+@interface CollectionViewController : WXSBaseViewController
 
 @end

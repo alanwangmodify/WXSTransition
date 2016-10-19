@@ -39,10 +39,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
--(void)dealloc {
-    NSLog(@"PresentViewController dealloc");
 
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

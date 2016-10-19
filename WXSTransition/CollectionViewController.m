@@ -19,9 +19,7 @@
 
 static NSString *identifier  = @"identifier";
 
--(void)dealloc{
-    NSLog(@"CollectionViewController dealloc");
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.collectionView];
