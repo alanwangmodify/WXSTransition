@@ -130,7 +130,7 @@ WXSTransitionManager *_transtion;
     self.wxs_callBackTransition ? self.wxs_callBackTransition(make) : nil;
     _transtion = [WXSTransitionManager copyPropertyFromObjcet:make toObjcet:_transtion];
     _operation = operation;
-    
+
     if ( operation == UINavigationControllerOperationPush ) {
         self.wxs_delegateFlag = _transtion.isSysBackAnimation ? NO : YES;
         _transtion.transitionType = WXSTransitionTypePush;

@@ -13,7 +13,9 @@
 
 @interface UINavigationController (WXSTransition)
 
-
+/*
+ * 
+ */
 - (void)wxs_pushViewController:(UIViewController *)viewController animationType:(WXSTransitionAnimationType) animationType;
 - (void)wxs_pushViewController:(UIViewController *)viewController makeTransition:(WXSTransitionBlock) transitionBlock;
 

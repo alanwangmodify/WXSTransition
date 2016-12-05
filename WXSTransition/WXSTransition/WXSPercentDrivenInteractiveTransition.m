@@ -12,7 +12,7 @@
     BOOL _isInter;
 }
 
-@property (nonatomic, strong) UIViewController *vc;
+@property (nonatomic, weak  ) UIViewController *vc;  //
 @property (nonatomic, strong) CADisplayLink *displayLink;
 @property (nonatomic, assign) CGFloat percent;
 

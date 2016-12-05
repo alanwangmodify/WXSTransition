@@ -43,6 +43,7 @@
     
     if (transitionCompleted) {
         [self removeDelegate];
+        
     }
 }
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
@@ -94,7 +95,6 @@
                 ((void (*)(id,SEL,id<UIViewControllerContextTransitioning>,WXSTransitionAnimationType))objc_msgSend)(self,selector,transitionContext,animationType);
                 break;
             }
-
         }
     }
     free(methodlist);
@@ -305,7 +305,6 @@
     
     UIViewController *fromVC = [_transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [_transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containView = [_transitionContext containerView];
 
     void (^RemoveDelegateBlock)() = ^(){
         
@@ -322,12 +321,10 @@
             if (self.isSysBackAnimation) {
                 RemoveDelegateBlock ? RemoveDelegateBlock() : nil;
             }
-            containView = nil;
         }
             break;
         default:{ //Back
             RemoveDelegateBlock ? RemoveDelegateBlock() : nil;
-            containView = nil;
         }
             break;
     }
@@ -353,7 +350,7 @@
     transition.backGestureEnable = propery.backGestureEnable;
     transition.startView = propery.startView;
     transition.targetView = propery.targetView;
-    
+
     return transition;
     
 }
