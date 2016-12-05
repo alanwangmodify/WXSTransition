@@ -27,9 +27,6 @@
     self.startView.hidden = YES;
     self.targetView.hidden = YES;
     fromVC.view.alpha = 1;
-    
-    
-    
 }
 
 
@@ -137,6 +134,7 @@
         [UIView animateWithDuration:self.animationTime animations:^{
             AnimationBlock();
         } completion:^(BOOL finished) {
+            
             AnimationCompletion();
         }];
         
