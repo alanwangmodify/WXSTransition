@@ -298,12 +298,13 @@
         
     }];
     
+    __weak UIViewController * weakToVC = toVC;
     self.willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
             for (UIView *fragmentView in fragmentViews) {
                 [fragmentView removeFromSuperview];
             }
-            toVC.view.hidden = NO;
+            weakToVC.view.hidden = NO;
         }else{
             
         }

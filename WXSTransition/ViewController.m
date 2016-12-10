@@ -20,7 +20,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 //    self.navigationController.delegate = nil;
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
 
 }
 - (void)viewDidLoad {
@@ -186,7 +186,7 @@
 #pragma mark Getter
 -(UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = [UIColor clearColor];

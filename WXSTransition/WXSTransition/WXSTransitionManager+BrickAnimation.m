@@ -79,8 +79,8 @@
 }
 
 - (void)brickOpenBackWithType:(WXSTransitionAnimationType)type andTransitionContext:(id<UIViewControllerContextTransitioning>)transitionContext {
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    __weak UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    __weak UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containView = [transitionContext containerView];
     
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -222,8 +222,8 @@
 }
 - (void)brickCloseBackWithType:(WXSTransitionAnimationType)type andTransitionContext:(id<UIViewControllerContextTransitioning>)transitionContext{
     
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    __weak UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    __weak UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containView = [transitionContext containerView];
     
     

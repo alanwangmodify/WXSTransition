@@ -52,7 +52,6 @@
     tempView.layer.mask = maskLayer;
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.delegate = self;
     animation.fromValue = (__bridge id)(startPath.CGPath);
     animation.toValue = (__bridge id)((endPath.CGPath));
     animation.duration = self.animationTime;
@@ -120,6 +119,7 @@
     animation.timingFunction = [CAMediaTimingFunction  functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     [maskLayer addAnimation:animation forKey:@"BackPath"];
     
+    __weak UIViewController * weakToVC = toVC;
     self.willEndInteractiveBlock = ^(BOOL success) {
         
         if (success) {
@@ -140,7 +140,7 @@
             
         }else{
             [transitionContext completeTransition:YES];
-            toVC.view.hidden = NO;
+            weakToVC.view.hidden = NO;
         }
         
     };

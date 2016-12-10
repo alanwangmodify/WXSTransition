@@ -84,15 +84,19 @@
         }
         [tempView removeFromSuperview];
     }];
+
+    //小心循环引用
+    __weak UIViewController * weakToVC = toVC;
+    __weak UIViewController * weakFromVC = fromVC;
     
     self.willEndInteractiveBlock = ^(BOOL success){
         
         if (success) {
-            toVC.view.hidden = NO;
+            weakToVC.view.hidden = NO;
             [tempView removeFromSuperview];
             
         }else{
-            fromVC.view.hidden = NO;
+            weakFromVC.view.hidden = NO;
             tempView.alpha = 1;
         }
     };

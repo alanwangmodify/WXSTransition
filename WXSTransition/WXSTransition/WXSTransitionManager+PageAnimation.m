@@ -71,13 +71,16 @@
             toVC.view.alpha = 1;
         }
     }];
+    
+    __weak UIViewController * weakToVC = toVC;
+    __weak UIViewController * weakFromVC = fromVC;
     self.willEndInteractiveBlock = ^(BOOL success) {
         if (success) {
             [tempView removeFromSuperview];
-            toVC.view.hidden = NO;
-            toVC.view.alpha = 1;
+            weakToVC.view.hidden = NO;
+            weakToVC.view.alpha = 1;
         }else{
-            fromVC.view.alpha = 1;
+            weakFromVC.view.alpha = 1;
         }
     };
     

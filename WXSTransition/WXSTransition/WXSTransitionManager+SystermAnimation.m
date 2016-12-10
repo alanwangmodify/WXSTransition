@@ -62,6 +62,9 @@
     CATransition *tranAnimation = [self getSysTransitionWithType:type];
     [containerView.layer addAnimation:tranAnimation forKey:nil];
     
+    
+    
+    __weak UIViewController * weakToVC = toVC;    
     self.completionBlock = ^(){
         
         if ([transitionContext transitionWasCancelled]) {
@@ -69,17 +72,18 @@
         }else{
             [transitionContext completeTransition:YES];
         }
-        toVC.view.hidden = NO;
+        weakToVC.view.hidden = NO;
         
         [tempView removeFromSuperview];
         [temView1 removeFromSuperview];
     };
     
+
     self.willEndInteractiveBlock = ^(BOOL success) {
         if (success) {
-            toVC.view.hidden = NO;
+            weakToVC.view.hidden = NO;
         }else{
-            toVC.view.hidden = YES;
+            weakToVC.view.hidden = YES;
             [tempView removeFromSuperview];
             [temView1 removeFromSuperview];
         }
