@@ -139,12 +139,12 @@
         }];
         
     }
-    
+    __weak UIViewController * weakFromVC = fromVC;
     self.willEndInteractiveBlock  = ^(BOOL success){
         
         if (success) {
             
-            fromVC.view.hidden = YES;
+            weakFromVC.view.hidden = YES;
             weakSelf.startView.hidden = NO;
             weakSelf.targetView.hidden = YES;
             [tempView removeFromSuperview];
