@@ -42,14 +42,15 @@ static NSString *identifier  = @"identifier";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     DetailViewController *vc = [[DetailViewController alloc] init];
-    CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    __weak CollectionViewCell *cell = (CollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    __weak DetailViewController *weakVC = vc;
     
     if (indexPath.row % 2 == 0) {
         [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
             transition.animationType = WXSTransitionAnimationTypeViewMoveToNextVC;
             transition.animationTime = 0.64;
             transition.startView  = cell.imgView;
-            transition.targetView = vc.imageView;
+            transition.targetView = weakVC.imageView;
         }];
     }else {
         
@@ -57,7 +58,7 @@ static NSString *identifier  = @"identifier";
             transition.animationType = WXSTransitionAnimationTypeViewMoveNormalToNextVC;
             transition.animationTime = 0.4;
             transition.startView  = cell.imgView;
-            transition.targetView = vc.imageView;
+            transition.targetView = weakVC.imageView;
         }];
     }
     

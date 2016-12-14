@@ -18,8 +18,8 @@
 
 @property (nonatomic, assign) BOOL                              backGestureEnable;
 
-@property (nonatomic, strong) UIView                            *startView;
-@property (nonatomic, strong) UIView                            *targetView;
+@property (nonatomic, weak) UIView                            *startView;
+@property (nonatomic, weak) UIView                            *targetView;
 
 @property (nonatomic, copy) void(^willEndInteractiveBlock)(BOOL success);
 
