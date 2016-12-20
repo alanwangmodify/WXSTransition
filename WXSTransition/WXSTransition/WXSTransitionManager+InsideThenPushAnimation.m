@@ -50,8 +50,8 @@
     UIView *containerView = [transitionContext containerView];
     
     UIView *tempToView = [toVC.view snapshotViewAfterScreenUpdates:YES];
-     UIView *fromView = fromVC.view;
-     UIView *toView = toVC.view;
+    UIView *fromView = fromVC.view;
+    UIView *toView = toVC.view;
     
     [containerView addSubview:toView];
     [containerView addSubview:fromView];
@@ -65,7 +65,9 @@
         
     } completion:^(BOOL finished){
         
-        [containerView addSubview:toVC.view];
+        [tempToView removeFromSuperview];
+        toView.hidden = NO;
+//        [containerView addSubview:toVC.view];
         toView.layer.transform = CATransform3DIdentity;
         if ([transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:NO];
@@ -74,7 +76,6 @@
         }
     }];
     
-
     self.willEndInteractiveBlock = ^(BOOL success) {
         
         if (success) {
@@ -82,13 +83,13 @@
             fromView.hidden = YES;
             [containerView addSubview:tempToView];
         }else {
-            
             fromView.hidden = NO;
+            toView.layer.transform = CATransform3DIdentity;
+            
+            [tempToView removeFromSuperview];
             [containerView bringSubviewToFront:fromView];
-            tempToView.hidden = YES;
+            
         }
-        [tempToView removeFromSuperview];
-
         
     };
     

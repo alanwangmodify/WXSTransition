@@ -54,6 +54,7 @@
     
     UIView *containerView = [transitionContext containerView];
     UIView *tempView = containerView.subviews.lastObject;
+    tempView.hidden = NO;
     [containerView addSubview:toVC.view];
     
     [UIView animateWithDuration:self.animationTime animations:^{
@@ -79,6 +80,7 @@
             weakToVC.view.hidden = NO;
             weakToVC.view.alpha = 1;
         }else{
+            tempView.hidden = YES;
             weakFromVC.view.alpha = 1;
         }
     };
