@@ -22,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIImageView *bgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
@@ -41,7 +40,6 @@
 
     self.title = @"This is push";
 
-    
 }
 
 -(void)click{

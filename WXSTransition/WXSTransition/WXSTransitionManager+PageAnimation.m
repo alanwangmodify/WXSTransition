@@ -76,7 +76,6 @@
     __weak UIViewController * weakFromVC = fromVC;
     self.willEndInteractiveBlock = ^(BOOL success) {
         if (success) {
-            [tempView removeFromSuperview];
             weakToVC.view.hidden = NO;
             weakToVC.view.alpha = 1;
         }else{

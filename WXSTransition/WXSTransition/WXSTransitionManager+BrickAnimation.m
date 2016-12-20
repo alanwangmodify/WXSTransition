@@ -79,8 +79,8 @@
 }
 
 - (void)brickOpenBackWithType:(WXSTransitionAnimationType)type andTransitionContext:(id<UIViewControllerContextTransitioning>)transitionContext {
-    __weak UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    __weak UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containView = [transitionContext containerView];
     
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -137,19 +137,22 @@
             [transitionContext completeTransition:YES];
         }
         toVC.view.hidden = NO;
-        [imgView0 removeFromSuperview];
-        [imgView1 removeFromSuperview];
         
     }];
     
+    
+    __weak UIViewController *weakFromVC = fromVC;
+    __weak UIViewController *weakToVC = toVC;
+    
     self.willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
-            toVC.view.hidden = NO;
+            weakToVC.view.hidden = NO;
             
         }else{
-            toVC.view.hidden = YES;
+            weakToVC.view.hidden = YES;
         }
-        
+        [imgView0 removeFromSuperview];
+        [imgView1 removeFromSuperview];
     };
 
 }
@@ -282,9 +285,12 @@
             
         }
         toVC.view.hidden = NO;
-        [imgView0 removeFromSuperview];
-        [imgView1 removeFromSuperview];
+
     }];
+    
+    
+    __weak UIViewController *weakFromVC = fromVC;
+    __weak UIViewController *weakToVC = toVC;
     
     self.willEndInteractiveBlock = ^(BOOL sucess) {
         if (sucess) {
@@ -292,8 +298,10 @@
             [imgView1 removeFromSuperview];
             
         }else{
-            toVC.view.hidden = YES;
+            weakToVC.view.hidden = YES;
         }
+        [imgView0 removeFromSuperview];
+        [imgView1 removeFromSuperview];
         
     };
 }
