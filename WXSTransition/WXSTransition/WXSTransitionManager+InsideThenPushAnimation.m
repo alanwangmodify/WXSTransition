@@ -35,7 +35,6 @@
             [transitionContext completeTransition:NO];
             fromView.layer.transform = CATransform3DIdentity;
             
-            
         }else{
             [transitionContext completeTransition:YES];
             fromView.layer.transform = CATransform3DIdentity;
