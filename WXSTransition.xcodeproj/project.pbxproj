@@ -19,17 +19,6 @@
 		5E6EED841D9391940068EC92 /* WXSTransitionManager+InsideThenPushAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6EED831D9391940068EC92 /* WXSTransitionManager+InsideThenPushAnimation.m */; };
 		5E6EED871D93AEAF0068EC92 /* WXSTransitionManager+PageAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6EED861D93AEAF0068EC92 /* WXSTransitionManager+PageAnimation.m */; };
 		5E6EED8A1D93AF870068EC92 /* WXSTransitionManager+BoomAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6EED891D93AF870068EC92 /* WXSTransitionManager+BoomAnimation.m */; };
-		5ECF9E2B1DB073EA00A7516B /* MLeakedObjectProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E151DB073EA00A7516B /* MLeakedObjectProxy.m */; };
-		5ECF9E2C1DB073EA00A7516B /* MLeaksMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E181DB073EA00A7516B /* MLeaksMessenger.m */; };
-		5ECF9E2D1DB073EA00A7516B /* NSObject+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E1A1DB073EA00A7516B /* NSObject+MemoryLeak.m */; };
-		5ECF9E2E1DB073EA00A7516B /* UIApplication+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E1C1DB073EA00A7516B /* UIApplication+MemoryLeak.m */; };
-		5ECF9E2F1DB073EA00A7516B /* UINavigationController+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E1E1DB073EA00A7516B /* UINavigationController+MemoryLeak.m */; };
-		5ECF9E301DB073EA00A7516B /* UIPageViewController+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E201DB073EA00A7516B /* UIPageViewController+MemoryLeak.m */; };
-		5ECF9E311DB073EA00A7516B /* UISplitViewController+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E221DB073EA00A7516B /* UISplitViewController+MemoryLeak.m */; };
-		5ECF9E321DB073EA00A7516B /* UITabBarController+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E241DB073EA00A7516B /* UITabBarController+MemoryLeak.m */; };
-		5ECF9E331DB073EA00A7516B /* UITouch+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E261DB073EA00A7516B /* UITouch+MemoryLeak.m */; };
-		5ECF9E341DB073EA00A7516B /* UIView+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E281DB073EA00A7516B /* UIView+MemoryLeak.m */; };
-		5ECF9E351DB073EA00A7516B /* UIViewController+MemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECF9E2A1DB073EA00A7516B /* UIViewController+MemoryLeak.m */; };
 		924A5C031D4FBBB800C03D3F /* UINavigationController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5BF91D4FBBB800C03D3F /* UINavigationController+WXSTransition.m */; };
 		924A5C041D4FBBB800C03D3F /* UIViewController+WXSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5BFB1D4FBBB800C03D3F /* UIViewController+WXSTransition.m */; };
 		924A5C051D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A5BFD1D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m */; };
@@ -93,29 +82,6 @@
 		5E6EED861D93AEAF0068EC92 /* WXSTransitionManager+PageAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WXSTransitionManager+PageAnimation.m"; sourceTree = "<group>"; };
 		5E6EED881D93AF870068EC92 /* WXSTransitionManager+BoomAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WXSTransitionManager+BoomAnimation.h"; sourceTree = "<group>"; };
 		5E6EED891D93AF870068EC92 /* WXSTransitionManager+BoomAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WXSTransitionManager+BoomAnimation.m"; sourceTree = "<group>"; };
-		5ECF9E141DB073EA00A7516B /* MLeakedObjectProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLeakedObjectProxy.h; sourceTree = "<group>"; };
-		5ECF9E151DB073EA00A7516B /* MLeakedObjectProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLeakedObjectProxy.m; sourceTree = "<group>"; };
-		5ECF9E161DB073EA00A7516B /* MLeaksFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLeaksFinder.h; sourceTree = "<group>"; };
-		5ECF9E171DB073EA00A7516B /* MLeaksMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLeaksMessenger.h; sourceTree = "<group>"; };
-		5ECF9E181DB073EA00A7516B /* MLeaksMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLeaksMessenger.m; sourceTree = "<group>"; };
-		5ECF9E191DB073EA00A7516B /* NSObject+MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MemoryLeak.h"; sourceTree = "<group>"; };
-		5ECF9E1A1DB073EA00A7516B /* NSObject+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MemoryLeak.m"; sourceTree = "<group>"; };
-		5ECF9E1B1DB073EA00A7516B /* UIApplication+MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+MemoryLeak.h"; sourceTree = "<group>"; };
-		5ECF9E1C1DB073EA00A7516B /* UIApplication+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+MemoryLeak.m"; sourceTree = "<group>"; };
-		5ECF9E1D1DB073EA00A7516B /* UINavigationController+MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+MemoryLeak.h"; sourceTree = "<group>"; };
-		5ECF9E1E1DB073EA00A7516B /* UINavigationController+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+MemoryLeak.m"; sourceTree = "<group>"; };
-		5ECF9E1F1DB073EA00A7516B /* UIPageViewController+MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPageViewController+MemoryLeak.h"; sourceTree = "<group>"; };
-		5ECF9E201DB073EA00A7516B /* UIPageViewController+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPageViewController+MemoryLeak.m"; sourceTree = "<group>"; };
-		5ECF9E211DB073EA00A7516B /* UISplitViewController+MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISplitViewController+MemoryLeak.h"; sourceTree = "<group>"; };
-		5ECF9E221DB073EA00A7516B /* UISplitViewController+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISplitViewController+MemoryLeak.m"; sourceTree = "<group>"; };
-		5ECF9E231DB073EA00A7516B /* UITabBarController+MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+MemoryLeak.h"; sourceTree = "<group>"; };
-		5ECF9E241DB073EA00A7516B /* UITabBarController+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+MemoryLeak.m"; sourceTree = "<group>"; };
-		5ECF9E251DB073EA00A7516B /* UITouch+MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITouch+MemoryLeak.h"; sourceTree = "<group>"; };
-		5ECF9E261DB073EA00A7516B /* UITouch+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITouch+MemoryLeak.m"; sourceTree = "<group>"; };
-		5ECF9E271DB073EA00A7516B /* UIView+MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MemoryLeak.h"; sourceTree = "<group>"; };
-		5ECF9E281DB073EA00A7516B /* UIView+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MemoryLeak.m"; sourceTree = "<group>"; };
-		5ECF9E291DB073EA00A7516B /* UIViewController+MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MemoryLeak.h"; sourceTree = "<group>"; };
-		5ECF9E2A1DB073EA00A7516B /* UIViewController+MemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MemoryLeak.m"; sourceTree = "<group>"; };
 		924A5BF81D4FBBB800C03D3F /* UINavigationController+WXSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+WXSTransition.h"; sourceTree = "<group>"; };
 		924A5BF91D4FBBB800C03D3F /* UINavigationController+WXSTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+WXSTransition.m"; sourceTree = "<group>"; };
 		924A5BFA1D4FBBB800C03D3F /* UIViewController+WXSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WXSTransition.h"; sourceTree = "<group>"; };
@@ -182,36 +148,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5ECF9E131DB073EA00A7516B /* MLeaksFinder */ = {
-			isa = PBXGroup;
-			children = (
-				5ECF9E141DB073EA00A7516B /* MLeakedObjectProxy.h */,
-				5ECF9E151DB073EA00A7516B /* MLeakedObjectProxy.m */,
-				5ECF9E161DB073EA00A7516B /* MLeaksFinder.h */,
-				5ECF9E171DB073EA00A7516B /* MLeaksMessenger.h */,
-				5ECF9E181DB073EA00A7516B /* MLeaksMessenger.m */,
-				5ECF9E191DB073EA00A7516B /* NSObject+MemoryLeak.h */,
-				5ECF9E1A1DB073EA00A7516B /* NSObject+MemoryLeak.m */,
-				5ECF9E1B1DB073EA00A7516B /* UIApplication+MemoryLeak.h */,
-				5ECF9E1C1DB073EA00A7516B /* UIApplication+MemoryLeak.m */,
-				5ECF9E1D1DB073EA00A7516B /* UINavigationController+MemoryLeak.h */,
-				5ECF9E1E1DB073EA00A7516B /* UINavigationController+MemoryLeak.m */,
-				5ECF9E1F1DB073EA00A7516B /* UIPageViewController+MemoryLeak.h */,
-				5ECF9E201DB073EA00A7516B /* UIPageViewController+MemoryLeak.m */,
-				5ECF9E211DB073EA00A7516B /* UISplitViewController+MemoryLeak.h */,
-				5ECF9E221DB073EA00A7516B /* UISplitViewController+MemoryLeak.m */,
-				5ECF9E231DB073EA00A7516B /* UITabBarController+MemoryLeak.h */,
-				5ECF9E241DB073EA00A7516B /* UITabBarController+MemoryLeak.m */,
-				5ECF9E251DB073EA00A7516B /* UITouch+MemoryLeak.h */,
-				5ECF9E261DB073EA00A7516B /* UITouch+MemoryLeak.m */,
-				5ECF9E271DB073EA00A7516B /* UIView+MemoryLeak.h */,
-				5ECF9E281DB073EA00A7516B /* UIView+MemoryLeak.m */,
-				5ECF9E291DB073EA00A7516B /* UIViewController+MemoryLeak.h */,
-				5ECF9E2A1DB073EA00A7516B /* UIViewController+MemoryLeak.m */,
-			);
-			path = MLeaksFinder;
-			sourceTree = "<group>";
-		};
 		924A5BF71D4FBBB800C03D3F /* WXSTransition */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,7 +229,6 @@
 				925707DC1CFC44AC004EB63C /* SecondViewController.m */,
 				5E18A5861D2F58B300073215 /* WXSBaseViewController.h */,
 				5E18A5871D2F58B300073215 /* WXSBaseViewController.m */,
-				5ECF9E131DB073EA00A7516B /* MLeaksFinder */,
 				924A5BF71D4FBBB800C03D3F /* WXSTransition */,
 				925707A51CFC1E87004EB63C /* Main.storyboard */,
 				925707AA1CFC1E87004EB63C /* LaunchScreen.storyboard */,
@@ -461,42 +396,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5ECF9E2F1DB073EA00A7516B /* UINavigationController+MemoryLeak.m in Sources */,
 				5E393C8D1D9150CB00800818 /* WXSTransitionManager+BrickAnimation.m in Sources */,
 				924A5C041D4FBBB800C03D3F /* UIViewController+WXSTransition.m in Sources */,
 				924A5C061D4FBBB800C03D3F /* WXSTransitionManager.m in Sources */,
-				5ECF9E2B1DB073EA00A7516B /* MLeakedObjectProxy.m in Sources */,
-				5ECF9E301DB073EA00A7516B /* UIPageViewController+MemoryLeak.m in Sources */,
 				924A5C071D4FBBB800C03D3F /* WXSTransitionProperty.m in Sources */,
 				924A5C051D4FBBB800C03D3F /* WXSPercentDrivenInteractiveTransition.m in Sources */,
 				5E04688D1D92AC2C00F7AF2D /* UIViewController+WXSTransitionProperty.m in Sources */,
 				5E6EED871D93AEAF0068EC92 /* WXSTransitionManager+PageAnimation.m in Sources */,
 				9295497C1CFEC5DE00CE4C06 /* PresentViewController.m in Sources */,
 				5E6EED811D9390830068EC92 /* WXSTransitionManager+SystermAnimation.m in Sources */,
-				5ECF9E341DB073EA00A7516B /* UIView+MemoryLeak.m in Sources */,
 				92ED746E1CFD66F9008B4935 /* CollectionViewController.m in Sources */,
-				5ECF9E321DB073EA00A7516B /* UITabBarController+MemoryLeak.m in Sources */,
 				5E393C8A1D91409300800818 /* WXSTransitionManager+TypeTool.m in Sources */,
 				5E6EED7B1D938ADD0068EC92 /* WXSTransitionManager+ViewMoveAnimation.m in Sources */,
 				925707A41CFC1E87004EB63C /* ViewController.m in Sources */,
-				5ECF9E351DB073EA00A7516B /* UIViewController+MemoryLeak.m in Sources */,
-				5ECF9E2E1DB073EA00A7516B /* UIApplication+MemoryLeak.m in Sources */,
 				92ED74711CFD6811008B4935 /* CollectionViewCell.m in Sources */,
 				5E0468871D9228C000F7AF2D /* WXSTransitionManager+SpreadAnimation.m in Sources */,
 				925707DD1CFC44AC004EB63C /* SecondViewController.m in Sources */,
 				5E6EED7E1D938E6F0068EC92 /* WXSTransitionManager+CoverAnimation.m in Sources */,
-				5ECF9E311DB073EA00A7516B /* UISplitViewController+MemoryLeak.m in Sources */,
 				92ED74741CFD6F5B008B4935 /* DetailViewController.m in Sources */,
 				5E393C871D913E6900800818 /* WXSTransitionManager+FragmentAnimation.m in Sources */,
 				925707A11CFC1E87004EB63C /* AppDelegate.m in Sources */,
 				924A5C031D4FBBB800C03D3F /* UINavigationController+WXSTransition.m in Sources */,
-				5ECF9E2C1DB073EA00A7516B /* MLeaksMessenger.m in Sources */,
-				5ECF9E2D1DB073EA00A7516B /* NSObject+MemoryLeak.m in Sources */,
 				92ED74621CFD27B8008B4935 /* TableViewController.m in Sources */,
 				9257079E1CFC1E87004EB63C /* main.m in Sources */,
 				5E18A5881D2F58B300073215 /* WXSBaseViewController.m in Sources */,
 				5E6EED841D9391940068EC92 /* WXSTransitionManager+InsideThenPushAnimation.m in Sources */,
-				5ECF9E331DB073EA00A7516B /* UITouch+MemoryLeak.m in Sources */,
 				5E6EED8A1D93AF870068EC92 /* WXSTransitionManager+BoomAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
