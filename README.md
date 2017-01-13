@@ -106,6 +106,4 @@ Present:
 ![sys_pageCurl.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/sys_pageCurl.gif)
 
 
-喜欢在大家平时的开发中能有所帮助，喜欢的同学劳烦加个Star
-
 
