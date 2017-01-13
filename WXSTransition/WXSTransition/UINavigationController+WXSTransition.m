@@ -48,6 +48,10 @@
     viewController.wxs_addTransitionFlag = YES;
     viewController.wxs_callBackTransition = transitionBlock ? transitionBlock : nil;
     [self pushViewController:viewController animated:YES];
+    self.delegate = nil;
+    if (viewController.wxs_tempNavDelegate) {
+        self.delegate = viewController.wxs_tempNavDelegate;
+    }
 }
 
 - (UIViewController *)wxs_popViewControllerAnimated:(BOOL)animated {
