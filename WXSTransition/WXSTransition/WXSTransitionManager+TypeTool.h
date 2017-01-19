@@ -8,7 +8,7 @@
 
 #import "WXSTransitionManager.h"
 
-@interface WXSTransitionManager (TypeTool)
+@interface WXSTransitionManager (TypeTool)<CAAnimationDelegate>
 -(void)backAnimationTypeFromAnimationType:(WXSTransitionAnimationType)type;
 -(CATransition *)getSysTransitionWithType:(WXSTransitionAnimationType )type;
 @end
