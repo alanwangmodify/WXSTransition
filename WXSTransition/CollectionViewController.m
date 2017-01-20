@@ -30,6 +30,10 @@ static NSString *identifier  = @"identifier";
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSLog(@"interactivePopGestureRecognizer - :%d",self.navigationController.interactivePopGestureRecognizer.isEnabled);
+}
 #pragma mark Delegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return 10;

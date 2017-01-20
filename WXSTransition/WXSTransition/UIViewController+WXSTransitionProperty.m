@@ -13,6 +13,7 @@
 static NSString *wxs_callBackTransitionKey = @"CallBackTransitionKey";
 static NSString *wxs_delegateFlagKey = @"wxs_DelegateFlagKey";
 static NSString *wxs_addTransitionFlagKey = @"wxs_addTransitionFlagKey";
+static NSString *wxs_backGestureEnableKey = @"wxs_backGestureEnableKey";
 static NSString *wxs_transitioningDelegateKey = @"wxs_transitioningDelegateKey";
 static NSString *wxs_tempNavDelegateKey = @"wxs_tempNavDelegateKey";
 
@@ -47,6 +48,16 @@ static NSString *wxs_tempNavDelegateKey = @"wxs_tempNavDelegateKey";
 }
 - (BOOL)wxs_addTransitionFlag {
     return [objc_getAssociatedObject(self, &wxs_addTransitionFlagKey) integerValue] == 0 ?  NO : YES;
+}
+
+
+// ---- wxs_backGestureEnable
+- (void)setWxs_backGestureEnable:(BOOL)wxs_backGestureEnable {
+    objc_setAssociatedObject(self, &wxs_backGestureEnableKey, @(wxs_backGestureEnable), OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (BOOL)wxs_backGestureEnable {
+    return [objc_getAssociatedObject(self , &wxs_backGestureEnableKey) integerValue] == 0 ? NO : YES;
 }
 
 //----- Wxs_transitioningDelega
