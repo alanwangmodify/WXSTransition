@@ -57,7 +57,9 @@
     
     void(^AnimationCompletion)() = ^(void){
         startView.hidden = YES;
+        weakSelf.startView.hidden = NO;
         weakSelf.targetView.hidden = NO;
+         fromVC.view.alpha = 1;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     };
     

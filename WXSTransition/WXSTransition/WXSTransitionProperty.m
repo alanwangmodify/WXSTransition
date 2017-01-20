@@ -19,6 +19,7 @@
         self.animationType = WXSTransitionAnimationTypeDefault;
         _backGestureType = WXSGestureTypePanRight;
         _backGestureEnable = YES;
+//        _isSysBackAnimation = YES;
         
     }
     return self;

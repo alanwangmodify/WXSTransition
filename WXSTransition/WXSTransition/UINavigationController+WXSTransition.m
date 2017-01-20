@@ -24,7 +24,6 @@
         
     });
 }
-
 #pragma mark Action Method
 - (void)wxs_pushViewController:(UIViewController *)viewController {
     

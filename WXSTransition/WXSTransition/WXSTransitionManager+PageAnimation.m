@@ -39,11 +39,12 @@
         
         if ([transitionContext transitionWasCancelled]) {
             [tempView removeFromSuperview];
-            fromVC.view.hidden = NO;
+         
             [transitionContext completeTransition:NO];
         }else{
             [transitionContext completeTransition:YES];
         }
+       fromVC.view.hidden = NO;
     }];
     
 }
@@ -56,6 +57,8 @@
     UIView *tempView = containerView.subviews.lastObject;
     tempView.hidden = NO;
     [containerView addSubview:toVC.view];
+    
+    toVC.view.hidden = YES;
     
     [UIView animateWithDuration:self.animationTime animations:^{
         tempView.layer.transform = CATransform3DIdentity;

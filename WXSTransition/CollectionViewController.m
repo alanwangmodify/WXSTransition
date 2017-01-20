@@ -22,6 +22,7 @@ static NSString *identifier  = @"identifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.view addSubview:self.collectionView];
     [self.collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:identifier];
 }
