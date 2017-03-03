@@ -107,3 +107,13 @@ Present:
 
 
 
+
+#关于tabbar动画影响效果的问题:
+如果tabbar的系统动画影响了效果，可以用一下方法去掉动画。
+把 self.hidesBottomBarWhenPushed = YES 去掉
+手动控制tabbar的隐藏显示时机：
+push之前把tabBar隐藏
+self.tabBarController.tabBar.hidden = YES;
+pop后在viewDidApear里显示
+self.tabBarController.tabBar.hidden = NO;
+
