@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = 'WXSTransition'
   s.summary      = 'A library for transition animations between view controlles.'
-  s.version      = '1.1.1'
+  s.version      = '1.2.1'
   s.license      = "MIT"
   s.authors      = { 'alanwangmodify' => 'alanwangmodify@126.com' }
   s.homepage     = 'https://github.com/alanwangmodify/WXSTransition'
