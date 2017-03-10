@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "XibViewController.h"
 
 @interface ViewController ()
 @property (nonatomic,strong) UITableView *tableView;
@@ -45,18 +46,20 @@
         case 0:
             return 1;
             break;
-        case 1: 
+        case 1:
         case 2:
             return WXSTransitionAnimationTypeFragmentHideFromBottom - WXSTransitionAnimationTypeDefault;
             break;
-        default:
+        case 3:
             return _customNames.count;
+        default:
+            return 1;
             break;
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 5;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -76,8 +79,11 @@
         case 2:
             label.text = @"present";
             break;
-        default:
+        case 3:
             label.text = @"custom";
+            break;
+        case 4:
+            label.text = @"Xib";
             break;
     }
     
@@ -106,8 +112,11 @@
         case 2:
             cell.textLabel.text = indexPath.row < _names.count ? _names[indexPath.row] : @"other";
             break;
-        default:
+        case 3:
             cell.textLabel.text = indexPath.row < _customNames.count ? _customNames[indexPath.row] : @"other";
+            break;
+        default:
+            cell.textLabel.text = @"Xib";
             break;
     }
     cell.imageView.image = [UIImage imageNamed:@"start"];
@@ -151,7 +160,7 @@
         }
             break;
             
-        default:{
+        case 3:{
             switch (indexPath.row) {
                 case 0:{
                  
@@ -177,6 +186,15 @@
                 default:
                     break;
             }
+        }
+            break;
+        default:{
+            [self.navigationController wxs_pushViewController:[[XibViewController alloc] init] makeTransition:^(WXSTransitionProperty *transition) {
+                transition.backGestureType = WXSGestureTypePanRight;
+                transition.animationType =WXSTransitionAnimationTypePageTransition + indexPath.row;
+            }];
+            
+//            [self.navigationController pushViewController:[[XibViewController alloc] init] animated:YES];
         }
             break;
     }

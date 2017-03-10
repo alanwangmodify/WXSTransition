@@ -43,11 +43,18 @@
     
     if (transitionCompleted) {
         [self removeDelegate];
-        
     }
+    UIViewController *toVC = [_transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    if (toVC.navigationController.navigationBar) {
+        toVC.navigationController.navigationBarHidden = NO;
+    }
+    
 }
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext{
-    
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    if (!fromVC.navigationController.isNavigationBarHidden) {
+        fromVC.navigationController.navigationBarHidden = YES;
+    }
     
     _transitionContext = transitionContext;
     if (self.animationType == WXSTransitionAnimationTypeDefault) {

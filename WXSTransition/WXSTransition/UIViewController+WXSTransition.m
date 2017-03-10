@@ -187,6 +187,7 @@ WXSTransitionManager *_transtion;
     _transtion = [WXSTransitionManager copyPropertyFromObjcet:make toObjcet:_transtion];
     _operation = operation;
 
+    
     if ( operation == UINavigationControllerOperationPush ) {
         self.wxs_delegateFlag = _transtion.isSysBackAnimation ? NO : YES;
         _transtion.transitionType = WXSTransitionTypePush;
@@ -194,7 +195,6 @@ WXSTransitionManager *_transtion;
     }else{
         _transtion.transitionType = WXSTransitionTypePop;
     }
-    
     
     if (_operation == UINavigationControllerOperationPush && _transtion.isSysBackAnimation == NO && _transtion.backGestureEnable) {
         //add gestrue for pop

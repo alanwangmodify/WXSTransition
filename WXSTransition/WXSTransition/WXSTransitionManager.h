@@ -6,27 +6,25 @@
 
 
 @property (nonatomic, assign) NSTimeInterval                    animationTime;
-
 @property (nonatomic, assign) WXSTransitionType                 transitionType;
-
 @property (nonatomic, assign) WXSTransitionAnimationType        animationType;
 @property (nonatomic, assign) WXSTransitionAnimationType        backAnimationType;
-
 @property (nonatomic, assign) WXSGestureType                    backGestureType;
 
-@property (nonatomic, assign) BOOL                              isSysBackAnimation;
+@property (nonatomic, weak) UIView                              *startView;
+@property (nonatomic, weak) UIView                              *targetView;
 
+@property (nonatomic, assign) BOOL                              isSysBackAnimation;
+@property (nonatomic, assign) BOOL                              autoShowAndHideNavBar;
+@property (nonatomic, assign) BOOL                              autoShowAndHideTabBar;
 @property (nonatomic, assign) BOOL                              backGestureEnable;
 
-@property (nonatomic, weak) UIView                            *startView;
-@property (nonatomic, weak) UIView                            *targetView;
-
 @property (nonatomic, copy) void(^willEndInteractiveBlock)(BOOL success);
+@property (nonatomic, copy) void(^completionBlock)();
 
 
 +(WXSTransitionManager *)copyPropertyFromObjcet:(id)object toObjcet:(id)targetObjcet;
 
-@property (nonatomic, copy) void(^completionBlock)();
 
 
 @end
