@@ -22,7 +22,7 @@ static NSString *identifier  = @"identifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
     [self.collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:identifier];
 }
@@ -32,7 +32,6 @@ static NSString *identifier  = @"identifier";
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSLog(@"interactivePopGestureRecognizer - :%d",self.navigationController.interactivePopGestureRecognizer.isEnabled);
 }
 #pragma mark Delegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
