@@ -16,7 +16,6 @@
 
 @property (nonatomic, assign) BOOL                              isSysBackAnimation;
 @property (nonatomic, assign) BOOL                              autoShowAndHideNavBar;
-@property (nonatomic, assign) BOOL                              autoShowAndHideTabBar;
 @property (nonatomic, assign) BOOL                              backGestureEnable;
 
 @property (nonatomic, copy) void(^willEndInteractiveBlock)(BOOL success);
