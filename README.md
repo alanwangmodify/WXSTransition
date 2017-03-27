@@ -1,6 +1,6 @@
 # WXSTransition
 
-###介绍(Introduce)
+### 介绍(Introduce)
 It is a transition animation asset。
 We can add some transiton animations between view controllers in our iOS Apps .
 Now,it is easily  to do this by this animation asset,even only one line of code.
@@ -14,11 +14,11 @@ Now, it support 4 kinds of gesture for pop view controller. You can see the prop
 
 现在已支持手势返回，有四个手势可以选择，可以在```WXSTransitionProperty```查看相关相关属性
 
-###使用方法(Usage)
-#####1、首先导入头文件
+### 使用方法(Usage)
+##### 1、首先导入头文件
 ```#import "UINavigationController+WXSTransition.h"```
 
-#####2、一行代码就可以调用
+##### 2、一行代码就可以调用
 Push:
 ```
  [self.navigationController wxs_pushViewController:(UIViewController *) animationType:(WXSTransitionAnimationType)];
@@ -33,7 +33,7 @@ Present:
 说明：
 WXSTransitionAnimationType是转场动画类型，通过这个枚举选择你想要的转场动画。
 
-#####3、支持属性修改（Custom made property）
+##### 3、支持属性修改（Custom made property）
 
 ```
 [self wxs_presentViewController:<#(UIViewController *)#> makeTransition:^(WXSTransitionManager *transition) {
@@ -57,9 +57,9 @@ transition.targetView = vc.imageView;
 
 ```
 
-###动画效果图
+### 动画效果图
 
-#####自定义动画
+##### 自定义动画
 
 boom:   
 ![boom.gif](https://github.com/alanwangmodify/WXSTransition/blob/master/gif/boom.gif)
@@ -108,7 +108,7 @@ Present:
 
 
 
-#关于tabbar动画影响效果的问题:
+# 关于tabbar动画影响效果的问题:
 如果tabbar的系统动画影响了效果，可以用一下方法去掉动画。
 把 self.hidesBottomBarWhenPushed = YES 去掉
 手动控制tabbar的隐藏显示时机：
