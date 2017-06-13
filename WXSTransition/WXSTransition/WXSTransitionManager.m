@@ -307,6 +307,14 @@
 -(void)fragmentHideFromBottomBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     [self fragmentHideBackType:WXSTransitionAnimationTypeFragmentHideFromBottom andContext:transitionContext];
 }
+-(void)tipFlipNextTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    [self tipFlipToNextAnimationContext:transitionContext];
+}
+
+-(void)tipFlipBackTransitionAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
+    [self tipFlipBackAnimationContext:transitionContext];
+}
+
 // *********************************************************************************************
 
 #pragma mark - Other

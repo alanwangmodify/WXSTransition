@@ -25,13 +25,23 @@
     
     
     UIImage *topImg = [self imageFromView:toView atFrame:CGRectMake(0, 0, toView.bounds.size.width, toView.bounds.size.height/2)];
-//    UIImageView *topView = [[UIImageView alloc] initWithFrame:<#(CGRect)#>]
-//    UIView *bottomView = [self imageFromView:toView atFrame:CGRectMake(0, toView.bounds.size.height/2, toView.bounds.size.width, toView.bounds.size.height/2) ];
-//    
-//    [containView addSubview:flipView];
-//    [flipView addSubview:topView];
-//    
+    UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, flipView.bounds.size.width, flipView.bounds.size.height/2)];
+    topView.image = topImg;
     
+    
+    UIImage *bottomImg = [self imageFromView:toView atFrame:CGRectMake(0, toView.bounds.size.height/2, toView.bounds.size.width, toView.bounds.size.height/2) ];
+    UIImageView *bottomView = [[UIImageView alloc] initWithFrame:CGRectMake(0, flipView.bounds.size.height/2, flipView.bounds.size.width, flipView.bounds.size.height/2)];
+    bottomView.image = bottomImg;
+    
+    
+    //addsubView
+    [containView addSubview:flipView];
+    [flipView addSubview:topView];
+    [flipView addSubview:bottomView];
+    
+    
+                                                                            
+    [transitionContext completeTransition:YES];
     //            _transformView.upperBackLayer.transform = CATransform3DMakeRotation(-M_PI_2, 1.0, 0.0, 0.0);
 //    UIView *topView = [[UIView alloc] initWithFrame:<#(CGRect)#>]
     

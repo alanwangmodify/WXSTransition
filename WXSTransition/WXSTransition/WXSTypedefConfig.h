@@ -92,6 +92,7 @@ typedef NS_ENUM(NSInteger,WXSTransitionAnimationType){
     WXSTransitionAnimationTypeFragmentHideFromLeft,
     WXSTransitionAnimationTypeFragmentHideFromTop,
     WXSTransitionAnimationTypeFragmentHideFromBottom,
+    WXSTransitionAnimationTypeTipFlip,
     
 };
 
