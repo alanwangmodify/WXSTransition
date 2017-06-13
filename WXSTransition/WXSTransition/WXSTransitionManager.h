@@ -24,6 +24,7 @@
 
 +(WXSTransitionManager *)copyPropertyFromObjcet:(id)object toObjcet:(id)targetObjcet;
 
+- (UIImage *)imageFromView: (UIView *)view atFrame:(CGRect)rect;
 
 
 @end

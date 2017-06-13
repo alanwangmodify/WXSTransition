@@ -13,7 +13,7 @@
 #import "WXSTransitionManager+PageAnimation.h"
 #import "WXSTransitionManager+BoomAnimation.h"
 #import "WXSTransitionManager+InsideThenPushAnimation.h"
-
+#import "WXSTransitionManager+FlipAnimation.h"
 
 @interface WXSTransitionManager ()
 
@@ -362,6 +362,18 @@
     transition.autoShowAndHideNavBar = propery.autoShowAndHideNavBar;
     
     return transition;
+    
+}
+- (UIImage *)imageFromView: (UIView *)view atFrame:(CGRect)rect{
+    
+    UIGraphicsBeginImageContext(view.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(context);
+    UIRectClip(rect);
+    [view.layer renderInContext:context];
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return  theImage;
     
 }
 

@@ -309,18 +309,18 @@
     };
 }
 
-- (UIImage *)imageFromView: (UIView *)view atFrame:(CGRect)rect{
-    
-    UIGraphicsBeginImageContext(view.frame.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(context);
-    UIRectClip(rect);
-    [view.layer renderInContext:context];
-    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return  theImage;
-    
-}
+//- (UIImage *)imageFromView: (UIView *)view atFrame:(CGRect)rect{
+//    
+//    UIGraphicsBeginImageContext(view.frame.size);
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    CGContextSaveGState(context);
+//    UIRectClip(rect);
+//    [view.layer renderInContext:context];
+//    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    return  theImage;
+//    
+//}
 
 
 @end
