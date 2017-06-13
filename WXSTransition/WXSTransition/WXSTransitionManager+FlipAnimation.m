@@ -20,6 +20,12 @@
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     
+    CALayer *backLayer = [CALayer layer];
+    backLayer.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+    backLayer.backgroundColor = [UIColor blackColor].CGColor;
+    backLayer.opacity = 0.4;
+    
+    
     UIView *flipView = [[UIView alloc] init];
     flipView.frame = CGRectMake(screenWidth/4, screenHeight/3, screenWidth/2, screenWidth);
     
@@ -35,12 +41,12 @@
     
     
     //addsubView
+    [containView.layer addSublayer:backLayer];
+    [containView addSubview:fromView];
     [containView addSubview:flipView];
     [flipView addSubview:topView];
     [flipView addSubview:bottomView];
     
-    
-                                                                            
     [transitionContext completeTransition:YES];
     //            _transformView.upperBackLayer.transform = CATransform3DMakeRotation(-M_PI_2, 1.0, 0.0, 0.0);
 //    UIView *topView = [[UIView alloc] initWithFrame:<#(CGRect)#>]
