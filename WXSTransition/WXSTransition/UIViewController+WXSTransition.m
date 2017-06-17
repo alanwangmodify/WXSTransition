@@ -24,8 +24,6 @@ WXSTransitionManager *_transtion;
         Method method1 = class_getInstanceMethod(self.class, @selector(dismissViewControllerAnimated:completion:));
         method_exchangeImplementations(method0, method1);
         
-        
-        
         SEL originalSelector = @selector(viewDidAppear:);
         SEL swizzledSelector = @selector(wxs_viewDidAppear:);
         

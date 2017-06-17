@@ -52,7 +52,6 @@
     if (viewController.wxs_tempNavDelegate) {
         self.delegate = viewController.wxs_tempNavDelegate;
     }
-    
 
 }
 

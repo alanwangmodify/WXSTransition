@@ -42,18 +42,27 @@
     [containView addSubview:fromTopView];
     [containView addSubview:fromBottomView];
     fromTopView.alpha = 1.0;
-    
-    [UIView animateWithDuration:self.animationTime * 1.2 animations:^{
+
+    [UIView animateWithDuration:self.animationTime animations:^{
         fromBottomView.layer.transform = CATransform3DMakeRotation(-M_PI, 1.0, 0.0, 0.0);
         topView.layer.transform = CATransform3DIdentity;
     } completion:^(BOOL finished) {
-        [transitionContext completeTransition:YES];
+        fromTopView.alpha = 0.0;
         [fromTopView removeFromSuperview];
         [fromBottomView removeFromSuperview];
         [topView removeFromSuperview];
-    }];
+        
+        if ([transitionContext transitionWasCancelled]) {
+            [transitionContext completeTransition:NO];
+        }else {
+            [containView bringSubviewToFront:toView];
+            [transitionContext completeTransition:YES];
+        }
 
-    
+    }];
+    self.willEndInteractiveBlock = ^(BOOL success) {
+        
+    };
 }
 - (void)tipFlipBackAnimationContext:(id<UIViewControllerContextTransitioning>)transitionContext {
     
@@ -72,7 +81,7 @@
     [topView setContentMode:UIViewContentModeScaleAspectFill];
     topView.backgroundColor = [UIColor whiteColor];
     topView.layer.transform = CATransform3DMakeRotation(M_PI, 1.0, 0.0, 0.0);
-    
+    topView.layer.doubleSided = NO;
     
     UIImage *fromImgTop = [self imageFromView:fromView atFrame:CGRectMake(0, 0, screenWidth, screenHeight/2)];
     UIImageView *fromTopView = [[UIImageView alloc] initWithImage:fromImgTop];
@@ -89,14 +98,14 @@
     [containView addSubview:fromBottomView];
     fromTopView.alpha = 1.0;
     
-    [UIView animateWithDuration:self.animationTime * 1.2 animations:^{
+    [UIView animateWithDuration:self.animationTime  animations:^{
         fromBottomView.layer.transform = CATransform3DMakeRotation(-M_PI, 1.0, 0.0, 0.0);
         topView.layer.transform = CATransform3DIdentity;
     } completion:^(BOOL finished) {
-        [transitionContext completeTransition:YES];
         [fromTopView removeFromSuperview];
         [fromBottomView removeFromSuperview];
         [topView removeFromSuperview];
+        [transitionContext completeTransition:YES];
     }];
 }
 

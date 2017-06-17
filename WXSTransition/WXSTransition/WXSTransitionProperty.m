@@ -14,7 +14,7 @@
 -(instancetype)init {
     self = [super init];
     if (self) {
-        _animationTime = 10.400082;
+        _animationTime = 0.400082;
         self.animationType = WXSTransitionAnimationTypeDefault;
         _backGestureType = WXSGestureTypePanRight;
         _backGestureEnable = YES;
