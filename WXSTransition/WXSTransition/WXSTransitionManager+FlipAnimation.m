@@ -26,28 +26,29 @@
     [topView setContentMode:UIViewContentModeScaleAspectFill];
     topView.backgroundColor = [UIColor whiteColor];
     topView.layer.transform = CATransform3DMakeRotation(M_PI, 1.0, 0.0, 0.0);
-    
+    topView.layer.doubleSided = NO;
     
     UIImage *fromImgTop = [self imageFromView:fromView atFrame:CGRectMake(0, 0, screenWidth, screenHeight/2)];
     UIImageView *fromTopView = [[UIImageView alloc] initWithImage:fromImgTop];
+    fromTopView.backgroundColor = [UIColor clearColor];
+    fromTopView.layer.doubleSided = NO;
     
     UIImage *fromImgBottom = [self imageFromView:fromView atFrame:CGRectMake(0, screenHeight/2, screenWidth, screenHeight/2)];
     UIImageView *fromBottomView = [[UIImageView alloc] initWithImage:fromImgBottom];
     fromBottomView.layer.doubleSided = NO;
     
     //addsubView
-    [containView addSubview:toView];
     [containView addSubview:topView];
     fromTopView.alpha = 0.0;
-    [containView addSubview:fromTopView];
     [containView addSubview:fromBottomView];
     fromTopView.alpha = 1.0;
-
+    [containView addSubview:toView];
+    [containView addSubview:fromTopView];
+    
     [UIView animateWithDuration:self.animationTime animations:^{
-        fromBottomView.layer.transform = CATransform3DMakeRotation(-M_PI, 1.0, 0.0, 0.0);
+        fromBottomView.layer.transform = CATransform3DMakeRotation(- M_PI, 1.0, 0.0, 0.0);
         topView.layer.transform = CATransform3DIdentity;
     } completion:^(BOOL finished) {
-        fromTopView.alpha = 0.0;
         [fromTopView removeFromSuperview];
         [fromBottomView removeFromSuperview];
         [topView removeFromSuperview];
@@ -58,8 +59,17 @@
             [containView bringSubviewToFront:toView];
             [transitionContext completeTransition:YES];
         }
-
+        
     }];
+    
+    [UIView animateWithDuration:self.animationTime*0.95 animations:^{
+        
+    } completion:^(BOOL finished) {
+        fromTopView.alpha = 0.0;
+    }];
+
+    
+    
     self.willEndInteractiveBlock = ^(BOOL success) {
         
     };
