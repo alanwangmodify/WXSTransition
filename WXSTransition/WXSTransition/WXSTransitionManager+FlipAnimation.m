@@ -27,8 +27,8 @@
     
     
     UIView *flipView = [[UIView alloc] init];
-    flipView.frame = CGRectMake(screenWidth/4, screenHeight/3, screenWidth/2, screenWidth);
-    
+    flipView.frame = CGRectMake(screenWidth/4, screenHeight/3, screenWidth/3, screenHeight/3);
+    flipView.center = containView.center;
     
     UIImage *topImg = [self imageFromView:toView atFrame:CGRectMake(0, 0, toView.bounds.size.width, toView.bounds.size.height/2)];
     UIImageView *topView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, flipView.bounds.size.width, flipView.bounds.size.height/2)];
