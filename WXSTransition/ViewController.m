@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "WXSTestViewController.h"
 
 @interface ViewController ()
 @property (nonatomic,strong) UITableView *tableView;
@@ -34,7 +35,7 @@
     self.navigationController.view.layer.masksToBounds = YES;
     
     _names = @[@"pageTransition",@"viewMove",@"viewMove",@"cover",@"spreadFromRight",@"spreadFromLeft",@"spreadFromTop",@"spreadFromBottom",@"point spread",@"boom",@"brick openV",@"brick openH",@"brick closeV",@"brick closeH",@"InsideThenPush",@"fragmentShowFromRight",@"fragmentShowFromLeft",@"fragmentShowFromTop",@"fragmentShowFromBottom",@"fragmenHideFromRight",@"fragmenHideFromLeft",@"fragmenHideFromTop",@"fragmenHideFromBottom",@"tip flip"];
-    _customNames = @[@"poitnt spread from tap center",@" "];
+    _customNames = @[@"poitnt spread from tap center",@"test "];
     
 }
 #pragma mark Delegate
@@ -165,9 +166,9 @@
                     break;
                 case 1:{
             
-                    SecondViewController *vc = [[SecondViewController alloc] init];
+                    WXSTestViewController *vc = [[WXSTestViewController alloc] init];
                     [self.navigationController wxs_pushViewController:vc makeTransition:^(WXSTransitionProperty *transition) {
-                        transition.animationType  = WXSTransitionAnimationTypeBoom;
+                        transition.animationType  = WXSTransitionAnimationTypeSpreadFromBottom;
                         transition.isSysBackAnimation = YES;
                     }];
                 }

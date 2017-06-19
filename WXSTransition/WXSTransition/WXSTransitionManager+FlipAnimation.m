@@ -11,6 +11,7 @@
 @implementation WXSTransitionManager (FlipAnimation)
 - (void)tipFlipToNextAnimationContext:(id<UIViewControllerContextTransitioning>)transitionContext {
     [self tipFlipBackAnimationContext:transitionContext];
+    self.willEndInteractiveBlock = nil;
 }
 - (void)tipFlipBackAnimationContext:(id<UIViewControllerContextTransitioning>)transitionContext {
     
