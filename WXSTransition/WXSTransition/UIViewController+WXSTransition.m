@@ -71,17 +71,12 @@ WXSTransitionManager *_transtion;
 - (void)wxs_viewDidAppear:(BOOL)animated {
     
     [self wxs_viewDidAppear:animated];
-    if (self.wxs_backGestureEnable) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    }
 }
 
 
 - (void)wxs_viewWillDisappear:(BOOL)animated {
     [self wxs_viewWillDisappear:animated];
-    if (self.wxs_backGestureEnable) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
-    }
+
 }
 
 

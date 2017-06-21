@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2E4DB31D1EEE7E15009502EE /* WXSTransitionManager+FlipAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E4DB31C1EEE7E15009502EE /* WXSTransitionManager+FlipAnimation.m */; };
 		2EC1510D1EF7D02E008D4A9A /* WXSTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC1510C1EF7D02E008D4A9A /* WXSTestViewController.m */; };
+		2EC151101EF8C328008D4A9A /* WXSTransitionManager+PageAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6EED861D93AEAF0068EC92 /* WXSTransitionManager+PageAnimation.m */; };
 		5E0468871D9228C000F7AF2D /* WXSTransitionManager+SpreadAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0468861D9228C000F7AF2D /* WXSTransitionManager+SpreadAnimation.m */; };
 		5E04688D1D92AC2C00F7AF2D /* UIViewController+WXSTransitionProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E04688C1D92AC2C00F7AF2D /* UIViewController+WXSTransitionProperty.m */; };
 		5E18A5881D2F58B300073215 /* WXSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E18A5871D2F58B300073215 /* WXSBaseViewController.m */; };
@@ -443,6 +444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				925707B71CFC1E87004EB63C /* WXSTransitionTests.m in Sources */,
+				2EC151101EF8C328008D4A9A /* WXSTransitionManager+PageAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
