@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = NO;
+
     self.view.backgroundColor = [UIColor whiteColor];
     UIImageView *bgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     bgView.image = [UIImage imageNamed:@"bg4"];
@@ -42,7 +42,7 @@
 }
 - (void)multiVC {
     WXSTestViewController *vc = [[WXSTestViewController alloc] init];
-    [self.navigationController wxs_pushViewController:vc animationType:WXSTransitionAnimationTypeInsideThenPush];
+    [self.navigationController wxs_pushViewController:vc animationType:WXSTransitionAnimationTypeBrickCloseVertical];
 }
 
 - (void)nomalPush {
