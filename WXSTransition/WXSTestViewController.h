@@ -2,7 +2,7 @@
 //  WXSTestViewController.h
 //  WXSTransition
 //
-//  Created by fenqile on 2017/6/19.
+//  Created by wangxiaoshu on 2017/6/19.
 //  Copyright © 2017年 王小树. All rights reserved.
 //
 
